@@ -1,250 +1,213 @@
-# TravelMind
+# TravelMind：评测驱动的旅游规划 Agent
 
-TravelMind is an evaluation-first, constraint-aware travel planning agent. The project focuses
-on LangGraph orchestration, agentic hybrid RAG, context engineering, deterministic itinerary
-validation, and reproducible evaluation rather than frontend work.
+TravelMind 是一个面向实习面试的旅游规划 Agent 项目。它不以页面展示为重点，而是集中解决
+四个问题：**如何检索可信旅游信息、如何在有限上下文中保留关键证据、如何根据工具反馈重新
+规划，以及如何用评测而不是主观感觉决定组件是否上线。**
 
-## Current milestone
+项目已经可以离线运行、注入故障、复现实验并审计简历中的指标。当前版本通过 267 个测试和
+46 项发布审计。
 
-Stage 0 (reproducible engineering baseline), Stage 1 (evidence/evaluation data foundation), Stage
-2A (BM25 baseline), Stage 2B (Chinese dense baseline), Stage 2C (parallel RRF hybrid), and Stage 2D
-(optional cross-encoder ablation) are complete. See
-`docs/stage0-engineering-baseline.md`, `docs/stage1-data-foundation.md`,
-`docs/stage2a-bm25-baseline.md`, `docs/stage2b-dense-retrieval.md`, and
-`docs/stage2c-hybrid-rrf.md`, and `docs/stage2d-reranker-ablation.md` for their contracts,
-limitations, and acceptance evidence. The reranker regressed quality and latency, so Hybrid RRF
-remains the default. Stage 3A's deterministic Agentic RAG control plane is also complete. Stage 3B
-has added separate draft labels and a fixed development/test policy baseline. Stage 3C's controlled
-trajectory comparison and the Stage 3C.2 live Hybrid RRF comparison are complete. The live seed
-showed no Agentic quality lift. Stage 3D/3E are complete at pilot level after a real DeepSeek A/B:
-the LLM Router passed the gate, while deterministic Grader and Rewriter remain selected.
-Stage 4 is complete at pilot level. The selected 768-token refined-coverage pipeline combines typed
-context, budgeting, coverage-aware packing, deterministic evidence refinement, and scoped memory. A
-real DeepSeek answer A/B improved task success and citation metrics to 1.000 on seven seed cases while
-reducing total tokens by 45.3%; this is pilot evidence, not a production-quality claim.
-Stage 5A is complete: a typed deterministic validator now recomputes cost and checks day count,
-required/excluded places, overlaps, evidence, opening status/hours, freshness, and booking state.
-All ten controlled scenarios pass exact expected-violation matching.
-Stage 5B is also complete: the provider-independent `explainable-greedy-v1` baseline now schedules
-required and optional candidates using sourced directed travel times, transfer buffers, opening
-windows, booking, budget, pace, and an auditable utility score. Five controlled planning scenarios
-pass; this is not a claim of global optimality or live traffic quality.
-Stage 5C is complete: a dedicated LangGraph loop performs at most two local repairs, preserves
-unaffected days, falls back to deterministic repair on primary-strategy failure, and safely retains
-unresolved violations. Seven controlled repair scenarios pass their exact outcome gates.
-Stage 5D completes the pilot end-to-end path with real local Hybrid RRF and a real DeepSeek planner
-A/B. The safe-shortlist v2 removed integration fallback, but DeepSeek produced zero quality lift,
-added 4475 tokens and about 877 ms per call, so the deterministic planner remains selected.
-Stage 6A/6B are complete at pilot level: a hashed governance manifest freezes a 3/2 split, checks
-review provenance and cross-split leakage, and adds per-split metrics plus layered error codes. The
-test labels are explicitly project-authored and non-blind; Stage 6C calibration and independent
-review are still pending.
-Stage 6C has a 21-call DeepSeek reference-only run against seven AI-assisted labels. Every call was
-schema-valid and repeat consistency reached 0.857, but agreement and kappa gates failed. Judge v1 is
-rejected; evidence-aware stratified v2 data and human verification are required before any
-human-calibrated claim.
-Stage 6D is complete at pilot level: a hash-pinned release profile applies 17 comparability, quality,
-safety, fallback, cost, latency, and incremental-value checks. The deterministic baseline passes;
-the paid DeepSeek ranker is rejected because its expected-place lift is zero.
-Stage 7A is complete: the planning path emits correlated, versioned, allowlisted telemetry without
-queries, prompts, evidence, or exception messages. Sink outage preserves business completion and is
-reported as `telemetry_degraded`; the three-scenario redaction/fallback drill passed all contracts.
-Stage 7B adds a thread-safe closed/open/half-open retrieval circuit breaker and a hashed-key cache.
-Fresh cache can cover transient faults; bounded stale fallback allows only explicit static evidence,
-while stale dynamic or expired evidence fails closed. All eight controlled transition checks pass.
-Stage 7C adds injected LangGraph checkpointing, strict serialization allowlists, scoped idempotency
-receipts, and checkpoint-outage failure behavior. Logical resume avoids a repeated Planner call, but
-the in-memory pilot alone is explicitly not process-durable. Stage 7C.2 adds the optional official
-SQLite saver and durable receipt store: independent Python processes resumed at `validate` and
-replayed the Planner receipt with zero repeated Planner calls.
-Stage 7D completes the production-hardening pilot with an explicit synthetic pre-release SLO gate.
-A simultaneous retrieval/model/telemetry outage completed through visible deterministic fallbacks;
-loss of both retrieval paths failed safely without an itinerary. These fixture results are not
-presented as a production availability or latency SLO.
-Stage 8A starts the Temporal RAG ingestion track with content-addressed raw snapshots, isolated index
-builds, validation quarantine, atomic active-version promotion, and pointer rollback. The local drill
-passed all seven lifecycle checks; remote object-store/vector-database semantics remain future work.
-Stage 8B adds conditional HTTP validation, bounded transient retry, and typed freshness policy.
-Dynamic stale data fails closed; explicitly static data has a finite fallback window. The controlled
-transport drill passed all eight checks and is not presented as a live-source availability claim.
-Stage 8C completes the Temporal RAG ingestion pilot with a typed parser boundary, sanitized parse
-quarantine, semantic-key conflict resolution, unresolved-fact suppression, and atomic incremental
-fact updates. The controlled drill passed all eight contracts; the index remains an in-memory
-reference rather than a remote vector-database concurrency claim.
+## 30 秒看懂项目
 
-Stage 9A freezes the interview release: the final runtime/data architecture, evidence-backed claim
-boundaries, a SHA-256 release manifest, a 33-check automated audit, and a one-command offline demo.
-Run `./scripts/interview-demo.sh` to exercise the agent plus its outage, publishing, ingestion, and
-release-evidence gates without spending provider tokens.
-Stage 9B packages the frozen evidence into a full and compact Chinese resume entry plus 30-second,
-2-minute, and 5-minute interview narratives. Claim-to-evidence mappings and statements to avoid are
-recorded in `docs/interview/resume-project.md` and `docs/interview/project-narrative.md`.
-Stage 10A begins complex-document ingestion with a governed registry of four official Beijing PDF
-sources. Exact-host HTTPS fetching, bounded retries and size, MIME/magic/EOF checks, active-content
-rejection, optional digest pinning, and immutable snapshots prevent bad or partial PDFs from reaching
-an index. Raw third-party PDFs remain outside Git; parsing and retrieval claims begin in Stage 10B,
-which is currently paused.
+用户提出带预算、时间、同行人和兴趣约束的旅游需求后，系统会：
 
-Stage 11 is complete. A separate LangGraph runtime now represents execution plans as
-versioned data, records typed tool observations, retries only transient failures, replans after
-permanent or schema failures, and stops safely under attempt/replan/call budgets. Deterministic
-grounding checks reject fabricated citations and place IDs. In four controlled fault cases, the
-fixed-plan baseline completed 33.3% of recoverable cases versus 100% for the replanning candidate;
-these are project-authored injected cases, not production reliability evidence.
+1. 使用 BM25 与 BGE 向量检索召回旅游资料，并通过 RRF 融合；
+2. 判断证据是否充分，不充分时在预算内改写 Query 并重试；
+3. 在 Token 预算内去重、处理冲突并保留来源，构建可引用上下文；
+4. 生成结构化行程，再由确定性代码重新计算预算、开放时间、预约和地点约束；
+5. 执行候选搜索、可用性、预约和交通工具；中途失败时，根据 Observation 修改剩余计划；
+6. 达到重试、重规划或工具调用上限后安全停止，不生成无证据行程。
 
-Stage 11C.2 extends this beyond one-step recovery. A four-step trajectory performs candidate search,
-availability, booking, and travel-time checks. Mid-flight failures create revision 2, reuse the
-completed candidate-search observation, and replace only downstream work with an alternative place.
-Both recoverable intermediate failures complete; failure of both primary and fallback routes safely
-returns no itinerary. These are four deterministic fixtures, not a live-provider claim.
+它与普通 `RAG → LLM → Answer` 流水线的区别，是计划、动作、反馈和计划修订都被建模为
+可检查的运行时状态，而不是藏在一个 Prompt 里。
 
-Stage 11C.3 evaluates a real DeepSeek structured replanner behind tool schemas, place allowlists,
-runtime-owned arguments, and deterministic fallback. The final run matched the deterministic
-four-case contract with zero fallback, but produced zero measured lift, consumed 5725 tokens at about
-1.08 seconds mean latency, and required argument normalization on 42.9% of calls. It failed the frozen
-selection gates, so the deterministic runtime planner remains the default.
+## 系统架构
 
-Stage 11D closes the agentic-runtime track with a separately pinned v2 architecture and release
-manifest, seven additional semantic audit checks, updated resume/interview narratives, and an offline
-failure demo. The demo reruns multi-step failure injection without a provider key; the committed live
-DeepSeek report is audited rather than replayed, so an interview rehearsal spends no API tokens.
+```mermaid
+flowchart LR
+    U[用户旅游需求] --> G[LangGraph 控制层]
 
-The repository currently contains a runnable, dependency-injected LangGraph backbone:
+    G --> R[Router]
+    R --> H[BM25 + BGE + RRF]
+    H --> E{证据充分?}
+    E -->|否，预算未耗尽| Q[Query Rewrite]
+    Q --> H
+    E -->|是| C[上下文工程]
+    C --> P[约束感知行程规划]
+    P --> V[确定性 Validator]
+    V -->|局部可修复| F[Local Repair]
+    F --> V
 
-1. initialize request state;
-2. build retrieval queries;
-3. retrieve and grade evidence;
-4. rewrite and retry when evidence is insufficient;
-5. generate a structured itinerary;
-6. validate deterministic constraints;
-7. return a safe fallback after bounded retries.
+    G --> AP[版本化 ExecutionPlan]
+    AP --> A[执行一个 Tool Step]
+    A --> O[记录 ToolObservation]
+    O -->|继续| A
+    O -->|瞬时错误| T[有界重试]
+    T --> A
+    O -->|原策略失效| RP[Replan 未完成步骤]
+    RP --> A
+    O -->|完成| V
+    O -->|预算耗尽| S[Safe Stop]
 
-The Stage 11 candidate adds a second, explicitly agentic control path:
+    D[可选 DeepSeek Replanner] -. 结构化候选 .-> AP
+    DP[默认确定性 Planner] --> AP
+```
 
-1. create revision 1 of a typed execution plan;
-2. execute the next dependency-ready tool step;
-3. record a sanitized typed observation;
-4. retry transient faults or create a new plan revision for structural failures;
-5. expose successful tool observations as realtime evidence to itinerary generation;
-6. validate provenance and constraints, then complete, replan, or stop safely.
+仓库中保留两条互补控制路径：证据与行程图负责 RAG、上下文和约束规划；Agentic Runtime
+负责多步工具执行和中途重规划。当前工具故障实验使用确定性 Fixture，证明的是控制流契约，
+不是线上订票接口的可用性。
 
-The default demo uses deterministic adapters, so normal execution does not require an API key or model
-download. Qdrant local dense retrieval, reranking, and DeepSeek policy/planning/Judge adapters were
-measured behind interfaces. PostgreSQL, remote Qdrant, and remote telemetry remain production targets;
-evaluated model components are selected only when their gates pass.
+详细架构见 [TravelMind v2 架构](docs/final-architecture-v2.md)。
 
-Stage 1 adds a schema-validated Beijing seed corpus, typed facts, deterministic structure-aware
-chunking, and 15 reviewed retrieval queries. These are dataset counts, not model-quality claims.
+## 核心结果
 
-## Setup
+| 问题 | 实验结果 | 最终决策 |
+| --- | --- | --- |
+| Hybrid RAG 是否有效 | 15 条种子 Query 上 Recall@5 / MRR@5 / NDCG@5 = 0.956 / 0.956 / 0.933 | 默认使用 BM25+BGE+RRF |
+| Cross-Encoder 是否值得加入 | 固定候选集上 Recall@5 从 0.956 降至 0.900，并增加延迟 | 保留适配器，但不进入默认链路 |
+| 上下文压缩会不会损失答案质量 | 7 个真实 DeepSeek 案例中关键质量指标保持 1.000，总 Token 降低 45.3% | 选择 768-token refined-coverage Pipeline |
+| LLM 行程排序是否优于规则规划 | DeepSeek 多消耗 4,475 Token，目标地点命中率提升为 0 | 默认保留确定性 Planner |
+| 中途工具失败能否恢复 | 4 个受控多步案例中，可恢复故障恢复率由固定计划的 0% 提升到 100% | 选择 Plan-Act-Observe-Replan Runtime |
+| DeepSeek 是否适合控制 Runtime | 7 次调用契约提升为 0，42.9% 需要参数归一化，共消耗 5,725 Token | 候选被门禁拒绝，确定性 Planner 仍为默认 |
+| 声明是否与证据一致 | 21 个文件哈希 + 25 项语义检查，共 46/46 通过 | 冻结为 interview-v2 发布证据 |
+
+以上都是小规模项目实验。数据集规模、标签来源和不能推出的结论记录在报告中；这里不把它们
+表述为生产准确率或线上 SLO。
+
+## 快速运行
+
+要求 Python 3.11 或 3.12，并已安装 [uv](https://docs.astral.sh/uv/)。
 
 ```bash
+git clone https://github.com/NeoZhao233/travelmind.git
+cd travelmind
 ./scripts/bootstrap.sh
 source .venv/bin/activate
-travelmind demo "带父母去北京三天，预算3000元，喜欢历史文化"
-travelmind agentic-demo "周一带父母去故宫，需要门票和预约信息"
-travelmind eval-agentic --root . --output evals/results/agentic_policy_rule_v1_seed.json
-travelmind eval-trajectory --root . --output evals/results/agentic_trajectory_rule_v1_seed.json
-travelmind eval-live-agentic --root . --local-files-only \
-  --output evals/results/live_hybrid_agentic_rule_v1_seed.json
-travelmind eval-runtime-replanning --root . \
-  --output evals/results/stage11_runtime_replanning_v1.json
+travelmind demo "带父母去北京一天，预算300元，喜欢历史文化"
+```
+
+默认 Demo 使用确定性组件，不需要 API Key，也不需要下载向量模型。
+
+运行最能体现 Agentic 特性的多步故障评测：
+
+```bash
 travelmind eval-runtime-multistep --root . \
   --output evals/results/stage11_runtime_multistep_v1.json
+```
+
+预期核心结果：
+
+```json
+{
+  "baseline_intermediate_failure_recovery_rate": 0.0,
+  "agentic_intermediate_failure_recovery_rate": 1.0,
+  "completed_observation_reuse_rate": 1.0,
+  "unrecoverable_safe_stop_rate": 1.0
+}
+```
+
+## 一键面试演示
+
+```bash
+./scripts/bootstrap.sh --extra dense --extra checkpoint
+./scripts/interview-demo.sh
+```
+
+脚本会依次演示数据校验、旅游规划、复合依赖故障、索引原子发布、增量摄取、多步重规划和
+发布审计。当前本地运行约 3 秒，不调用付费模型；真实 DeepSeek 结果读取已冻结的实验报告。
+
+完整验证：
+
+```bash
+LANGGRAPH_STRICT_MSGPACK=true ./scripts/verify.sh
+```
+
+## 为什么选择这些技术
+
+| 技术 | 解决的问题 | 为什么这样选 |
+| --- | --- | --- |
+| LangGraph | 分支、循环、重规划、Checkpoint 和显式状态 | 这些控制流已经超出顺序 Chain；循环预算也能直接进入状态和测试 |
+| Pydantic | LLM、工具和持久化边界不可信 | 对 Plan、Step、Observation、Itinerary 做结构校验，并禁止多余执行字段 |
+| BM25 | 地名、规则词和精确关键词召回 | 语义向量容易漏掉精确实体，词法检索提供互补信号 |
+| BGE + Qdrant | 同义表达和中文语义召回 | 与 BM25 互补；Qdrant 提供可替换的向量检索接口和本地模式 |
+| RRF | 融合不可直接比较的词法分数与向量分数 | 不需要把两种分数强行归一到同一尺度，且单路失效仍可降级 |
+| DeepSeek | 评估 Router、答案生成和 Replanner 的模型能力 | 只作为可替换候选；必须通过质量、成本、稳定性和增量价值门禁 |
+| SQLite Checkpoint | 验证跨进程恢复与幂等收据 | 适合本地可复现实验；不宣称等同于生产 PostgreSQL 或分布式事务 |
+| Pytest + JSON 报告 | 防止“改 Prompt 后只看几个示例” | 固定数据、故障注入、回归门禁和版本化报告共同约束结论 |
+
+更完整的技术取舍在 [ADR 目录](docs/adr/)；面试追问答案在
+[面试问题库](docs/interview/questions.md)。
+
+## 失败时如何兜底
+
+| 失败 | 处理方式 | 不会做什么 |
+| --- | --- | --- |
+| BM25 或 Dense 单路失败 | 使用另一通道并标记 degraded | 不把降级请求统计为健康请求 |
+| 两路检索都失败 | 安全失败 | 不让模型脱离证据生成行程 |
+| 工具超时 | 在单步预算内重试 | 不把瞬时错误直接误判为需要 Replan |
+| 预约、路线或响应 Schema 永久失败 | 保留成功 Observation，替换未完成步骤 | 不重复已经完成的候选检索 |
+| LLM Plan 字段越权或地点未知 | Schema、工具签名和地点 Allowlist 拒绝；回退确定性 Planner | 不把 LLM 输出直接转成工具调用 |
+| 生成内容引用不存在的证据或地点 | Grounding Validator 拒绝 | 不声称拥有通用“幻觉检测器” |
+| 重试、Replan 或总 Tool Call 超限 | Safe Stop 并记录故障层 | 不允许 Agent 无限循环 |
+| Checkpoint 后恢复 | 恢复控制状态，并用幂等收据避免重复副作用 | 不宣称 Exactly Once |
+
+故障会按照 retrieval、tool、generation、validation、orchestration 五层记录最早可观察边界；
+多因素问题允许记录 contributing layers，不伪造唯一根因。详见
+[可靠性设计](docs/reliability.md)。
+
+## 真实 DeepSeek 实验
+
+只有复现真实模型实验时才需要 Key：
+
+```bash
+export DEEPSEEK_API_KEY="your-key"
 travelmind eval-deepseek-runtime --root . \
-  --output evals/results/stage11_deepseek_runtime_v3_final.json
-travelmind select-agentic-policies --root .
-travelmind eval-context-sweep --root . \
-  --output evals/results/context_budget_sweep_v1_seed.json
-travelmind eval-context-coverage --root . \
-  --output evals/results/context_coverage_768_seed.json
-travelmind eval-context-refinement --root . \
-  --output evals/results/context_refinement_controlled_v1_seed.json
-travelmind eval-memory --output evals/results/memory_isolation_controlled_v1.json
-travelmind eval-context-answers --root . \
-  --output evals/results/stage4_deepseek_answer_ablation_v4_final.json
-travelmind eval-planning-constraints --root . \
-  --output evals/results/planning_constraints_controlled_v1.json
-travelmind eval-candidate-planning --root . \
-  --output evals/results/candidate_planning_controlled_v1.json
-travelmind eval-itinerary-repair --root . \
-  --output evals/results/itinerary_repair_controlled_v1.json
-travelmind eval-e2e-planning --root . --retriever hybrid --live-deepseek \
-  --output evals/results/e2e_planning_deepseek_ab_v3_final.json
-travelmind audit-e2e-evaluation --root . \
-  --output evals/results/stage6ab_evaluation_audit_v1.json
-travelmind prepare-judge-calibration --root .
-travelmind check-regression-gate --root . --candidate-variant deterministic
-travelmind eval-observability --root . \
-  --output evals/results/stage7a_observability_drill_v1.json
-travelmind eval-retrieval-resilience --root . \
-  --output evals/results/stage7b_retrieval_resilience_v1.json
-LANGGRAPH_STRICT_MSGPACK=true travelmind eval-checkpointing --root . \
-  --output evals/results/stage7c_checkpoint_idempotency_v1.json
-LANGGRAPH_STRICT_MSGPACK=true travelmind eval-durable-checkpointing --root . \
-  --output evals/results/stage7c2_durable_checkpoint_v1.json
-travelmind eval-slo-outages --root . \
-  --output evals/results/stage7d_slo_outage_v1.json
-travelmind eval-index-publishing --root . \
-  --output evals/results/stage8a_index_publish_v1.json
-travelmind eval-source-fetching --root . \
-  --output evals/results/stage8b_source_fetch_v1.json
-travelmind eval-incremental-ingestion --root . \
-  --output evals/results/stage8c_incremental_ingestion_v1.json
-travelmind validate-data --root .
-travelmind eval-retrieval --root .
-./scripts/verify.sh
+  --output evals/results/my_deepseek_runtime_run.json
 ```
 
-To run the optional Chinese dense baseline:
+Key 不应写进仓库。`.env` 和 `.env.local` 已被忽略。缺少 Key 时 CLI 会停止真实模型实验，
+不会把确定性回退的结果冒充成模型效果。
 
-```bash
-./scripts/bootstrap.sh --extra dense
-travelmind eval-retrieval --root . --retriever dense
-travelmind eval-retrieval --root . --retriever hybrid --local-files-only
-./scripts/verify-dense.sh
+最终 DeepSeek Runtime 候选没有被选中。这是项目刻意保留的负结果：模型能返回合法 JSON，
+不代表它比确定性策略更好；Fallback 后的 100% 完成率，也不等于模型本身 100% 成功。
+
+## 项目结构
+
+```text
+src/travelmind/
+├── agentic/       # Router、Evidence Grader、Query Rewrite 与模型 Provider
+├── retrieval/     # BM25、Dense、Qdrant、RRF、Reranker 与容错
+├── context/       # Token 预算、覆盖、去重、冲突处理和来源保留
+├── planning/      # 候选规划、约束校验和局部修复
+├── runtime/       # ExecutionPlan、ToolObservation、Act/Replan Runtime
+├── ingestion/     # 快照、Freshness、隔离构建和原子发布
+└── evaluation/    # 指标、A/B、故障注入、回归门禁和发布审计
+
+evals/
+├── datasets/      # 版本化种子数据与故障案例
+└── results/       # 实验报告，包括被拒绝的候选
+
+docs/
+├── adr/           # 为什么选这个技术、为什么不选替代方案
+└── interview/     # 简历描述、讲述稿和高频追问
 ```
 
-To install the local durable SQLite checkpoint adapter:
+## 面试材料
 
-```bash
-./scripts/bootstrap.sh --extra checkpoint
-```
+- [一页简历版项目描述](docs/interview/resume-project.md)
+- [30 秒、2 分钟和 5 分钟讲述稿](docs/interview/project-narrative.md)
+- [技术选型、故障兜底与指标边界问题库](docs/interview/questions.md)
+- [Agentic Runtime 设计与实验](docs/stage11-agentic-runtime.md)
+- [v2 发布说明](docs/release-v2.md)
+- [46 项发布审计报告](evals/results/release_v2_audit.json)
 
-The optional reranker is an ablation, not the default path, and requires an additional model of
-about 1.04GB:
+## 当前边界与后续工作
 
-```bash
-travelmind eval-retrieval --root . --retriever reranked --local-files-only
-./scripts/verify-reranker.sh
-```
+- 检索集只有 15 条种子 Query；需要更大的独立标注集、Hard Negative 和盲测集。
+- 多步 Runtime 使用项目自建的 4 个故障案例和 Fixture Tool；尚未证明真实预订 API 可靠性。
+- DeepSeek A/B 样本较小，结果只用于当前候选选择，不代表模型通用能力。
+- SQLite 只证明本地跨进程恢复；生产环境仍需 PostgreSQL、分布式锁和真实并发测试。
+- PDF Stage 10A 已完成安全获取与快照；版面解析、OCR、页码引用和 PDF RAG 评测仍待完成。
+- 当前没有前端和线上部署，重点是 Agent、RAG、上下文工程、可靠性与评测闭环。
 
-To install the optional API and OpenAI-compatible SDK integrations:
-
-```bash
-./scripts/bootstrap.sh --extra api --extra openai
-```
-
-The DeepSeek adapter uses core `httpx` and does not require the `openai` extra. A live candidate needs
-`DEEPSEEK_API_KEY`; absence of the variable retains deterministic policies and produces no model
-quality claim.
-
-`bootstrap.sh` uses a non-editable project install because this macOS environment reapplies the
-`hidden` filesystem flag to editable-install `.pth` files between processes. Run the bootstrap
-again after changing source code and before verification. This is less convenient than an editable
-install, but it makes package imports and CLI cold starts reproducible in this environment.
-
-## Engineering rule
-
-Every non-trivial component must ship with:
-
-- a problem statement and explicit contract;
-- alternatives and trade-offs in an ADR;
-- known failure modes, fallback behavior, and recovery boundaries;
-- deterministic tests where possible;
-- at least one relevant failure-injection or degradation test;
-- an evaluation or ablation plan;
-- likely interview questions and evidence-backed answers.
-
-See `docs/architecture.md`, `docs/reliability.md`, `docs/adr/`, and
-`docs/interview/questions.md`. The staged delivery and exit gates are in `docs/roadmap.md`.
+开发阶段和后续计划见 [Roadmap](docs/roadmap.md)。
