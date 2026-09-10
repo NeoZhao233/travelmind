@@ -78,6 +78,9 @@ configuration, and should be treated as immutable evidence for that run.
   unresolved suppression, affected-key recomputation, no-op detection, and failed-update isolation.
 - `release_v1_audit.json`: Stage 9A audit of 15 hash-pinned evidence files and 18 semantic release
   claims. All 33 checks pass; the report explicitly limits the claim to an interview-grade pilot.
+- `stage10a_pdf_ingestion_v1.json`: ten controlled official-PDF registry, payload-admission, and
+  content-addressed snapshot checks. It is ingestion-security evidence, not a PDF parsing or RAG
+  quality result.
 
 The Stage 1 seed is intentionally small and has no held-out split or abstention examples. These
 reports support debugging and comparisons; they do not establish production quality or statistical

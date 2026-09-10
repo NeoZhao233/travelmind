@@ -40,6 +40,7 @@ from travelmind.evaluation.judge_calibration import (
 from travelmind.evaluation.live_agentic_runner import run_live_agentic_experiment
 from travelmind.evaluation.memory_runner import run_memory_isolation_experiment
 from travelmind.evaluation.observability_runner import run_observability_drill
+from travelmind.evaluation.pdf_ingestion_runner import run_pdf_ingestion_drill
 from travelmind.evaluation.planning_runner import run_planning_constraint_experiment
 from travelmind.evaluation.policy_selection import select_agentic_policies
 from travelmind.evaluation.refinement_runner import run_context_refinement_experiment
@@ -58,6 +59,8 @@ from travelmind.evaluation.source_fetch_runner import run_source_fetch_drill
 from travelmind.evaluation.trajectory_runner import run_trajectory_experiment
 from travelmind.graph.builder import build_travel_graph
 from travelmind.ingestion.dataset import validate_seed_dataset
+from travelmind.ingestion.pdf_sources import PdfSourceDownloader, load_pdf_source_registry
+from travelmind.ingestion.publishing import VersionedIndexPublisher
 from travelmind.planner.demo import DemoPlanner
 from travelmind.retrieval.base import InMemoryRetriever
 from travelmind.retrieval.embeddings import (
@@ -1016,6 +1019,81 @@ def eval_incremental_ingestion(
         destination.write_text(f"{serialized}\n", encoding="utf-8")
         typer.echo(f"Wrote incremental-ingestion report to {destination}")
     typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
+
+
+@app.command("list-pdf-sources")
+def list_pdf_sources(
+    root: Annotated[Path, typer.Option("--root")] = Path("."),
+) -> None:
+    """List governed official PDF sources without downloading them."""
+
+    project_root = root.resolve()
+    registry = load_pdf_source_registry(project_root / "data/sources/pdf_sources.json")
+    payload = [
+        {
+            "source_id": source.source_id,
+            "title": source.title,
+            "authority": source.authority,
+            "parser_profile": source.parser_profile,
+            "content_scopes": source.content_scopes,
+        }
+        for source in registry.sources
+    ]
+    typer.echo(json.dumps(payload, ensure_ascii=False, indent=2))
+
+
+@app.command("fetch-pdf-source")
+def fetch_pdf_source(
+    source_id: str,
+    root: Annotated[Path, typer.Option("--root")] = Path("."),
+) -> None:
+    """Safely fetch one official PDF into the ignored content-addressed snapshot store."""
+
+    project_root = root.resolve()
+    registry = load_pdf_source_registry(project_root / "data/sources/pdf_sources.json")
+    try:
+        source = registry.get(source_id)
+    except KeyError as exc:
+        raise typer.BadParameter(str(exc)) from exc
+    publisher = VersionedIndexPublisher(project_root / "data/raw/pdf-ingestion")
+    downloader = PdfSourceDownloader(publisher, now=lambda: datetime.now(UTC))
+    result = downloader.download(source)
+    typer.echo(
+        json.dumps(
+            {
+                "source_id": result.source_id,
+                "content_sha256": result.payload.content_sha256,
+                "byte_count": result.payload.byte_count,
+                "pdf_version": result.payload.pdf_version,
+                "fetch_mode": result.diagnostics.mode,
+                "snapshot_path": (
+                    f"data/raw/pdf-ingestion/snapshots/{result.snapshot.content_sha256}.raw"
+                ),
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
+
+
+@app.command("eval-pdf-ingestion")
+def eval_pdf_ingestion(
+    root: Annotated[Path, typer.Option("--root")] = Path("."),
+    output: Annotated[Path | None, typer.Option("--output")] = None,
+) -> None:
+    """Run Stage 10A official-PDF admission and snapshot drills."""
+
+    project_root = root.resolve()
+    report = run_pdf_ingestion_drill(project_root)
+    serialized = json.dumps(report, ensure_ascii=False, indent=2)
+    if output is not None:
+        destination = output if output.is_absolute() else project_root / output
+        destination.parent.mkdir(parents=True, exist_ok=True)
+        destination.write_text(f"{serialized}\n", encoding="utf-8")
+        typer.echo(f"Wrote PDF ingestion report to {destination}")
+    typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
+    if report["status"] != "passed":
+        raise typer.Exit(code=1)
 
 
 @app.command("release-audit")

@@ -277,3 +277,48 @@ def test_memory_cli_writes_isolation_report(tmp_path: Path) -> None:
     report = json.loads(output.read_text(encoding="utf-8"))
     assert report["metrics"]["cross_scope_leakage_rate"] == 0
     assert report["selection"]["gate_passed"] is True
+
+
+def test_list_pdf_sources_cli_exposes_governed_registry() -> None:
+    result = CliRunner().invoke(
+        app,
+        ["list-pdf-sources", "--root", str(PROJECT_ROOT)],
+    )
+
+    assert result.exit_code == 0
+    payload = json.loads(result.stdout)
+    assert len(payload) == 4
+    assert {item["authority"] for item in payload} <= {
+        "government",
+        "official_operator",
+    }
+    assert all("source_url" not in item for item in payload)
+
+
+def test_fetch_pdf_source_cli_rejects_unknown_source_before_network() -> None:
+    result = CliRunner().invoke(
+        app,
+        ["fetch-pdf-source", "unknown-source", "--root", str(PROJECT_ROOT)],
+    )
+
+    assert result.exit_code != 0
+    assert "unknown PDF source ID" in result.output
+
+
+def test_eval_pdf_ingestion_cli_writes_offline_report(tmp_path: Path) -> None:
+    output = tmp_path / "pdf-ingestion.json"
+    result = CliRunner().invoke(
+        app,
+        [
+            "eval-pdf-ingestion",
+            "--root",
+            str(PROJECT_ROOT),
+            "--output",
+            str(output),
+        ],
+    )
+
+    assert result.exit_code == 0
+    report = json.loads(output.read_text(encoding="utf-8"))
+    assert report["stage"] == "10A"
+    assert report["metrics"]["check_pass_rate"] == 1

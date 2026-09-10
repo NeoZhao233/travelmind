@@ -79,6 +79,10 @@ release-evidence gates without spending provider tokens.
 Stage 9B packages the frozen evidence into a full and compact Chinese resume entry plus 30-second,
 2-minute, and 5-minute interview narratives. Claim-to-evidence mappings and statements to avoid are
 recorded in `docs/interview/resume-project.md` and `docs/interview/project-narrative.md`.
+Stage 10A begins complex-document ingestion with a governed registry of four official Beijing PDF
+sources. Exact-host HTTPS fetching, bounded retries and size, MIME/magic/EOF checks, active-content
+rejection, optional digest pinning, and immutable snapshots prevent bad or partial PDFs from reaching
+an index. Raw third-party PDFs remain outside Git; parsing and retrieval claims begin in Stage 10B.
 
 The repository currently contains a runnable, dependency-injected LangGraph backbone:
 

@@ -1,0 +1,59 @@
+{
+  "experiment": "pdf-source-admission-v1",
+  "stage": "10A",
+  "configuration": {
+    "registered_official_sources": 4,
+    "raw_pdf_distribution": "source-reference-only",
+    "network_required": false
+  },
+  "cases": [
+    {
+      "check": "official_registry_valid",
+      "passed": true
+    },
+    {
+      "check": "valid_pdf_captured",
+      "passed": true
+    },
+    {
+      "check": "snapshot_deduplicated",
+      "passed": true
+    },
+    {
+      "check": "host_boundary_rejected",
+      "passed": true
+    },
+    {
+      "check": "spoofed_mime_rejected",
+      "passed": true
+    },
+    {
+      "check": "missing_magic_rejected",
+      "passed": true
+    },
+    {
+      "check": "truncated_payload_rejected",
+      "passed": true
+    },
+    {
+      "check": "active_content_rejected",
+      "passed": true
+    },
+    {
+      "check": "digest_mismatch_rejected",
+      "passed": true
+    },
+    {
+      "check": "oversized_payload_rejected",
+      "passed": true
+    }
+  ],
+  "metrics": {
+    "checks": 10,
+    "check_pass_rate": 1.0,
+    "rejected_payload_admission_rate": 0.0,
+    "snapshot_deduplication_rate": 1.0
+  },
+  "status": "passed",
+  "claim_boundary": "Deterministic admission and snapshot drill; no live-source availability, PDF text extraction, OCR, or retrieval-quality claim."
+}

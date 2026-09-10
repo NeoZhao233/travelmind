@@ -1093,3 +1093,36 @@ separate two claims. The experiments are sufficient to select the current pilot 
 evaluation plumbing; they are insufficient for population-level accuracy or production SLO claims.
 The next step is independently authored labels, hard negatives, abstention cases, confidence
 intervals, and a production observation window.
+
+## Stage 10A governed-PDF answer anchors
+
+**Why is PDF ingestion more than installing a parser?** A PDF is untrusted binary input obtained over
+the network. Source authorization, bounded download, payload admission, immutable versioning, parser
+isolation, and index promotion are separate boundaries. Parser quality matters only after unsafe or
+partial bytes have been prevented from entering it.
+
+**Why check MIME, magic, and EOF together?** MIME rejects an unexpected declared type, magic detects a
+spoofed non-PDF body, and EOF detects the common partial-transfer case that still begins with a valid
+PDF header. None alone proves that the document is structurally valid.
+
+**Does scanning for `/JavaScript` make a PDF safe?** No. It is a conservative admission rule, not a
+malware scanner or full object-graph analysis. Stage 10B must parse in a resource-constrained process,
+reject encryption and unsupported objects, enforce page/time budgets, and quarantine failures.
+
+**Why are raw official PDFs excluded from Git?** The repository owns source metadata, parsers, tests,
+and derived evaluation evidence, not the publisher's binary. Downloading from the official URL and
+recording an immutable content hash preserves provenance while avoiding repository bloat and unclear
+redistribution claims.
+
+**What happens when an official server has TLS or throughput problems?** Certificate verification is
+not weakened and the operation remains bounded. No complete payload means no snapshot or index build;
+the current validated index remains active. A partial development download is quarantined as an
+operational observation, not treated as knowledge.
+
+**Should an old brochure override a new ticket rule?** No. PDF brochures are admitted for static
+culture, route, and visitor-guide context. Dynamic prices, opening hours, bookings, and closures come
+from fresher official pages, with fact-type-specific conflict resolution before index publication.
+
+**What did Stage 10A prove?** Four official sources pass registry governance and ten controlled
+admission/snapshot checks pass with zero rejected-payload admission. It did not prove layout parsing,
+OCR, page citation, or retrieval improvement; those remain explicit Stage 10B–10D gates.

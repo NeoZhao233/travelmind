@@ -25,6 +25,16 @@ from travelmind.ingestion.parsing import (
     TypedSourceParser,
     json_object_parser,
 )
+from travelmind.ingestion.pdf_sources import (
+    PdfDownloadResult,
+    PdfPayloadMetadata,
+    PdfPayloadRejectedError,
+    PdfSourceDownloader,
+    PdfSourceRegistry,
+    PdfSourceSpec,
+    load_pdf_source_registry,
+    validate_pdf_payload,
+)
 from travelmind.ingestion.publishing import (
     IndexBuildManifest,
     IndexBuildRejectedError,
@@ -54,6 +64,12 @@ __all__ = [
     "ParsedSourceBatch",
     "ParseQuarantineReceipt",
     "ParseQuarantineStore",
+    "PdfDownloadResult",
+    "PdfPayloadMetadata",
+    "PdfPayloadRejectedError",
+    "PdfSourceDownloader",
+    "PdfSourceRegistry",
+    "PdfSourceSpec",
     "SnapshotReceipt",
     "SourceFetchPolicy",
     "SourceParseRejectedError",
@@ -63,5 +79,7 @@ __all__ = [
     "TypedSourceParser",
     "VersionedIndexPublisher",
     "json_object_parser",
+    "load_pdf_source_registry",
     "semantic_fact_key",
+    "validate_pdf_payload",
 ]

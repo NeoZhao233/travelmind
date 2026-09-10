@@ -16,6 +16,7 @@ reproducible evidence are present.
 | 7 | Production hardening: checkpoints, cache, observability, dependency fallbacks | Complete at pilot level | Outage drills expose degradation and preserve safety boundaries |
 | 8 | Temporal RAG ingestion and index lifecycle | Complete at pilot level | Live-source changes cannot partially publish or silently bypass freshness policy |
 | 9 | Interview release, evidence audit, and rehearsal | In progress (9A–9B complete) | Claims are reproducible, explainable, and demonstrable under interview constraints |
+| 10 | Complex official-PDF ingestion and retrieval | In progress (10A complete) | Page-grounded PDF knowledge improves governed retrieval without weakening safety |
 
 Stage 4 order: ~~4A typed baseline and privacy-safe trace~~; ~~4B deterministic budget and sweep~~;
 ~~4C coverage-aware evidence packing~~; ~~4D deduplication, conflict handling, and compression~~;
@@ -43,6 +44,10 @@ quarantine, conflict reconciliation, and incremental-index evaluation~~.
 Stage 9 order: ~~9A final architecture, pinned release evidence, automated audit, and one-command
 offline demo~~; ~~9B resume bullets and project narrative~~; 9C interview question bank,
 architecture rehearsal, and timed demo script.
+
+Stage 10 order: ~~10A governed PDF registry, bounded acquisition, payload admission, and immutable
+snapshots~~; 10B text/layout/OCR parser routing and page provenance; 10C hierarchical chunking and
+Hybrid RAG integration; 10D PDF retrieval, citation, failure, and incremental-value-upgrade gates.
 
 ## Stage 2 implementation order
 

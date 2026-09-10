@@ -1,0 +1,41 @@
+{
+  "schema_version": 1,
+  "sources": [
+    {
+      "source_id": "beijing-top-summer-routes-2025",
+      "title": "Ten Top Tourist Routes for High Summer",
+      "source_url": "https://english.beijing.gov.cn/specials/beijingmagazine/list/202507/P020250730383852971264.pdf",
+      "allowed_host": "english.beijing.gov.cn",
+      "authority": "government",
+      "parser_profile": "text_first",
+      "content_scopes": ["culture", "route", "place_description"]
+    },
+    {
+      "source_id": "palace-zero-waste-guide-2025",
+      "title": "故宫零废弃主题导览手册",
+      "source_url": "https://young.dpm.org.cn/uploads/1/file/public/202505/20250516181259_97digy9q27.pdf",
+      "allowed_host": "young.dpm.org.cn",
+      "authority": "official_operator",
+      "parser_profile": "layout_ocr",
+      "content_scopes": ["route", "visitor_tips", "culture"]
+    },
+    {
+      "source_id": "palace-summer-guide-2022",
+      "title": "故宫夏日参观手册",
+      "source_url": "https://young.dpm.org.cn/statics/images/v4/mapdownload/2022summer/book.pdf",
+      "allowed_host": "young.dpm.org.cn",
+      "authority": "official_operator",
+      "parser_profile": "layout_ocr",
+      "content_scopes": ["route", "visitor_tips"]
+    },
+    {
+      "source_id": "beijing-chaoyang-visitor-guide",
+      "title": "Visitor Guide to Beijing Chaoyang",
+      "source_url": "https://english.bjchy.gov.cn/sites/default/files/2021-11/VGT.pdf",
+      "allowed_host": "english.bjchy.gov.cn",
+      "authority": "government",
+      "parser_profile": "layout_ocr",
+      "content_scopes": ["culture", "transport", "route", "place_description"]
+    }
+  ]
+}
