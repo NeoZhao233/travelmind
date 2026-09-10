@@ -1,0 +1,4 @@
+{"case_id":"runtime-timeout-retry","fault":"transient_timeout_once","recoverable":true,"expected_status":"completed","expected_replans":0,"expected_layer":"tool","reviewed":false}
+{"case_id":"runtime-booking-permission","fault":"permanent_booking_failure","recoverable":true,"expected_status":"completed","expected_replans":1,"expected_layer":"tool","reviewed":false}
+{"case_id":"runtime-invalid-booking-schema","fault":"invalid_tool_output","recoverable":true,"expected_status":"completed","expected_replans":1,"expected_layer":"tool","reviewed":false}
+{"case_id":"runtime-all-tools-down","fault":"persistent_permanent_failure","recoverable":false,"expected_status":"failed","expected_replans":1,"expected_layer":"tool","reviewed":false}

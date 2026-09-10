@@ -1126,3 +1126,38 @@ from fresher official pages, with fact-type-specific conflict resolution before 
 **What did Stage 10A prove?** Four official sources pass registry governance and ten controlled
 admission/snapshot checks pass with zero rejected-payload admission. It did not prove layout parsing,
 OCR, page citation, or retrieval improvement; those remain explicit Stage 10B–10D gates.
+
+## Stage 11 agentic-runtime answer anchors
+
+**Why was the old graph not sufficiently agentic?** It had bounded retrieval rewrite and output
+repair, but the execution strategy was wired into the graph. There was no explicit plan, external
+action observation, or replacement of future steps. Stage 11 adds a versioned plan and makes a real
+revision after execution feedback.
+
+**What is the difference between retry, repair, and replan?** Retry repeats the same action after a
+transient fault. Repair changes an invalid output while keeping the strategy. Replan changes the
+remaining strategy after an observation invalidates the original plan. The trace and counters keep
+the three mechanisms distinct.
+
+**If a booking API times out, why not immediately replan?** A bounded retry is cheaper and preserves
+the intended plan for a likely transient failure. Authentication rejection, unsupported operation,
+or invalid response schema is not retried blindly; it triggers replan or safe stop.
+
+**How do you detect hallucinations?** I avoid claiming a universal hallucination detector. The
+deterministic boundary catches fabricated evidence IDs, unknown place IDs, absent provenance, and
+recomputed constraint errors. Semantic entailment of free-form prose remains a separately evaluated,
+fallible judge task.
+
+**How do you distinguish retrieval error from generation error?** Attribute at the earliest observed
+contract boundary. Empty/failed/unusable retrieved evidence is retrieval-layer; a generator that had
+admissible evidence but emits unknown entities or citations is generation-layer. If both contributed,
+record one primary boundary and the other as a contributor instead of pretending root cause is
+certain.
+
+**How do you prevent an infinite agent loop?** Bound attempts per tool step, plan revisions, and total
+tool calls. Validate plan dependencies before execution. When a bound is exhausted, fail closed with
+the latest typed attribution and no unsupported itinerary.
+
+**Why not let the LLM decide every recovery action?** LLM planning is injectable, but termination,
+error classification, budgets, provenance admission, and hard constraints remain deterministic.
+This keeps creativity in strategy selection while protecting safety and reproducibility.

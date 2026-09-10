@@ -16,7 +16,8 @@ reproducible evidence are present.
 | 7 | Production hardening: checkpoints, cache, observability, dependency fallbacks | Complete at pilot level | Outage drills expose degradation and preserve safety boundaries |
 | 8 | Temporal RAG ingestion and index lifecycle | Complete at pilot level | Live-source changes cannot partially publish or silently bypass freshness policy |
 | 9 | Interview release, evidence audit, and rehearsal | In progress (9A–9B complete) | Claims are reproducible, explainable, and demonstrable under interview constraints |
-| 10 | Complex official-PDF ingestion and retrieval | In progress (10A complete) | Page-grounded PDF knowledge improves governed retrieval without weakening safety |
+| 10 | Complex official-PDF ingestion and retrieval | Paused after 10A | Page-grounded PDF knowledge improves governed retrieval without weakening safety |
+| 11 | Runtime planning, tool observation, replanning, and causal failure analysis | In progress (11A–11C complete) | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
 
 Stage 4 order: ~~4A typed baseline and privacy-safe trace~~; ~~4B deterministic budget and sweep~~;
 ~~4C coverage-aware evidence packing~~; ~~4D deduplication, conflict handling, and compression~~;
@@ -48,6 +49,12 @@ architecture rehearsal, and timed demo script.
 Stage 10 order: ~~10A governed PDF registry, bounded acquisition, payload admission, and immutable
 snapshots~~; 10B text/layout/OCR parser routing and page provenance; 10C hierarchical chunking and
 Hybrid RAG integration; 10D PDF retrieval, citation, failure, and incremental-value-upgrade gates.
+
+Stage 11 order: 11A explicit versioned execution plan, typed tool observations, and bounded
+Plan-Act-Observe-Replan runtime; 11B machine-checkable groundedness and layered retrieval/tool/
+generation/validation/orchestration attribution; 11C controlled failure corpus, recovery metrics,
+and frozen gates; 11D interview narrative, ADRs, and timed failure demo. Stage 10 remains paused
+until this higher-priority agentic-control gap is closed.
 
 ## Stage 2 implementation order
 

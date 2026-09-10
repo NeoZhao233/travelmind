@@ -514,3 +514,15 @@ An interview answer about reliability should include a concrete failure, detecti
 fallback path, safety boundary, and test or trace. Avoid generic claims such as "we added retry"
 unless the repository shows which errors are retried, how often, and how retry storms or duplicate
 side effects are prevented.
+
+## Stage 11 runtime replanning boundary
+
+The runtime distinguishes transient transport faults from permanent tool failures and invalid tool
+schemas. Only transient faults retry the same step. Other failures enter the planner as typed
+observations and can produce a new plan revision. Attempt, replan, and total-call budgets are enforced
+outside the planner, so a model cannot waive them. Exception messages are excluded from graph state.
+
+The current proof uses injected local tools. It verifies control semantics and safe termination, not
+remote API availability, rate-limit behavior, or exactly-once side effects. A future side-effecting
+booking tool must additionally use Stage 7 idempotency receipts; replanning alone does not make a
+non-idempotent external action safe.

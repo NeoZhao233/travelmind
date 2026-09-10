@@ -94,6 +94,25 @@ def test_eval_trajectory_cli_writes_comparison_report(tmp_path: Path) -> None:
     assert '"retrieval_call_amplification"' in result.stdout
 
 
+def test_eval_runtime_replanning_cli_writes_failure_report(tmp_path: Path) -> None:
+    output = tmp_path / "runtime-replanning.json"
+    result = CliRunner().invoke(
+        app,
+        [
+            "eval-runtime-replanning",
+            "--root",
+            str(PROJECT_ROOT),
+            "--output",
+            str(output),
+        ],
+    )
+
+    assert result.exit_code == 0
+    report = json.loads(output.read_text(encoding="utf-8"))
+    assert report["agentic_metrics"]["recoverable_completion_rate"] == 1
+    assert '"failure_attribution_accuracy"' in result.stdout
+
+
 def test_dense_cli_rejects_unimplemented_prefilters_before_model_loading() -> None:
     result = CliRunner().invoke(
         app,

@@ -82,7 +82,15 @@ recorded in `docs/interview/resume-project.md` and `docs/interview/project-narra
 Stage 10A begins complex-document ingestion with a governed registry of four official Beijing PDF
 sources. Exact-host HTTPS fetching, bounded retries and size, MIME/magic/EOF checks, active-content
 rejection, optional digest pinning, and immutable snapshots prevent bad or partial PDFs from reaching
-an index. Raw third-party PDFs remain outside Git; parsing and retrieval claims begin in Stage 10B.
+an index. Raw third-party PDFs remain outside Git; parsing and retrieval claims begin in Stage 10B,
+which is currently paused.
+
+Stage 11 is the current priority. A separate LangGraph runtime now represents execution plans as
+versioned data, records typed tool observations, retries only transient failures, replans after
+permanent or schema failures, and stops safely under attempt/replan/call budgets. Deterministic
+grounding checks reject fabricated citations and place IDs. In four controlled fault cases, the
+fixed-plan baseline completed 33.3% of recoverable cases versus 100% for the replanning candidate;
+these are project-authored injected cases, not production reliability evidence.
 
 The repository currently contains a runnable, dependency-injected LangGraph backbone:
 
@@ -93,6 +101,15 @@ The repository currently contains a runnable, dependency-injected LangGraph back
 5. generate a structured itinerary;
 6. validate deterministic constraints;
 7. return a safe fallback after bounded retries.
+
+The Stage 11 candidate adds a second, explicitly agentic control path:
+
+1. create revision 1 of a typed execution plan;
+2. execute the next dependency-ready tool step;
+3. record a sanitized typed observation;
+4. retry transient faults or create a new plan revision for structural failures;
+5. expose successful tool observations as realtime evidence to itinerary generation;
+6. validate provenance and constraints, then complete, replan, or stop safely.
 
 The default demo uses deterministic adapters, so normal execution does not require an API key or model
 download. Qdrant local dense retrieval, reranking, and DeepSeek policy/planning/Judge adapters were
@@ -113,6 +130,8 @@ travelmind eval-agentic --root . --output evals/results/agentic_policy_rule_v1_s
 travelmind eval-trajectory --root . --output evals/results/agentic_trajectory_rule_v1_seed.json
 travelmind eval-live-agentic --root . --local-files-only \
   --output evals/results/live_hybrid_agentic_rule_v1_seed.json
+travelmind eval-runtime-replanning --root . \
+  --output evals/results/stage11_runtime_replanning_v1.json
 travelmind select-agentic-policies --root .
 travelmind eval-context-sweep --root . \
   --output evals/results/context_budget_sweep_v1_seed.json

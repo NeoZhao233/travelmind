@@ -1,0 +1,68 @@
+{
+  "schema_version": 1,
+  "experiment": "stage11-controlled-runtime-replanning-v1",
+  "dataset_sha256": "127dc895ea3538fa11c87b8b3be13eb833b48df47b09516cdc1b81744981e7ec",
+  "configuration": {
+    "cases": 4,
+    "reviewed_cases": 0,
+    "max_replans": 1,
+    "max_tool_attempts": 2
+  },
+  "baseline_metrics": {
+    "recoverable_completion_rate": 0.3333333333333333
+  },
+  "agentic_metrics": {
+    "recoverable_completion_rate": 1.0,
+    "expected_replan_rate": 1.0,
+    "failure_attribution_accuracy": 1.0,
+    "unrecoverable_safe_stop_rate": 1.0,
+    "mean_tool_calls": 2.0
+  },
+  "cases": [
+    {
+      "case_id": "runtime-timeout-retry",
+      "fault": "transient_timeout_once",
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 0,
+      "expected_layer": "tool",
+      "baseline": {"status":"completed","replans":0,"tool_calls":2,"observed_layer":"tool","plan_revisions":[1],"safe_stop":false},
+      "agentic": {"status":"completed","replans":0,"tool_calls":2,"observed_layer":"tool","plan_revisions":[1],"safe_stop":false}
+    },
+    {
+      "case_id": "runtime-booking-permission",
+      "fault": "permanent_booking_failure",
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_layer": "tool",
+      "baseline": {"status":"failed","replans":0,"tool_calls":1,"observed_layer":"tool","plan_revisions":[1],"safe_stop":true},
+      "agentic": {"status":"completed","replans":1,"tool_calls":2,"observed_layer":"tool","plan_revisions":[1,2],"safe_stop":false}
+    },
+    {
+      "case_id": "runtime-invalid-booking-schema",
+      "fault": "invalid_tool_output",
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_layer": "tool",
+      "baseline": {"status":"failed","replans":0,"tool_calls":1,"observed_layer":"tool","plan_revisions":[1],"safe_stop":true},
+      "agentic": {"status":"completed","replans":1,"tool_calls":2,"observed_layer":"tool","plan_revisions":[1,2],"safe_stop":false}
+    },
+    {
+      "case_id": "runtime-all-tools-down",
+      "fault": "persistent_permanent_failure",
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_layer": "tool",
+      "baseline": {"status":"failed","replans":0,"tool_calls":1,"observed_layer":"tool","plan_revisions":[1],"safe_stop":true},
+      "agentic": {"status":"failed","replans":1,"tool_calls":2,"observed_layer":"tool","plan_revisions":[1,2],"safe_stop":true}
+    }
+  ],
+  "limitations": [
+    "Faults and tool results are deterministic injections, not live provider incidents.",
+    "The four project-authored cases are not independently reviewed.",
+    "This experiment isolates runtime control and does not measure itinerary quality."
+  ]
+}
