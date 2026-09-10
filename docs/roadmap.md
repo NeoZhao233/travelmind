@@ -17,7 +17,7 @@ reproducible evidence are present.
 | 8 | Temporal RAG ingestion and index lifecycle | Complete at pilot level | Live-source changes cannot partially publish or silently bypass freshness policy |
 | 9 | Interview release, evidence audit, and rehearsal | In progress (9A–9B complete) | Claims are reproducible, explainable, and demonstrable under interview constraints |
 | 10 | Complex official-PDF ingestion and retrieval | Paused after 10A | Page-grounded PDF knowledge improves governed retrieval without weakening safety |
-| 11 | Runtime planning, tool observation, replanning, and causal failure analysis | In progress (11A–11C complete) | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
+| 11 | Runtime planning, tool observation, replanning, and causal failure analysis | In progress (11A–11C.2 complete) | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
 
 Stage 4 order: ~~4A typed baseline and privacy-safe trace~~; ~~4B deterministic budget and sweep~~;
 ~~4C coverage-aware evidence packing~~; ~~4D deduplication, conflict handling, and compression~~;
@@ -53,7 +53,9 @@ Hybrid RAG integration; 10D PDF retrieval, citation, failure, and incremental-va
 Stage 11 order: 11A explicit versioned execution plan, typed tool observations, and bounded
 Plan-Act-Observe-Replan runtime; 11B machine-checkable groundedness and layered retrieval/tool/
 generation/validation/orchestration attribution; 11C controlled failure corpus, recovery metrics,
-and frozen gates; 11D interview narrative, ADRs, and timed failure demo. Stage 10 remains paused
+and frozen gates; 11C.2 multi-step mid-flight replan with completed-observation reuse; 11C.3 optional
+real DeepSeek replanner candidate and deterministic fallback A/B; 11D interview narrative, release
+audit, and timed failure demo. Stage 10 remains paused
 until this higher-priority agentic-control gap is closed.
 
 ## Stage 2 implementation order

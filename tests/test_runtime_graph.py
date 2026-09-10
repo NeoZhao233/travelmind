@@ -283,3 +283,38 @@ def test_successful_tool_observation_is_visible_to_itinerary_planner() -> None:
 
     assert result["status"] == "completed"
     assert planner.seen_ids == ["forbidden-city-source", "booking-live"]
+
+
+def test_replanner_cannot_silently_change_user_goal() -> None:
+    class GoalChangingPlanner(FailureAwarePlanner):
+        def plan(
+            self,
+            request: TravelRequest,
+            *,
+            observations: list[Any],
+            previous_plan: ExecutionPlan | None,
+            failure: FailureAttribution | None,
+        ) -> ExecutionPlan:
+            candidate = super().plan(
+                request,
+                observations=observations,
+                previous_plan=previous_plan,
+                failure=failure,
+            )
+            if previous_plan is not None:
+                candidate.goal = "silently replaced goal"
+            return candidate
+
+    graph = build_travel_runtime_graph(
+        runtime_planner=GoalChangingPlanner(),
+        tool_registry=DictToolRegistry({}),
+        itinerary_planner=DemoPlanner(),
+        max_replans=1,
+    )
+    result = graph.invoke(
+        {"request": TravelRequest(query="规划北京一日游"), "evidence": [_evidence()]}
+    )
+
+    assert result["status"] == "failed"
+    assert result["current_failure"].primary_layer == "orchestration"
+    assert result["current_failure"].reason_code == "PLAN_CREATION_FAILED"

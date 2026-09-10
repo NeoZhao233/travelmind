@@ -143,6 +143,10 @@ def build_travel_runtime_graph(
             expected_revision = 1 if previous is None else previous.revision + 1
             if candidate.revision != expected_revision:
                 raise ValueError("planner returned a non-monotonic plan revision")
+            if previous is not None and candidate.plan_id != previous.plan_id:
+                raise ValueError("replanner changed the stable plan identity")
+            if previous is not None and candidate.goal != previous.goal:
+                raise ValueError("replanner changed the user goal")
         except Exception as exc:
             failure = FailureAttribution(
                 primary_layer=FailureLayer.ORCHESTRATION,

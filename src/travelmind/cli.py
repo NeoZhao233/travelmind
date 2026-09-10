@@ -54,6 +54,7 @@ from travelmind.evaluation.runner import (
     run_hybrid_experiment,
     run_reranked_hybrid_experiment,
 )
+from travelmind.evaluation.runtime_multistep_runner import run_runtime_multistep_experiment
 from travelmind.evaluation.runtime_replanning_runner import run_runtime_replanning_experiment
 from travelmind.evaluation.slo_runner import run_slo_outage_drill
 from travelmind.evaluation.source_fetch_runner import run_source_fetch_drill
@@ -255,6 +256,32 @@ def eval_runtime_replanning(
     destination.write_text(f"{serialized}\n", encoding="utf-8")
     typer.echo(f"Wrote runtime replanning report to {destination}")
     typer.echo(json.dumps(report["agentic_metrics"], ensure_ascii=False, indent=2))
+
+
+@app.command("eval-runtime-multistep")
+def eval_runtime_multistep(
+    root: Annotated[
+        Path,
+        typer.Option("--root", help="Project root containing multi-step runtime labels."),
+    ] = Path("."),
+    output: Annotated[
+        Path | None,
+        typer.Option("--output", help="Optional JSON report path."),
+    ] = None,
+) -> None:
+    """Evaluate mid-flight replanning and completed-observation reuse."""
+
+    project_root = root.resolve()
+    report = run_runtime_multistep_experiment(project_root)
+    serialized = json.dumps(report, ensure_ascii=False, indent=2)
+    if output is None:
+        typer.echo(serialized)
+        return
+    destination = output if output.is_absolute() else project_root / output
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(f"{serialized}\n", encoding="utf-8")
+    typer.echo(f"Wrote multi-step runtime report to {destination}")
+    typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
 
 
 @app.command("eval-live-agentic")

@@ -1161,3 +1161,19 @@ the latest typed attribution and no unsupported itinerary.
 **Why not let the LLM decide every recovery action?** LLM planning is injectable, but termination,
 error classification, budgets, provenance admission, and hard constraints remain deterministic.
 This keeps creativity in strategy selection while protecting safety and reproducibility.
+
+**Can you show a genuinely multi-step replan rather than a retry?** Revision 1 searches candidates,
+checks the primary attraction's availability and booking, then requests travel time. If booking or
+travel fails after earlier success, revision 2 switches to the alternative attraction and contains
+only its availability and travel steps. The trace shows `[1, 2]`, while candidate-search call count
+stays at one.
+
+**How are completed actions preserved across plan revisions?** Successful calls are immutable typed
+observations in graph state, independent of the current plan object. The replanner receives the full
+observation history, and itinerary generation converts successful observations from all revisions
+into realtime evidence. Failed observations never enter planner evidence.
+
+**Can a replanner quietly change what the user asked for?** No. Runtime validation requires stable
+plan identity, monotonically increasing revision, and an unchanged goal. Hard travel constraints
+remain in the original `TravelRequest` and are recomputed against the final itinerary. A plan that
+changes the goal is classified as an orchestration failure.

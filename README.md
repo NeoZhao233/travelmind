@@ -92,6 +92,12 @@ grounding checks reject fabricated citations and place IDs. In four controlled f
 fixed-plan baseline completed 33.3% of recoverable cases versus 100% for the replanning candidate;
 these are project-authored injected cases, not production reliability evidence.
 
+Stage 11C.2 extends this beyond one-step recovery. A four-step trajectory performs candidate search,
+availability, booking, and travel-time checks. Mid-flight failures create revision 2, reuse the
+completed candidate-search observation, and replace only downstream work with an alternative place.
+Both recoverable intermediate failures complete; failure of both primary and fallback routes safely
+returns no itinerary. These are four deterministic fixtures, not a live-provider claim.
+
 The repository currently contains a runnable, dependency-injected LangGraph backbone:
 
 1. initialize request state;
@@ -132,6 +138,8 @@ travelmind eval-live-agentic --root . --local-files-only \
   --output evals/results/live_hybrid_agentic_rule_v1_seed.json
 travelmind eval-runtime-replanning --root . \
   --output evals/results/stage11_runtime_replanning_v1.json
+travelmind eval-runtime-multistep --root . \
+  --output evals/results/stage11_runtime_multistep_v1.json
 travelmind select-agentic-policies --root .
 travelmind eval-context-sweep --root . \
   --output evals/results/context_budget_sweep_v1_seed.json

@@ -113,6 +113,25 @@ def test_eval_runtime_replanning_cli_writes_failure_report(tmp_path: Path) -> No
     assert '"failure_attribution_accuracy"' in result.stdout
 
 
+def test_eval_runtime_multistep_cli_writes_recovery_report(tmp_path: Path) -> None:
+    output = tmp_path / "runtime-multistep.json"
+    result = CliRunner().invoke(
+        app,
+        [
+            "eval-runtime-multistep",
+            "--root",
+            str(PROJECT_ROOT),
+            "--output",
+            str(output),
+        ],
+    )
+
+    assert result.exit_code == 0
+    report = json.loads(output.read_text(encoding="utf-8"))
+    assert report["metrics"]["completed_observation_reuse_rate"] == 1
+    assert '"agentic_intermediate_failure_recovery_rate"' in result.stdout
+
+
 def test_dense_cli_rejects_unimplemented_prefilters_before_model_loading() -> None:
     result = CliRunner().invoke(
         app,

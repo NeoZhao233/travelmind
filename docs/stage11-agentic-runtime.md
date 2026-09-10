@@ -68,3 +68,20 @@ and unrecoverable safe stop are each `100%`; mean tool calls are `2.0`. These ar
 project-authored fault injection—not live-provider reliability or a statistically general claim.
 Independent review, more failure combinations, and real-tool tests remain required before selecting
 this runtime as the default production path.
+
+## Multi-step mid-flight replanning
+
+The Stage 11C.2 scenario is longer than a single failing call. Revision 1 executes:
+
+`candidate search -> primary availability -> primary booking -> primary travel time`
+
+If booking or travel time fails after earlier steps succeeded, revision 2 does not repeat candidate
+retrieval. It receives the complete observation history and executes only:
+
+`fallback availability -> fallback travel time`
+
+The final itinerary is generated from successful observations across both revisions. Four controlled
+cases cover a healthy path, booking failure, primary-route failure, and failure of both routes. The
+fixed-plan baseline recovers from `0%` of the two recoverable mid-flight failures; the replanning
+candidate recovers from `100%`. Candidate retrieval runs once in every revised case, and dual-route
+failure safely produces no itinerary. These rates are deterministic fixtures, not production claims.

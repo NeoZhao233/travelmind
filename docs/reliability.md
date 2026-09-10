@@ -522,6 +522,12 @@ schemas. Only transient faults retry the same step. Other failures enter the pla
 observations and can produce a new plan revision. Attempt, replan, and total-call budgets are enforced
 outside the planner, so a model cannot waive them. Exception messages are excluded from graph state.
 
+Completed tool work is stored as observations rather than inferred from a revised plan. A mid-flight
+replan can therefore remove completed steps from revision 2 without losing their successful results.
+The controlled multi-step drill asserts candidate retrieval executes exactly once across revisions.
+It also rejects a replanner that changes the stable plan identity or user goal. This does not yet
+prove safe parallel tool execution, external side-effect compensation, or live-provider recovery.
+
 The current proof uses injected local tools. It verifies control semantics and safe termination, not
 remote API availability, rate-limit behavior, or exactly-once side effects. A future side-effecting
 booking tool must additionally use Stage 7 idempotency receipts; replanning alone does not make a
