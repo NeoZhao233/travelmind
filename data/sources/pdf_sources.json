@@ -8,7 +8,8 @@
       "allowed_host": "english.beijing.gov.cn",
       "authority": "government",
       "parser_profile": "text_first",
-      "content_scopes": ["culture", "route", "place_description"]
+      "content_scopes": ["culture", "route", "place_description"],
+      "expected_sha256": "f498891d4e94ab5ed2fc4503e26d06b87ffce71104a7c95824db49910f704fa4"
     },
     {
       "source_id": "palace-zero-waste-guide-2025",
@@ -17,7 +18,8 @@
       "allowed_host": "young.dpm.org.cn",
       "authority": "official_operator",
       "parser_profile": "layout_ocr",
-      "content_scopes": ["route", "visitor_tips", "culture"]
+      "content_scopes": ["route", "visitor_tips", "culture"],
+      "expected_sha256": "6dd9ce1797472c336026c07b7e8886b5a4b43e32f07eed02e06c523d73b163d4"
     },
     {
       "source_id": "palace-summer-guide-2022",
@@ -26,7 +28,8 @@
       "allowed_host": "young.dpm.org.cn",
       "authority": "official_operator",
       "parser_profile": "layout_ocr",
-      "content_scopes": ["route", "visitor_tips"]
+      "content_scopes": ["route", "visitor_tips"],
+      "expected_sha256": "aa34837a14dd5f628791d81526bbdf53c5e93b561cd7941d5ca40e9d7a86f34e"
     },
     {
       "source_id": "beijing-chaoyang-visitor-guide",
@@ -35,7 +38,8 @@
       "allowed_host": "english.bjchy.gov.cn",
       "authority": "government",
       "parser_profile": "layout_ocr",
-      "content_scopes": ["culture", "transport", "route", "place_description"]
+      "content_scopes": ["culture", "transport", "route", "place_description"],
+      "expected_sha256": "07911c98e69dafcb9f90a4c8cda7f3318d4cf62ce029abf15d55746ffae64d1b"
     }
   ]
 }

@@ -90,7 +90,9 @@ class PdfPayloadRejectedError(SourceResponseRejectedError):
     """A response looked like a PDF source but failed PDF-specific admission."""
 
 
-_ACTIVE_CONTENT_MARKERS = (b"/JavaScript", b"/JS", b"/Launch", b"/EmbeddedFile")
+_ACTIVE_CONTENT_PATTERN = re.compile(
+    rb"(?<![A-Za-z0-9])/(?:JavaScript|JS|Launch|EmbeddedFile)(?![A-Za-z0-9])"
+)
 
 
 def load_pdf_source_registry(path: Path) -> PdfSourceRegistry:
@@ -114,7 +116,7 @@ def validate_pdf_payload(
         raise PdfPayloadRejectedError("PDF payload magic header is missing")
     if b"%%EOF" not in content[-8192:]:
         raise PdfPayloadRejectedError("PDF payload appears truncated because EOF is missing")
-    if any(marker in content for marker in _ACTIVE_CONTENT_MARKERS):
+    if _ACTIVE_CONTENT_PATTERN.search(content) is not None:
         raise PdfPayloadRejectedError("PDF payload contains disallowed active content")
     digest = hashlib.sha256(content).hexdigest()
     if expected_sha256 is not None and digest != expected_sha256:
