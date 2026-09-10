@@ -4,7 +4,7 @@ from datetime import datetime
 from enum import StrEnum
 from typing import Any
 
-from pydantic import BaseModel, Field, model_validator
+from pydantic import BaseModel, ConfigDict, Field, model_validator
 
 
 class StepKind(StrEnum):
@@ -38,6 +38,8 @@ class FailureLayer(StrEnum):
 
 
 class RuntimeStep(BaseModel):
+    model_config = ConfigDict(extra="forbid")
+
     step_id: str = Field(pattern=r"^[a-z0-9][a-z0-9_-]+$")
     kind: StepKind
     tool_name: str = Field(min_length=1)

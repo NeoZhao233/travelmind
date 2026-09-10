@@ -1,0 +1,877 @@
+{
+  "schema_version": 1,
+  "experiment": "stage11-deepseek-runtime-replanner-v1",
+  "dataset_sha256": "4c28b8e9b891a0292a60abbeee7461c32e23ab43d39fbd88f5aa0396e4078cd1",
+  "configuration": {
+    "cases": 4,
+    "reviewed_cases": 0,
+    "prompt_version": "runtime-planner-v1",
+    "response_format": "json_object",
+    "thinking": "disabled"
+  },
+  "metrics": {
+    "deterministic_contract_pass_rate": 1.0,
+    "deepseek_fallback_inclusive_contract_pass_rate": 1.0,
+    "contract_pass_lift": 0.0,
+    "deepseek_accepted_plan_rate": 1.0,
+    "deepseek_strict_plan_rate": 0.5714285714285714,
+    "argument_normalization_rate": 0.42857142857142855,
+    "fallback_rate": 0.0,
+    "post_provider_validation_failure_count": 0,
+    "candidate_failures_by_reason": {},
+    "completed_observation_reuse_rate": 1.0,
+    "unrecoverable_safe_stop_rate": 1.0,
+    "total_tokens": 5725,
+    "mean_candidate_latency_ms": 1084.4440772884159
+  },
+  "selection": {
+    "status": "baseline_retained",
+    "gates": {
+      "no_contract_regression": true,
+      "positive_measured_contract_lift": false,
+      "accepted_plan_rate_at_least_85pct": true,
+      "argument_normalization_rate_at_most_25pct": false,
+      "fallback_rate_at_most_15pct": true,
+      "completed_observation_reuse_preserved": true,
+      "unrecoverable_case_still_fails_closed": true,
+      "mean_latency_at_most_5000ms": true
+    }
+  },
+  "cases": [
+    {
+      "case_id": "multistep-healthy",
+      "fault": "none",
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 0,
+      "expected_final_place": "forbidden-city",
+      "expected_tool_calls": 4,
+      "reviewed": false,
+      "deterministic": {
+        "status": "completed",
+        "replans": 0,
+        "plan_revisions": [
+          1
+        ],
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "retrieval_reused": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "deepseek": {
+        "status": "completed",
+        "replans": 0,
+        "plan_revisions": [
+          1
+        ],
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "retrieval_reused": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_forbidden_city",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "check_forbidden_city_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "book_forbidden_city",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "travel_to_forbidden_city",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "planner_calls": [
+        {
+          "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+          "candidate_success": true,
+          "fallback_used": false,
+          "model": "deepseek-flash",
+          "latency_ms": 1041.3561669993214,
+          "total_tokens": 592,
+          "error_type": null,
+          "reason_code": null,
+          "normalized_step_count": 0
+        }
+      ]
+    },
+    {
+      "case_id": "multistep-booking-failure",
+      "fault": "primary_booking_failure",
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_final_place": "national-museum",
+      "expected_tool_calls": 5,
+      "reviewed": false,
+      "deterministic": {
+        "status": "completed",
+        "replans": 1,
+        "plan_revisions": [
+          1,
+          2
+        ],
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "retrieval_reused": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "deepseek": {
+        "status": "completed",
+        "replans": 1,
+        "plan_revisions": [
+          1,
+          2
+        ],
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "retrieval_reused": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "avail_fc",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "book_fc",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "avail_nm",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "travel_nm",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "planner_calls": [
+        {
+          "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+          "candidate_success": true,
+          "fallback_used": false,
+          "model": "deepseek-flash",
+          "latency_ms": 958.4047079988522,
+          "total_tokens": 559,
+          "error_type": null,
+          "reason_code": null,
+          "normalized_step_count": 1
+        },
+        {
+          "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+          "candidate_success": true,
+          "fallback_used": false,
+          "model": "deepseek-flash",
+          "latency_ms": 998.1630410038633,
+          "total_tokens": 1074,
+          "error_type": null,
+          "reason_code": null,
+          "normalized_step_count": 0
+        }
+      ]
+    },
+    {
+      "case_id": "multistep-travel-failure",
+      "fault": "primary_travel_failure",
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_final_place": "national-museum",
+      "expected_tool_calls": 6,
+      "reviewed": false,
+      "deterministic": {
+        "status": "completed",
+        "replans": 1,
+        "plan_revisions": [
+          1,
+          2
+        ],
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "retrieval_reused": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "deepseek": {
+        "status": "completed",
+        "replans": 1,
+        "plan_revisions": [
+          1,
+          2
+        ],
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "retrieval_reused": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_forbidden_city",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "check_availability_forbidden_city",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "check_booking_forbidden_city",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "travel_time_to_forbidden_city",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "check_availability_national_museum",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "travel_time_to_national_museum",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "planner_calls": [
+        {
+          "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+          "candidate_success": true,
+          "fallback_used": false,
+          "model": "deepseek-flash",
+          "latency_ms": 1346.4883750129957,
+          "total_tokens": 589,
+          "error_type": null,
+          "reason_code": null,
+          "normalized_step_count": 1
+        },
+        {
+          "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+          "candidate_success": true,
+          "fallback_used": false,
+          "model": "deepseek-flash",
+          "latency_ms": 1202.5575000006938,
+          "total_tokens": 1203,
+          "error_type": null,
+          "reason_code": null,
+          "normalized_step_count": 0
+        }
+      ]
+    },
+    {
+      "case_id": "multistep-fallback-failure",
+      "fault": "primary_and_fallback_travel_failure",
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_final_place": null,
+      "expected_tool_calls": 6,
+      "reviewed": false,
+      "deterministic": {
+        "status": "failed",
+        "replans": 1,
+        "plan_revisions": [
+          1,
+          2
+        ],
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "retrieval_reused": true,
+        "final_place": null,
+        "safe_stop": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "deepseek": {
+        "status": "failed",
+        "replans": 1,
+        "plan_revisions": [
+          1,
+          2
+        ],
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "retrieval_reused": true,
+        "final_place": null,
+        "safe_stop": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "avail_fc",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "book_fc",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "travel_fc",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "avail_nm",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "travel_nm",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "planner_calls": [
+        {
+          "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+          "candidate_success": true,
+          "fallback_used": false,
+          "model": "deepseek-flash",
+          "latency_ms": 1068.5099580005044,
+          "total_tokens": 559,
+          "error_type": null,
+          "reason_code": null,
+          "normalized_step_count": 1
+        },
+        {
+          "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+          "candidate_success": true,
+          "fallback_used": false,
+          "model": "deepseek-flash",
+          "latency_ms": 975.6287920026807,
+          "total_tokens": 1149,
+          "error_type": null,
+          "reason_code": null,
+          "normalized_step_count": 0
+        }
+      ]
+    }
+  ],
+  "planner_calls": [
+    {
+      "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+      "candidate_success": true,
+      "fallback_used": false,
+      "model": "deepseek-flash",
+      "latency_ms": 1041.3561669993214,
+      "total_tokens": 592,
+      "error_type": null,
+      "reason_code": null,
+      "normalized_step_count": 0
+    },
+    {
+      "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+      "candidate_success": true,
+      "fallback_used": false,
+      "model": "deepseek-flash",
+      "latency_ms": 958.4047079988522,
+      "total_tokens": 559,
+      "error_type": null,
+      "reason_code": null,
+      "normalized_step_count": 1
+    },
+    {
+      "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+      "candidate_success": true,
+      "fallback_used": false,
+      "model": "deepseek-flash",
+      "latency_ms": 998.1630410038633,
+      "total_tokens": 1074,
+      "error_type": null,
+      "reason_code": null,
+      "normalized_step_count": 0
+    },
+    {
+      "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+      "candidate_success": true,
+      "fallback_used": false,
+      "model": "deepseek-flash",
+      "latency_ms": 1346.4883750129957,
+      "total_tokens": 589,
+      "error_type": null,
+      "reason_code": null,
+      "normalized_step_count": 1
+    },
+    {
+      "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+      "candidate_success": true,
+      "fallback_used": false,
+      "model": "deepseek-flash",
+      "latency_ms": 1202.5575000006938,
+      "total_tokens": 1203,
+      "error_type": null,
+      "reason_code": null,
+      "normalized_step_count": 0
+    },
+    {
+      "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+      "candidate_success": true,
+      "fallback_used": false,
+      "model": "deepseek-flash",
+      "latency_ms": 1068.5099580005044,
+      "total_tokens": 559,
+      "error_type": null,
+      "reason_code": null,
+      "normalized_step_count": 1
+    },
+    {
+      "prompt_version": "runtime-planner-v2-exact-tool-contracts",
+      "candidate_success": true,
+      "fallback_used": false,
+      "model": "deepseek-flash",
+      "latency_ms": 975.6287920026807,
+      "total_tokens": 1149,
+      "error_type": null,
+      "reason_code": null,
+      "normalized_step_count": 0
+    }
+  ],
+  "limitations": [
+    "The four project-authored cases are not independently reviewed.",
+    "Fallback-inclusive success is reported separately from raw model-plan success.",
+    "Fixture tools isolate planning behavior and do not measure live tool reliability."
+  ]
+}

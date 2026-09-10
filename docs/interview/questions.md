@@ -1177,3 +1177,23 @@ into realtime evidence. Failed observations never enter planner evidence.
 plan identity, monotonically increasing revision, and an unchanged goal. Hard travel constraints
 remain in the original `TravelRequest` and are recomputed against the final itinerary. A plan that
 changes the goal is classified as an orchestration failure.
+
+**Did the real DeepSeek replanner beat the deterministic planner?** No. After safe canonicalization,
+it matched the four-case contract and fallback was zero, but measured lift was zero, it consumed 5725
+tokens with about 1.08 seconds mean latency, and 42.9% of calls needed argument normalization. It
+failed the 25% normalization and positive-value gates, so deterministic remains selected.
+
+**Why did DeepSeek generate invalid tool arguments even at temperature zero?** The model inferred
+reasonable semantic fields such as interests, destination, and date, but those fields were absent
+from the actual tool schema. Temperature zero reduces sampling variance; it does not guarantee exact
+function signatures or deterministic provider behavior.
+
+**Why canonicalize arguments instead of accepting or rejecting them?** Query and origin are
+runtime-owned values, so restoring them is deterministic and safer than forwarding model text. Extra
+date fields can be removed when the tool contract does not accept them. The plan remains usable, but
+normalization is counted so the correction cannot be mistaken for strict model success.
+
+**How did you avoid a misleading 100% success claim?** I report final fallback-inclusive completion,
+accepted model plans, strict plans, normalization rate, fallback rate, post-provider validation
+failures, latency, tokens, and contract lift separately. In the first run, final recovery was 100%
+even though every model plan failed; that is fallback quality, not model quality.

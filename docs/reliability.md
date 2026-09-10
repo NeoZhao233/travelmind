@@ -528,6 +528,12 @@ The controlled multi-step drill asserts candidate retrieval executes exactly onc
 It also rejects a replanner that changes the stable plan identity or user goal. This does not yet
 prove safe parallel tool execution, external side-effect compensation, or live-provider recovery.
 
+The optional LLM replanner is not a trusted control boundary. It can propose only pending steps;
+Pydantic, tool/kind pairing, place allowlists, stable goals, runtime-owned query/origin fields, and
+global budgets remain deterministic. Safe canonicalization is observable per call. The real DeepSeek
+run needed normalization on 42.9% of calls and showed no controlled contract lift, so it remains an
+unselected candidate despite zero fallback in the final run.
+
 The current proof uses injected local tools. It verifies control semantics and safe termination, not
 remote API availability, rate-limit behavior, or exactly-once side effects. A future side-effecting
 booking tool must additionally use Stage 7 idempotency receipts; replanning alone does not make a

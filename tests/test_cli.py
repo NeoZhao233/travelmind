@@ -179,6 +179,17 @@ def test_deepseek_cli_refuses_to_claim_results_without_key(monkeypatch) -> None:
     assert "DEEPSEEK_API_KEY is missing" in result.output
 
 
+def test_deepseek_runtime_cli_refuses_to_claim_results_without_key(monkeypatch) -> None:
+    monkeypatch.delenv("DEEPSEEK_API_KEY", raising=False)
+
+    result = CliRunner().invoke(
+        app, ["eval-deepseek-runtime", "--root", str(PROJECT_ROOT)]
+    )
+
+    assert result.exit_code != 0
+    assert "DEEPSEEK_API_KEY is missing" in result.output
+
+
 def test_e2e_planning_cli_writes_offline_baseline(tmp_path: Path) -> None:
     output = tmp_path / "e2e-planning.json"
 

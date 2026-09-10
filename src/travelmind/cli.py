@@ -22,6 +22,7 @@ from travelmind.evaluation.context_runner import (
     run_context_coverage_experiment,
 )
 from travelmind.evaluation.deepseek_runner import run_deepseek_policy_experiment
+from travelmind.evaluation.deepseek_runtime_runner import run_deepseek_runtime_experiment
 from travelmind.evaluation.durable_checkpoint_runner import run_durable_checkpoint_drill
 from travelmind.evaluation.e2e_planning_runner import (
     build_selected_hybrid_retriever,
@@ -353,6 +354,48 @@ def eval_deepseek(
         json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
     )
     typer.echo(f"Wrote DeepSeek candidate report to {destination}")
+
+
+@app.command("eval-deepseek-runtime")
+def eval_deepseek_runtime(
+    root: Annotated[Path, typer.Option("--root")] = Path("."),
+    output: Annotated[Path, typer.Option("--output")] = Path(
+        "evals/results/stage11_deepseek_runtime_candidate.json"
+    ),
+    model: Annotated[str, typer.Option("--model")] = "deepseek-v4-flash",
+    base_url: Annotated[str, typer.Option("--base-url")] = "https://api.deepseek.com",
+    timeout_seconds: Annotated[float, typer.Option("--timeout-seconds", min=0.1)] = 20,
+) -> None:
+    """Evaluate the live DeepSeek runtime planner with deterministic fallback."""
+
+    api_key = os.environ.get("DEEPSEEK_API_KEY", "")
+    if not api_key:
+        raise typer.BadParameter(
+            "DEEPSEEK_API_KEY is missing; no live runtime-planner result was claimed."
+        )
+    project_root = root.resolve()
+    provider = DeepSeekHTTPProvider(
+        DeepSeekConfig(
+            api_key=api_key,
+            model=model,
+            base_url=base_url,
+            timeout_seconds=timeout_seconds,
+        )
+    )
+    report = run_deepseek_runtime_experiment(project_root, provider)
+    destination = output if output.is_absolute() else project_root / output
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(
+        json.dumps(report, ensure_ascii=False, indent=2) + "\n", encoding="utf-8"
+    )
+    typer.echo(f"Wrote DeepSeek runtime report to {destination}")
+    typer.echo(
+        json.dumps(
+            {"metrics": report["metrics"], "selection": report["selection"]},
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
 
 
 @app.command("eval-context-answers")

@@ -98,6 +98,12 @@ completed candidate-search observation, and replace only downstream work with an
 Both recoverable intermediate failures complete; failure of both primary and fallback routes safely
 returns no itinerary. These are four deterministic fixtures, not a live-provider claim.
 
+Stage 11C.3 evaluates a real DeepSeek structured replanner behind tool schemas, place allowlists,
+runtime-owned arguments, and deterministic fallback. The final run matched the deterministic
+four-case contract with zero fallback, but produced zero measured lift, consumed 5725 tokens at about
+1.08 seconds mean latency, and required argument normalization on 42.9% of calls. It failed the frozen
+selection gates, so the deterministic runtime planner remains the default.
+
 The repository currently contains a runnable, dependency-injected LangGraph backbone:
 
 1. initialize request state;
@@ -140,6 +146,8 @@ travelmind eval-runtime-replanning --root . \
   --output evals/results/stage11_runtime_replanning_v1.json
 travelmind eval-runtime-multistep --root . \
   --output evals/results/stage11_runtime_multistep_v1.json
+travelmind eval-deepseek-runtime --root . \
+  --output evals/results/stage11_deepseek_runtime_v3_final.json
 travelmind select-agentic-policies --root .
 travelmind eval-context-sweep --root . \
   --output evals/results/context_budget_sweep_v1_seed.json

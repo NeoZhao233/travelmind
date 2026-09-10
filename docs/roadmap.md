@@ -17,7 +17,7 @@ reproducible evidence are present.
 | 8 | Temporal RAG ingestion and index lifecycle | Complete at pilot level | Live-source changes cannot partially publish or silently bypass freshness policy |
 | 9 | Interview release, evidence audit, and rehearsal | In progress (9A–9B complete) | Claims are reproducible, explainable, and demonstrable under interview constraints |
 | 10 | Complex official-PDF ingestion and retrieval | Paused after 10A | Page-grounded PDF knowledge improves governed retrieval without weakening safety |
-| 11 | Runtime planning, tool observation, replanning, and causal failure analysis | In progress (11A–11C.2 complete) | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
+| 11 | Runtime planning, tool observation, replanning, and causal failure analysis | In progress (11A–11C.3 complete) | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
 
 Stage 4 order: ~~4A typed baseline and privacy-safe trace~~; ~~4B deterministic budget and sweep~~;
 ~~4C coverage-aware evidence packing~~; ~~4D deduplication, conflict handling, and compression~~;

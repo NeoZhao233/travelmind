@@ -98,7 +98,10 @@ class _CountingTools:
 
     def booking(self, arguments: dict[str, Any]) -> ToolResponse:
         self.calls["booking"] += 1
-        if self.case.fault == "primary_booking_failure":
+        if (
+            self.case.fault == "primary_booking_failure"
+            and arguments["place_id"] == "forbidden-city"
+        ):
             raise PermissionError("injected booking credential detail")
         return ToolResponse(
             payload={"place_id": arguments["place_id"], "bookable": True},
@@ -122,7 +125,7 @@ class _CountingTools:
         )
 
 
-def _load_cases(path: Path) -> list[RuntimeMultiStepCase]:
+def load_runtime_multistep_cases(path: Path) -> list[RuntimeMultiStepCase]:
     return [
         RuntimeMultiStepCase.model_validate_json(line)
         for line in path.read_text(encoding="utf-8").splitlines()
@@ -130,10 +133,16 @@ def _load_cases(path: Path) -> list[RuntimeMultiStepCase]:
     ]
 
 
-def _run(case: RuntimeMultiStepCase, *, max_replans: int) -> dict[str, Any]:
+def run_runtime_multistep_case(
+    case: RuntimeMultiStepCase,
+    *,
+    max_replans: int,
+    runtime_planner: Any | None = None,
+) -> dict[str, Any]:
     tools = _CountingTools(case)
     graph = build_travel_runtime_graph(
-        runtime_planner=DeterministicMultiStepRuntimePlanner(
+        runtime_planner=runtime_planner
+        or DeterministicMultiStepRuntimePlanner(
             origin_place_id="hotel",
             primary_place_id="forbidden-city",
             fallback_place_id="national-museum",
@@ -171,13 +180,13 @@ def _run(case: RuntimeMultiStepCase, *, max_replans: int) -> dict[str, Any]:
 
 def run_runtime_multistep_experiment(root: Path) -> dict[str, Any]:
     dataset = root.resolve() / "evals/datasets/runtime_multistep_seed.jsonl"
-    cases = _load_cases(dataset)
+    cases = load_runtime_multistep_cases(dataset)
     if len({case.case_id for case in cases}) != len(cases):
         raise ValueError("runtime multi-step case IDs must be unique")
     rows = []
     for case in cases:
-        baseline = _run(case, max_replans=0)
-        agentic = _run(case, max_replans=1)
+        baseline = run_runtime_multistep_case(case, max_replans=0)
+        agentic = run_runtime_multistep_case(case, max_replans=1)
         rows.append(
             {
                 **case.model_dump(mode="json"),

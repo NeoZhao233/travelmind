@@ -85,3 +85,17 @@ cases cover a healthy path, booking failure, primary-route failure, and failure 
 fixed-plan baseline recovers from `0%` of the two recoverable mid-flight failures; the replanning
 candidate recovers from `100%`. Candidate retrieval runs once in every revised case, and dual-route
 failure safely produces no itinerary. These rates are deterministic fixtures, not production claims.
+
+## Real DeepSeek replanner A/B
+
+The optional DeepSeek planner does not control plan identity, user goal, retry budgets, tool registry,
+or hard validation. It returns only a reason and pending steps. Pydantic rejects extra execution-state
+fields; policy code enforces tool/kind pairs, place allowlists, and argument contracts; any failure
+uses the deterministic planner and is counted as fallback.
+
+The final real run accepted 7/7 plans after safe runtime canonicalization and used no fallback. It
+matched the deterministic baseline's 100% controlled contract rate and safety behavior, with 5725
+tokens and roughly 1.08 seconds mean accepted-call latency. However, only 4/7 plans strictly matched
+the tool signatures; 3/7 required runtime-owned argument normalization. The 42.9% normalization rate
+fails the 25% gate, and contract lift over the deterministic baseline is zero. The deterministic
+runtime planner therefore remains selected; the LLM adapter remains a measured optional candidate.
