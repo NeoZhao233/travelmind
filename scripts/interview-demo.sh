@@ -6,9 +6,10 @@ cd "$project_dir"
 
 travelmind_venv_path="${UV_PROJECT_ENVIRONMENT:-.venv}"
 demo_tmp="$(mktemp -d /private/tmp/travelmind-interview-demo.XXXXXX)"
+demo_started_at=$SECONDS
 trap 'rm -rf "$demo_tmp"' EXIT
 
-printf 'TravelMind v1 interview demo\n'
+printf 'TravelMind v2 interview demo\n'
 "$travelmind_venv_path/bin/travelmind" validate-data --root .
 
 "$travelmind_venv_path/bin/travelmind" demo \
@@ -36,4 +37,10 @@ PY
 "$travelmind_venv_path/bin/travelmind" eval-slo-outages --root .
 "$travelmind_venv_path/bin/travelmind" eval-index-publishing --root .
 "$travelmind_venv_path/bin/travelmind" eval-incremental-ingestion --root .
-"$travelmind_venv_path/bin/travelmind" release-audit --root .
+"$travelmind_venv_path/bin/travelmind" eval-runtime-multistep \
+  --root . \
+  --output "$demo_tmp/runtime-multistep.json"
+"$travelmind_venv_path/bin/travelmind" release-audit \
+  --root . \
+  --manifest release/travelmind-v2.json
+printf 'Interview demo completed in %ss\n' "$((SECONDS - demo_started_at))"

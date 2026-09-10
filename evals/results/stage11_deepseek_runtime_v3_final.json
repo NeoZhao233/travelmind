@@ -5,7 +5,7 @@
   "configuration": {
     "cases": 4,
     "reviewed_cases": 0,
-    "prompt_version": "runtime-planner-v1",
+    "prompt_version": "runtime-planner-v2-exact-tool-contracts",
     "response_format": "json_object",
     "thinking": "disabled"
   },

@@ -99,3 +99,12 @@ tokens and roughly 1.08 seconds mean accepted-call latency. However, only 4/7 pl
 the tool signatures; 3/7 required runtime-owned argument normalization. The 42.9% normalization rate
 fails the 25% gate, and contract lift over the deterministic baseline is zero. The deterministic
 runtime planner therefore remains selected; the LLM adapter remains a measured optional candidate.
+
+## Release integration
+
+Stage 11D keeps the original `travelmind-interview-v1` manifest immutable and adds
+`travelmind-interview-v2`. The new manifest pins six additional architecture/runtime artifacts and
+adds seven semantic checks for multi-step contract success, recovery lift, observation reuse, safe
+stop, and rejection of the runtime LLM candidate. The complete v2 audit covers 21 file hashes and 25
+semantic invariants (46 checks total). The offline interview demo reruns deterministic fault
+injection and audits the captured DeepSeek evidence without making a paid provider call.

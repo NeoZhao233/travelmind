@@ -85,7 +85,7 @@ rejection, optional digest pinning, and immutable snapshots prevent bad or parti
 an index. Raw third-party PDFs remain outside Git; parsing and retrieval claims begin in Stage 10B,
 which is currently paused.
 
-Stage 11 is the current priority. A separate LangGraph runtime now represents execution plans as
+Stage 11 is complete. A separate LangGraph runtime now represents execution plans as
 versioned data, records typed tool observations, retries only transient failures, replans after
 permanent or schema failures, and stops safely under attempt/replan/call budgets. Deterministic
 grounding checks reject fabricated citations and place IDs. In four controlled fault cases, the
@@ -103,6 +103,11 @@ runtime-owned arguments, and deterministic fallback. The final run matched the d
 four-case contract with zero fallback, but produced zero measured lift, consumed 5725 tokens at about
 1.08 seconds mean latency, and required argument normalization on 42.9% of calls. It failed the frozen
 selection gates, so the deterministic runtime planner remains the default.
+
+Stage 11D closes the agentic-runtime track with a separately pinned v2 architecture and release
+manifest, seven additional semantic audit checks, updated resume/interview narratives, and an offline
+failure demo. The demo reruns multi-step failure injection without a provider key; the committed live
+DeepSeek report is audited rather than replayed, so an interview rehearsal spends no API tokens.
 
 The repository currently contains a runnable, dependency-injected LangGraph backbone:
 

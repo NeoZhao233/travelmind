@@ -50,13 +50,13 @@ Stage 10 order: ~~10A governed PDF registry, bounded acquisition, payload admiss
 snapshots~~; 10B text/layout/OCR parser routing and page provenance; 10C hierarchical chunking and
 Hybrid RAG integration; 10D PDF retrieval, citation, failure, and incremental-value-upgrade gates.
 
-Stage 11 order: 11A explicit versioned execution plan, typed tool observations, and bounded
-Plan-Act-Observe-Replan runtime; 11B machine-checkable groundedness and layered retrieval/tool/
-generation/validation/orchestration attribution; 11C controlled failure corpus, recovery metrics,
-and frozen gates; 11C.2 multi-step mid-flight replan with completed-observation reuse; 11C.3 optional
-real DeepSeek replanner candidate and deterministic fallback A/B; 11D interview narrative, release
-audit, and timed failure demo. Stage 10 remains paused
-until this higher-priority agentic-control gap is closed.
+Stage 11 order: ~~11A explicit versioned execution plan, typed tool observations, and bounded
+Plan-Act-Observe-Replan runtime~~; ~~11B machine-checkable groundedness and layered retrieval/tool/
+generation/validation/orchestration attribution~~; ~~11C controlled failure corpus, recovery metrics,
+and frozen gates~~; ~~11C.2 multi-step mid-flight replan with completed-observation reuse~~;
+~~11C.3 optional real DeepSeek replanner candidate and deterministic fallback A/B~~; ~~11D
+interview narrative, release audit, and timed failure demo~~. Stage 11 is complete; Stage 10B–10D
+remain available as the next document-ingestion track.
 
 ## Stage 2 implementation order
 

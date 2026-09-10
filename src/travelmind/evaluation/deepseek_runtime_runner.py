@@ -10,7 +10,11 @@ from travelmind.evaluation.runtime_multistep_runner import (
     load_runtime_multistep_cases,
     run_runtime_multistep_case,
 )
-from travelmind.runtime.llm_planner import LLMRuntimePlanner, RuntimePlannerTelemetry
+from travelmind.runtime.llm_planner import (
+    RUNTIME_PLANNER_PROMPT_VERSION,
+    LLMRuntimePlanner,
+    RuntimePlannerTelemetry,
+)
 from travelmind.runtime.policies import DeterministicMultiStepRuntimePlanner
 
 
@@ -150,7 +154,7 @@ def run_deepseek_runtime_experiment(
         "configuration": {
             "cases": len(cases),
             "reviewed_cases": sum(case.reviewed for case in cases),
-            "prompt_version": "runtime-planner-v1",
+            "prompt_version": RUNTIME_PLANNER_PROMPT_VERSION,
             "response_format": "json_object",
             "thinking": "disabled",
         },

@@ -1196,10 +1196,10 @@ def eval_pdf_ingestion(
 @app.command("release-audit")
 def release_audit(
     root: Annotated[Path, typer.Option("--root")] = Path("."),
-    manifest: Annotated[Path, typer.Option("--manifest")] = Path("release/travelmind-v1.json"),
+    manifest: Annotated[Path, typer.Option("--manifest")] = Path("release/travelmind-v2.json"),
     output: Annotated[Path | None, typer.Option("--output")] = None,
 ) -> None:
-    """Verify pinned TravelMind v1 evidence and selected/rejected component claims."""
+    """Verify pinned TravelMind evidence and selected/rejected component claims."""
 
     project_root = root.resolve()
     report = run_release_audit(project_root, manifest)

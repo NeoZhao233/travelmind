@@ -81,6 +81,17 @@ configuration, and should be treated as immutable evidence for that run.
 - `stage10a_pdf_ingestion_v1.json`: ten controlled official-PDF registry, payload-admission, and
   content-addressed snapshot checks. It is ingestion-security evidence, not a PDF parsing or RAG
   quality result.
+- `stage11_runtime_replanning_v1.json`: first controlled Plan-Act-Observe-Replan comparison with
+  layered failure attribution and bounded safe stop.
+- `stage11_runtime_multistep_v1.json`: four-step candidate/availability/booking/travel trajectory;
+  the agentic path recovers both intermediate failures while the fixed-plan baseline recovers none.
+- `stage11_deepseek_runtime_v1_rejected.json` and `v2_rejected.json`: retained prompt/contract failure
+  analyses; fallback-inclusive completion must not be read as raw model success.
+- `stage11_deepseek_runtime_v3_final.json`: final real DeepSeek runtime-planner A/B. The model matches
+  the controlled contract after canonicalization but is rejected for zero lift and 42.9% argument
+  normalization.
+- `release_v2_audit.json`: Stage 11D audit of 21 pinned artifacts and 25 semantic invariants. All 46
+  checks pass; it preserves the older v1 release rather than rewriting its evidence boundary.
 
 The Stage 1 seed is intentionally small and has no held-out split or abstention examples. These
 reports support debugging and comparisons; they do not establish production quality or statistical

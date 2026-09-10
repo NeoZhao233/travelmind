@@ -1197,3 +1197,18 @@ normalization is counted so the correction cannot be mistaken for strict model s
 accepted model plans, strict plans, normalization rate, fallback rate, post-provider validation
 failures, latency, tokens, and contract lift separately. In the first run, final recovery was 100%
 even though every model plan failed; that is fallback quality, not model quality.
+
+**Why create a v2 release instead of editing the v1 manifest?** A hash-pinned release should be
+immutable. Rewriting v1 evidence would erase what the earlier 33-check claim actually referred to.
+V2 retains those 15 files, adds six Agentic Runtime artifacts, and evaluates 21 hashes plus 25
+semantic invariants. Both historical claims remain reproducible.
+
+**What do the 46 release checks prove?** They prove artifact integrity and internal consistency:
+selected components match reports, rejected candidates stay rejected, and runtime recovery/safe-stop
+claims match frozen evidence. They do not add statistical power to four project-authored cases or
+turn fixture tools into live booking reliability evidence.
+
+**How do you demo replanning without spending API tokens?** The interview script injects booking and
+travel failures into deterministic fixture tools, then prints the multi-step runtime metrics and runs the v2
+release audit. The previously captured DeepSeek report is hash-checked rather than replayed. If asked
+about the model, I open its per-call telemetry and explain why the selection gate rejected it.

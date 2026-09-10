@@ -82,6 +82,43 @@ def run_release_audit(root: Path, manifest_path: Path) -> dict:
         "composite_outage_canary_not_leaked": outage["metrics"]["canary_leak_rate"] == 0,
         "incremental_ingestion_checks_passed": ingestion["metrics"]["check_pass_rate"] == 1,
     }
+    stage11_multistep_path = "evals/results/stage11_runtime_multistep_v1.json"
+    stage11_deepseek_path = "evals/results/stage11_deepseek_runtime_v3_final.json"
+    if {
+        stage11_multistep_path,
+        stage11_deepseek_path,
+    }.issubset(manifest.evidence_files):
+        multistep = _load(project_root, stage11_multistep_path)
+        runtime_candidate = _load(project_root, stage11_deepseek_path)
+        semantic_checks.update(
+            {
+                "agentic_runtime_contract_passed": (
+                    multistep["metrics"]["case_contract_pass_rate"] == 1
+                ),
+                "agentic_runtime_improved_intermediate_recovery": (
+                    multistep["metrics"]["agentic_intermediate_failure_recovery_rate"]
+                    > multistep["metrics"]["baseline_intermediate_failure_recovery_rate"]
+                ),
+                "completed_observations_reused_after_replan": (
+                    multistep["metrics"]["completed_observation_reuse_rate"] == 1
+                ),
+                "unrecoverable_runtime_case_failed_closed": (
+                    multistep["metrics"]["unrecoverable_safe_stop_rate"] == 1
+                ),
+                "runtime_llm_candidate_rejected": (
+                    runtime_candidate["selection"]["status"] == "baseline_retained"
+                ),
+                "runtime_llm_contract_lift_is_zero": (
+                    runtime_candidate["metrics"]["contract_pass_lift"] == 0
+                ),
+                "runtime_llm_normalization_gate_failed": (
+                    runtime_candidate["selection"]["gates"][
+                        "argument_normalization_rate_at_most_25pct"
+                    ]
+                    is False
+                ),
+            }
+        )
     checks = {
         **{f"hash:{key}": value for key, value in hash_checks.items()},
         **semantic_checks,

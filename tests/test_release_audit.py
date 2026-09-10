@@ -6,6 +6,7 @@ from travelmind.evaluation.release_audit import run_release_audit
 
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = Path("release/travelmind-v1.json")
+V2_MANIFEST = Path("release/travelmind-v2.json")
 
 
 def test_release_manifest_hashes_and_semantic_claims_pass() -> None:
@@ -18,6 +19,20 @@ def test_release_manifest_hashes_and_semantic_claims_pass() -> None:
         "evidence_file_count": 15,
     }
     assert all(report["checks"].values())
+
+
+def test_v2_release_adds_agentic_runtime_evidence_without_mutating_v1() -> None:
+    report = run_release_audit(PROJECT_ROOT, V2_MANIFEST)
+
+    assert report["release_id"] == "travelmind-interview-v2"
+    assert report["status"] == "passed"
+    assert report["summary"] == {
+        "check_count": 46,
+        "failed_check_count": 0,
+        "evidence_file_count": 21,
+    }
+    assert report["checks"]["agentic_runtime_improved_intermediate_recovery"] is True
+    assert report["checks"]["runtime_llm_candidate_rejected"] is True
 
 
 def test_tampered_release_evidence_fails_audit(tmp_path) -> None:
