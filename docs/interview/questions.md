@@ -1212,3 +1212,42 @@ turn fixture tools into live booking reliability evidence.
 travel failures into deterministic fixture tools, then prints the multi-step runtime metrics and runs the v2
 release audit. The previously captured DeepSeek report is hash-checked rather than replayed. If asked
 about the model, I open its per-call telemetry and explain why the selection gate rejected it.
+
+## Stage 12 expanded-evaluation answer anchors
+
+**Did increasing from 15 to 105 queries make the metric trustworthy?** It improved diagnostic
+coverage but did not create independent ground truth. The 105 queries represent 35 intent clusters
+with three correlated paraphrases each, so I report both counts and bootstrap over intent clusters.
+All labels remain Codex-authored and `reviewed=false`; metric promotion is blocked until a person
+checks them.
+
+**How did you prevent paraphrase leakage?** Every row has an `intent_id`, and all three paraphrases
+must remain in one split. Dataset validation rejects an intent appearing in both development and test,
+incomplete paraphrase groups, duplicate text, and inconsistent labels inside a cluster.
+
+**Why did the test Recall@5 reach 1.000, and can you put it on the resume?** Not yet. The corpus has
+only 14 documents and the draft labels were written against that corpus, so the retrieval task is
+still relatively closed and author bias is likely. I report overall Hybrid Recall@5 0.971 and the
+intent-cluster interval, but neither becomes a reviewed benchmark claim until independent validation.
+
+**What did the no-answer cases reveal?** BM25, Dense, Hybrid, and Reranked retrieval always returned
+some ranking, giving raw abstention accuracy 0. A ranker answers “which item is nearest,” not “is any
+item sufficient.” This exposed a missing evidence-admission boundary that the original positive-only
+set could not detect.
+
+**Why not threshold the RRF score?** RRF scores encode rank positions, not calibrated relevance
+confidence; relevant and unrelated top scores overlapped. A lexical top-score threshold was evaluated
+separately because its scale retains match strength, but it is corpus-specific and only provisional.
+
+**Did you tune the admission threshold on the test set?** No. The threshold was selected once on 45
+development queries with an answerable-recall floor, then frozen on 60 test queries. Test answerable
+recall was 0.956, abstention accuracy 0.800, and balanced accuracy 0.878 versus 0.500 for always-admit.
+The quality gates pass, but the missing-human-review gate keeps the candidate blocked.
+
+**What are the 34 Runtime cases?** The matrix spans candidate search, availability, booking, and travel tools;
+timeout, connection, permission, runtime exception, invalid Schema, and insufficient evidence;
+single-retry recovery, exhausted retry, replan, fallback-path recovery, fallback-path failure, and safe stop.
+
+**Why are 34/34 passing cases not a 100% reliability claim?** These are deterministic branch
+contracts authored from the implementation's failure model. They prove retry/replan/state behavior under
+those injections, not the frequency, dependence, or payload diversity of production incidents.

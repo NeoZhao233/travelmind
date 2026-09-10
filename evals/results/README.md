@@ -92,6 +92,15 @@ configuration, and should be treated as immutable evidence for that run.
   normalization.
 - `release_v2_audit.json`: Stage 11D audit of 21 pinned artifacts and 25 semantic invariants. All 46
   checks pass; it preserves the older v1 release rather than rewriting its evidence boundary.
+- `bm25_benchmark_v2_draft.json`, `dense_benchmark_v2_draft.json`, and
+  `hybrid_benchmark_v2_draft.json`: Stage 12 re-test over 105 queries/35 intent clusters, with split
+  metrics and deterministic cluster-bootstrap intervals.
+- `reranked_benchmark_v2_draft.json`: expanded reranker ablation; Recall@5 remains below Hybrid RRF
+  and mean local latency rises from about 2.82 ms to 216.30 ms.
+- `answerability_admission_v2_draft.json`: development-tuned lexical evidence-admission candidate;
+  test balanced accuracy is 0.878, but promotion is blocked because labels lack human review.
+- `runtime_failure_matrix_v2_draft.json`: 34-case retry/replan/fallback matrix with exact contract,
+  observation-reuse, and safe-stop results.
 
 The Stage 1 seed is intentionally small and has no held-out split or abstention examples. These
 reports support debugging and comparisons; they do not establish production quality or statistical

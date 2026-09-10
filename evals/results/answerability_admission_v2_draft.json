@@ -1,0 +1,1037 @@
+{
+  "schema_version": 1,
+  "experiment": "stage12-development-tuned-lexical-admission-v1",
+  "dataset_sha256": "3b54bc37970bb527558c32d4dc1da3c609b42e3ed8e19a0c0c389185c05a8e45",
+  "configuration": {
+    "score": "top1 in-process BM25 raw score",
+    "selection_split": "development",
+    "evaluation_split": "test",
+    "minimum_development_answerable_recall": 0.8,
+    "selected_threshold": 14.118620040779742
+  },
+  "always_admit_baseline": {
+    "answerable_recall": 1.0,
+    "abstention_accuracy": 0.0,
+    "balanced_accuracy": 0.5
+  },
+  "development_metrics": {
+    "samples": 45,
+    "true_positive": 28,
+    "false_negative": 2,
+    "true_negative": 12,
+    "false_positive": 3,
+    "answerable_recall": 0.9333333333333333,
+    "abstention_accuracy": 0.8,
+    "balanced_accuracy": 0.8666666666666667,
+    "precision": 0.9032258064516129
+  },
+  "metrics_by_split": {
+    "development": {
+      "samples": 45,
+      "true_positive": 28,
+      "false_negative": 2,
+      "true_negative": 12,
+      "false_positive": 3,
+      "answerable_recall": 0.9333333333333333,
+      "abstention_accuracy": 0.8,
+      "balanced_accuracy": 0.8666666666666667,
+      "precision": 0.9032258064516129
+    },
+    "test": {
+      "samples": 60,
+      "true_positive": 43,
+      "false_negative": 2,
+      "true_negative": 12,
+      "false_positive": 3,
+      "answerable_recall": 0.9555555555555556,
+      "abstention_accuracy": 0.8,
+      "balanced_accuracy": 0.8777777777777778,
+      "precision": 0.9347826086956522
+    }
+  },
+  "intent_metrics_by_split": {
+    "development": {
+      "samples": 15,
+      "true_positive": 10,
+      "false_negative": 0,
+      "true_negative": 4,
+      "false_positive": 1,
+      "answerable_recall": 1.0,
+      "abstention_accuracy": 0.8,
+      "balanced_accuracy": 0.9,
+      "precision": 0.9090909090909091
+    },
+    "test": {
+      "samples": 20,
+      "true_positive": 15,
+      "false_negative": 0,
+      "true_negative": 4,
+      "false_positive": 1,
+      "answerable_recall": 1.0,
+      "abstention_accuracy": 0.8,
+      "balanced_accuracy": 0.9,
+      "precision": 0.9375
+    }
+  },
+  "selection": {
+    "status": "blocked_pending_human_review",
+    "gates": {
+      "test_answerable_recall_at_least_80pct": true,
+      "test_abstention_accuracy_at_least_80pct": true,
+      "test_balanced_accuracy_above_always_admit": true,
+      "labels_independently_reviewed": false
+    }
+  },
+  "cases": [
+    {
+      "query_id": "v2-semantic-01-p1",
+      "intent_id": "v2-semantic-01",
+      "split": "development",
+      "answerable": true,
+      "score": 40.0622210884507,
+      "top_document_id": "palace-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-01-p2",
+      "intent_id": "v2-semantic-01",
+      "split": "development",
+      "answerable": true,
+      "score": 31.633591988241566,
+      "top_document_id": "palace-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-01-p3",
+      "intent_id": "v2-semantic-01",
+      "split": "development",
+      "answerable": true,
+      "score": 34.81928800832981,
+      "top_document_id": "palace-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-02-p1",
+      "intent_id": "v2-semantic-02",
+      "split": "development",
+      "answerable": false,
+      "score": 7.2790536266926535,
+      "top_document_id": "national-museum-hours-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-semantic-02-p2",
+      "intent_id": "v2-semantic-02",
+      "split": "development",
+      "answerable": false,
+      "score": 12.640506302571637,
+      "top_document_id": "palace-route-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-semantic-02-p3",
+      "intent_id": "v2-semantic-02",
+      "split": "development",
+      "answerable": false,
+      "score": 12.894000775157465,
+      "top_document_id": "palace-route-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-semantic-03-p1",
+      "intent_id": "v2-semantic-03",
+      "split": "test",
+      "answerable": true,
+      "score": 37.2349206071829,
+      "top_document_id": "summer-palace-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-03-p2",
+      "intent_id": "v2-semantic-03",
+      "split": "test",
+      "answerable": true,
+      "score": 26.191494352644373,
+      "top_document_id": "summer-palace-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-03-p3",
+      "intent_id": "v2-semantic-03",
+      "split": "test",
+      "answerable": true,
+      "score": 37.970505956079585,
+      "top_document_id": "summer-palace-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-04-p1",
+      "intent_id": "v2-semantic-04",
+      "split": "development",
+      "answerable": true,
+      "score": 43.26442214983973,
+      "top_document_id": "temple-heaven-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-04-p2",
+      "intent_id": "v2-semantic-04",
+      "split": "development",
+      "answerable": true,
+      "score": 37.47875413938547,
+      "top_document_id": "temple-heaven-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-04-p3",
+      "intent_id": "v2-semantic-04",
+      "split": "development",
+      "answerable": true,
+      "score": 31.308251916360838,
+      "top_document_id": "temple-heaven-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-05-p1",
+      "intent_id": "v2-semantic-05",
+      "split": "test",
+      "answerable": true,
+      "score": 27.473422750334223,
+      "top_document_id": "temple-heaven-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-05-p2",
+      "intent_id": "v2-semantic-05",
+      "split": "test",
+      "answerable": true,
+      "score": 30.086138411601446,
+      "top_document_id": "temple-heaven-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-05-p3",
+      "intent_id": "v2-semantic-05",
+      "split": "test",
+      "answerable": true,
+      "score": 24.297168986768163,
+      "top_document_id": "palace-description-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-06-p1",
+      "intent_id": "v2-semantic-06",
+      "split": "test",
+      "answerable": true,
+      "score": 21.317673551836112,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-06-p2",
+      "intent_id": "v2-semantic-06",
+      "split": "test",
+      "answerable": true,
+      "score": 19.71211706163987,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-06-p3",
+      "intent_id": "v2-semantic-06",
+      "split": "test",
+      "answerable": true,
+      "score": 41.3592629657631,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-07-p1",
+      "intent_id": "v2-semantic-07",
+      "split": "test",
+      "answerable": false,
+      "score": 14.850181043035924,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-semantic-07-p2",
+      "intent_id": "v2-semantic-07",
+      "split": "test",
+      "answerable": false,
+      "score": 12.90522809625206,
+      "top_document_id": "palace-route-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-semantic-07-p3",
+      "intent_id": "v2-semantic-07",
+      "split": "test",
+      "answerable": false,
+      "score": 7.775485470151698,
+      "top_document_id": "palace-route-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-exact-01-p1",
+      "intent_id": "v2-exact-01",
+      "split": "development",
+      "answerable": true,
+      "score": 26.024465445493156,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-01-p2",
+      "intent_id": "v2-exact-01",
+      "split": "development",
+      "answerable": true,
+      "score": 14.180746448392474,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-01-p3",
+      "intent_id": "v2-exact-01",
+      "split": "development",
+      "answerable": true,
+      "score": 32.21091541883726,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-02-p1",
+      "intent_id": "v2-exact-02",
+      "split": "development",
+      "answerable": false,
+      "score": 10.384331585048868,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-exact-02-p2",
+      "intent_id": "v2-exact-02",
+      "split": "development",
+      "answerable": false,
+      "score": 14.478771648863997,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-02-p3",
+      "intent_id": "v2-exact-02",
+      "split": "development",
+      "answerable": false,
+      "score": 8.59507842698401,
+      "top_document_id": "palace-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-exact-03-p1",
+      "intent_id": "v2-exact-03",
+      "split": "test",
+      "answerable": true,
+      "score": 26.34477774930906,
+      "top_document_id": "palace-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-03-p2",
+      "intent_id": "v2-exact-03",
+      "split": "test",
+      "answerable": true,
+      "score": 26.17163905114885,
+      "top_document_id": "palace-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-03-p3",
+      "intent_id": "v2-exact-03",
+      "split": "test",
+      "answerable": true,
+      "score": 26.14137382019487,
+      "top_document_id": "palace-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-04-p1",
+      "intent_id": "v2-exact-04",
+      "split": "development",
+      "answerable": true,
+      "score": 28.06252777929302,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-04-p2",
+      "intent_id": "v2-exact-04",
+      "split": "development",
+      "answerable": true,
+      "score": 33.1649603507596,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-04-p3",
+      "intent_id": "v2-exact-04",
+      "split": "development",
+      "answerable": true,
+      "score": 30.4275724777292,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-05-p1",
+      "intent_id": "v2-exact-05",
+      "split": "test",
+      "answerable": true,
+      "score": 35.930759563519544,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-05-p2",
+      "intent_id": "v2-exact-05",
+      "split": "test",
+      "answerable": true,
+      "score": 31.064798918671702,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-05-p3",
+      "intent_id": "v2-exact-05",
+      "split": "test",
+      "answerable": true,
+      "score": 25.030390164039282,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-06-p1",
+      "intent_id": "v2-exact-06",
+      "split": "test",
+      "answerable": true,
+      "score": 28.451247436094175,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-06-p2",
+      "intent_id": "v2-exact-06",
+      "split": "test",
+      "answerable": true,
+      "score": 29.064969793471047,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-06-p3",
+      "intent_id": "v2-exact-06",
+      "split": "test",
+      "answerable": true,
+      "score": 49.02352100412878,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-07-p1",
+      "intent_id": "v2-exact-07",
+      "split": "test",
+      "answerable": false,
+      "score": 18.26214714954544,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-exact-07-p2",
+      "intent_id": "v2-exact-07",
+      "split": "test",
+      "answerable": false,
+      "score": 11.644584969655595,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-exact-07-p3",
+      "intent_id": "v2-exact-07",
+      "split": "test",
+      "answerable": false,
+      "score": 17.200272245365174,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-01-p1",
+      "intent_id": "v2-metadata-01",
+      "split": "development",
+      "answerable": true,
+      "score": 27.524420783213785,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-01-p2",
+      "intent_id": "v2-metadata-01",
+      "split": "development",
+      "answerable": true,
+      "score": 25.273981086529165,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-01-p3",
+      "intent_id": "v2-metadata-01",
+      "split": "development",
+      "answerable": true,
+      "score": 11.379494713812479,
+      "top_document_id": "palace-route-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-metadata-02-p1",
+      "intent_id": "v2-metadata-02",
+      "split": "development",
+      "answerable": false,
+      "score": 9.384396488220894,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-metadata-02-p2",
+      "intent_id": "v2-metadata-02",
+      "split": "development",
+      "answerable": false,
+      "score": 11.011670368984714,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-metadata-02-p3",
+      "intent_id": "v2-metadata-02",
+      "split": "development",
+      "answerable": false,
+      "score": 14.05649363316701,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-metadata-03-p1",
+      "intent_id": "v2-metadata-03",
+      "split": "test",
+      "answerable": true,
+      "score": 52.66209803370675,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-03-p2",
+      "intent_id": "v2-metadata-03",
+      "split": "test",
+      "answerable": true,
+      "score": 22.860382254968645,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-03-p3",
+      "intent_id": "v2-metadata-03",
+      "split": "test",
+      "answerable": true,
+      "score": 13.71404173696012,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-metadata-04-p1",
+      "intent_id": "v2-metadata-04",
+      "split": "development",
+      "answerable": true,
+      "score": 20.50147675164795,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-04-p2",
+      "intent_id": "v2-metadata-04",
+      "split": "development",
+      "answerable": true,
+      "score": 15.7787825764353,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-04-p3",
+      "intent_id": "v2-metadata-04",
+      "split": "development",
+      "answerable": true,
+      "score": 17.792261800777872,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-05-p1",
+      "intent_id": "v2-metadata-05",
+      "split": "test",
+      "answerable": true,
+      "score": 33.56349262474247,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-05-p2",
+      "intent_id": "v2-metadata-05",
+      "split": "test",
+      "answerable": true,
+      "score": 33.50429744284976,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-05-p3",
+      "intent_id": "v2-metadata-05",
+      "split": "test",
+      "answerable": true,
+      "score": 35.22763587531224,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-06-p1",
+      "intent_id": "v2-metadata-06",
+      "split": "test",
+      "answerable": true,
+      "score": 20.344113940066016,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-06-p2",
+      "intent_id": "v2-metadata-06",
+      "split": "test",
+      "answerable": true,
+      "score": 22.9118779594523,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-06-p3",
+      "intent_id": "v2-metadata-06",
+      "split": "test",
+      "answerable": true,
+      "score": 20.533526607839885,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-metadata-07-p1",
+      "intent_id": "v2-metadata-07",
+      "split": "test",
+      "answerable": false,
+      "score": 7.966330687622383,
+      "top_document_id": "national-museum-hours-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-metadata-07-p2",
+      "intent_id": "v2-metadata-07",
+      "split": "test",
+      "answerable": false,
+      "score": 6.066871220897021,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-metadata-07-p3",
+      "intent_id": "v2-metadata-07",
+      "split": "test",
+      "answerable": false,
+      "score": 5.895548041811629,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-temporal-01-p1",
+      "intent_id": "v2-temporal-01",
+      "split": "development",
+      "answerable": true,
+      "score": 14.466245657145334,
+      "top_document_id": "palace-opening-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-01-p2",
+      "intent_id": "v2-temporal-01",
+      "split": "development",
+      "answerable": true,
+      "score": 16.22923153495088,
+      "top_document_id": "palace-opening-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-01-p3",
+      "intent_id": "v2-temporal-01",
+      "split": "development",
+      "answerable": true,
+      "score": 18.087860142643002,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-02-p1",
+      "intent_id": "v2-temporal-02",
+      "split": "development",
+      "answerable": false,
+      "score": 17.00868534421154,
+      "top_document_id": "summer-palace-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-02-p2",
+      "intent_id": "v2-temporal-02",
+      "split": "development",
+      "answerable": false,
+      "score": 9.51087116352795,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-temporal-02-p3",
+      "intent_id": "v2-temporal-02",
+      "split": "development",
+      "answerable": false,
+      "score": 20.214410440528063,
+      "top_document_id": "summer-palace-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-03-p1",
+      "intent_id": "v2-temporal-03",
+      "split": "test",
+      "answerable": true,
+      "score": 15.009864798373986,
+      "top_document_id": "palace-opening-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-03-p2",
+      "intent_id": "v2-temporal-03",
+      "split": "test",
+      "answerable": true,
+      "score": 15.618776683281293,
+      "top_document_id": "palace-opening-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-03-p3",
+      "intent_id": "v2-temporal-03",
+      "split": "test",
+      "answerable": true,
+      "score": 18.24125469500052,
+      "top_document_id": "palace-opening-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-04-p1",
+      "intent_id": "v2-temporal-04",
+      "split": "development",
+      "answerable": true,
+      "score": 37.0231517687683,
+      "top_document_id": "summer-palace-inner-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-04-p2",
+      "intent_id": "v2-temporal-04",
+      "split": "development",
+      "answerable": true,
+      "score": 16.264346427610352,
+      "top_document_id": "summer-palace-inner-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-04-p3",
+      "intent_id": "v2-temporal-04",
+      "split": "development",
+      "answerable": true,
+      "score": 33.238993005474995,
+      "top_document_id": "summer-palace-inner-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-05-p1",
+      "intent_id": "v2-temporal-05",
+      "split": "test",
+      "answerable": true,
+      "score": 30.693069375941622,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-05-p2",
+      "intent_id": "v2-temporal-05",
+      "split": "test",
+      "answerable": true,
+      "score": 17.12751051935498,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-05-p3",
+      "intent_id": "v2-temporal-05",
+      "split": "test",
+      "answerable": true,
+      "score": 30.301188017337765,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-06-p1",
+      "intent_id": "v2-temporal-06",
+      "split": "test",
+      "answerable": true,
+      "score": 22.404568563572532,
+      "top_document_id": "national-museum-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-06-p2",
+      "intent_id": "v2-temporal-06",
+      "split": "test",
+      "answerable": true,
+      "score": 19.456024519922952,
+      "top_document_id": "national-museum-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-06-p3",
+      "intent_id": "v2-temporal-06",
+      "split": "test",
+      "answerable": true,
+      "score": 27.710328841392187,
+      "top_document_id": "national-museum-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-temporal-07-p1",
+      "intent_id": "v2-temporal-07",
+      "split": "test",
+      "answerable": false,
+      "score": 8.327634853955034,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-temporal-07-p2",
+      "intent_id": "v2-temporal-07",
+      "split": "test",
+      "answerable": false,
+      "score": 4.075772742897329,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-temporal-07-p3",
+      "intent_id": "v2-temporal-07",
+      "split": "test",
+      "answerable": false,
+      "score": 13.329589479921998,
+      "top_document_id": "national-museum-hours-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-01-p1",
+      "intent_id": "v2-multi-constraint-01",
+      "split": "development",
+      "answerable": true,
+      "score": 31.696663820355624,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-01-p2",
+      "intent_id": "v2-multi-constraint-01",
+      "split": "development",
+      "answerable": true,
+      "score": 16.878055886683484,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-01-p3",
+      "intent_id": "v2-multi-constraint-01",
+      "split": "development",
+      "answerable": true,
+      "score": 12.580146406513183,
+      "top_document_id": "palace-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-02-p1",
+      "intent_id": "v2-multi-constraint-02",
+      "split": "development",
+      "answerable": false,
+      "score": 11.624051430463673,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-02-p2",
+      "intent_id": "v2-multi-constraint-02",
+      "split": "development",
+      "answerable": false,
+      "score": 7.435089958509295,
+      "top_document_id": "shichahai-access-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-02-p3",
+      "intent_id": "v2-multi-constraint-02",
+      "split": "development",
+      "answerable": false,
+      "score": 10.293993470102402,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-03-p1",
+      "intent_id": "v2-multi-constraint-03",
+      "split": "test",
+      "answerable": true,
+      "score": 18.735947243874335,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-03-p2",
+      "intent_id": "v2-multi-constraint-03",
+      "split": "test",
+      "answerable": true,
+      "score": 24.06489719258272,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-03-p3",
+      "intent_id": "v2-multi-constraint-03",
+      "split": "test",
+      "answerable": true,
+      "score": 29.301145019398678,
+      "top_document_id": "palace-route-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-04-p1",
+      "intent_id": "v2-multi-constraint-04",
+      "split": "development",
+      "answerable": true,
+      "score": 30.838248126489965,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-04-p2",
+      "intent_id": "v2-multi-constraint-04",
+      "split": "development",
+      "answerable": true,
+      "score": 32.26228788834807,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-04-p3",
+      "intent_id": "v2-multi-constraint-04",
+      "split": "development",
+      "answerable": true,
+      "score": 27.291502958211304,
+      "top_document_id": "temple-heaven-hours-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-05-p1",
+      "intent_id": "v2-multi-constraint-05",
+      "split": "test",
+      "answerable": true,
+      "score": 26.91789471949516,
+      "top_document_id": "summer-palace-inner-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-05-p2",
+      "intent_id": "v2-multi-constraint-05",
+      "split": "test",
+      "answerable": true,
+      "score": 18.92628089209001,
+      "top_document_id": "summer-palace-ticket-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-05-p3",
+      "intent_id": "v2-multi-constraint-05",
+      "split": "test",
+      "answerable": true,
+      "score": 43.72698613185797,
+      "top_document_id": "summer-palace-inner-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-06-p1",
+      "intent_id": "v2-multi-constraint-06",
+      "split": "test",
+      "answerable": true,
+      "score": 33.692391447692756,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-06-p2",
+      "intent_id": "v2-multi-constraint-06",
+      "split": "test",
+      "answerable": true,
+      "score": 13.73114031432095,
+      "top_document_id": "national-museum-hours-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-06-p3",
+      "intent_id": "v2-multi-constraint-06",
+      "split": "test",
+      "answerable": true,
+      "score": 31.969216603675513,
+      "top_document_id": "national-museum-booking-20260908",
+      "admitted": true
+    },
+    {
+      "query_id": "v2-multi-constraint-07-p1",
+      "intent_id": "v2-multi-constraint-07",
+      "split": "test",
+      "answerable": false,
+      "score": 4.62123461482366,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-07-p2",
+      "intent_id": "v2-multi-constraint-07",
+      "split": "test",
+      "answerable": false,
+      "score": 4.965828612853718,
+      "top_document_id": "temple-heaven-booking-20260908",
+      "admitted": false
+    },
+    {
+      "query_id": "v2-multi-constraint-07-p3",
+      "intent_id": "v2-multi-constraint-07",
+      "split": "test",
+      "answerable": false,
+      "score": 9.704172105115736,
+      "top_document_id": "summer-palace-hours-20260908",
+      "admitted": false
+    }
+  ],
+  "limitations": [
+    "Labels are Codex-authored drafts with no independent human review.",
+    "The threshold is corpus- and tokenizer-specific and must be recalibrated after indexing changes.",
+    "Lexical admission complements evidence grading; it does not prove semantic entailment."
+  ]
+}

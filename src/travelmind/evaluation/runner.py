@@ -2,6 +2,7 @@ from __future__ import annotations
 
 import hashlib
 import math
+import random
 from collections import Counter
 from datetime import UTC, datetime
 from importlib.metadata import version
@@ -11,27 +12,40 @@ from typing import Any, Protocol
 
 from travelmind.domain.models import RetrievalExample
 from travelmind.evaluation.metrics import evaluate_rankings
-from travelmind.ingestion.dataset import load_jsonl, validate_seed_dataset
+from travelmind.ingestion.dataset import load_jsonl, validate_retrieval_dataset
 from travelmind.retrieval.bm25 import BM25Retriever
 from travelmind.retrieval.embeddings import BGE_SMALL_ZH_V15, FastEmbedProvider
 from travelmind.retrieval.models import SearchResponse
 from travelmind.retrieval.reranking import BGE_RERANKER_BASE
 
-_DATASET_PATHS = (
+_CORPUS_PATHS = (
     "data/seed/places.jsonl",
     "data/seed/documents.jsonl",
     "data/seed/facts.jsonl",
-    "evals/datasets/retrieval_seed.jsonl",
 )
+_DEFAULT_RETRIEVAL_DATASET = Path("evals/datasets/retrieval_seed.jsonl")
 
 
-def _dataset_fingerprint(root: Path) -> str:
+def _resolve_dataset(root: Path, dataset_path: Path) -> Path:
+    candidate = dataset_path if dataset_path.is_absolute() else root / dataset_path
+    candidate = candidate.resolve()
+    if not candidate.is_relative_to(root):
+        raise ValueError("retrieval dataset path must stay inside the project root")
+    return candidate
+
+
+def _dataset_fingerprint(root: Path, dataset_path: Path) -> str:
     digest = hashlib.sha256()
-    for relative_path in _DATASET_PATHS:
+    for relative_path in _CORPUS_PATHS:
         digest.update(relative_path.encode())
         digest.update(b"\0")
         digest.update((root / relative_path).read_bytes())
         digest.update(b"\0")
+    relative_dataset = dataset_path.relative_to(root).as_posix()
+    digest.update(relative_dataset.encode())
+    digest.update(b"\0")
+    digest.update(dataset_path.read_bytes())
+    digest.update(b"\0")
     return digest.hexdigest()
 
 
@@ -41,6 +55,66 @@ def _percentile(values: list[float], percentile: float) -> float:
     ordered = sorted(values)
     index = max(0, math.ceil(percentile * len(ordered)) - 1)
     return ordered[index]
+
+
+def _label_limit(summary: Any) -> str:
+    if summary.reviewed_examples:
+        return (
+            f"The {summary.retrieval_examples}-query set has "
+            f"{summary.reviewed_examples} owner-reviewed labels; independent blind review "
+            "is absent."
+        )
+    return (
+        f"The {summary.retrieval_examples}-query set contains "
+        f"{summary.intent_clusters} Codex-authored intent clusters and has no human-reviewed "
+        "labels."
+    )
+
+
+def _bootstrap_mean_ci(values: list[float], *, samples: int = 2000) -> dict[str, float]:
+    if not values:
+        return {"mean": 0.0, "lower_95": 0.0, "upper_95": 0.0}
+    generator = random.Random(20260910)
+    means = sorted(
+        sum(generator.choice(values) for _ in values) / len(values) for _ in range(samples)
+    )
+    return {
+        "mean": sum(values) / len(values),
+        "lower_95": means[int(samples * 0.025)],
+        "upper_95": means[min(samples - 1, int(samples * 0.975))],
+    }
+
+
+def _intent_cluster_metrics(
+    examples: list[RetrievalExample],
+    details: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    grouped: dict[str, list[RetrievalExample]] = {}
+    for example in examples:
+        grouped.setdefault(example.intent_id or example.query_id, []).append(example)
+    recall_values: list[float] = []
+    mrr_values: list[float] = []
+    abstention_values: list[float] = []
+    for cluster in grouped.values():
+        rows = [details[example.query_id] for example in cluster]
+        if cluster[0].should_abstain:
+            abstention_values.append(
+                sum(float(row["abstention_correct"]) for row in rows) / len(rows)
+            )
+        else:
+            recall_values.append(
+                sum(float(row["recall_at_k"]["5"]) for row in rows) / len(rows)
+            )
+            mrr_values.append(sum(float(row["mrr_at_k"]["5"]) for row in rows) / len(rows))
+    return {
+        "intent_clusters": len(grouped),
+        "relevance_intent_clusters": len(recall_values),
+        "abstention_intent_clusters": len(abstention_values),
+        "recall_at_5": _bootstrap_mean_ci(recall_values),
+        "mrr_at_5": _bootstrap_mean_ci(mrr_values),
+        "abstention_accuracy": _bootstrap_mean_ci(abstention_values),
+        "interval_method": "deterministic 2000-sample bootstrap over intent clusters",
+    }
 
 
 class _Ranker(Protocol):
@@ -65,6 +139,7 @@ def _evaluate_ranker(
     limit: int,
     apply_filters: bool,
     build_latency_ms: float,
+    dataset_path: Path,
 ) -> dict[str, Any]:
     rankings: dict[str, list[str]] = {}
     scores: dict[str, list[dict[str, float | str]]] = {}
@@ -121,15 +196,30 @@ def _evaluate_ranker(
         type_metrics.pop("per_query")
         metrics_by_query_type[query_type] = type_metrics
 
+    metrics_by_split: dict[str, dict[str, Any]] = {}
+    intent_metrics_by_split: dict[str, dict[str, Any]] = {}
+    for split in sorted({example.evaluation_split for example in examples}):
+        split_examples = [example for example in examples if example.evaluation_split == split]
+        split_metrics = evaluate_rankings(split_examples, rankings)
+        split_metrics.pop("per_query")
+        metrics_by_split[split] = split_metrics
+        intent_metrics_by_split[split] = _intent_cluster_metrics(
+            split_examples, per_query_details
+        )
+
     return {
         "schema_version": 1,
         "experiment": experiment,
         "generated_at": datetime.now(UTC).isoformat(),
-        "dataset_fingerprint_sha256": _dataset_fingerprint(root),
+        "dataset_fingerprint_sha256": _dataset_fingerprint(root, dataset_path),
+        "dataset_path": dataset_path.relative_to(root).as_posix(),
         "dataset_summary": summary.model_dump(mode="json"),
         "configuration": configuration,
         "metrics": metrics,
         "metrics_by_query_type": metrics_by_query_type,
+        "metrics_by_split": metrics_by_split,
+        "intent_cluster_metrics": _intent_cluster_metrics(examples, per_query_details),
+        "intent_cluster_metrics_by_split": intent_metrics_by_split,
         "build_latency_ms": build_latency_ms,
         "latency_ms": {
             "mean": sum(latency_ms) / len(latency_ms),
@@ -158,12 +248,14 @@ def run_bm25_experiment(
     k1: float = 1.5,
     b: float = 0.75,
     apply_filters: bool = False,
+    dataset_path: Path = _DEFAULT_RETRIEVAL_DATASET,
 ) -> dict[str, Any]:
     if limit < 1:
         raise ValueError("limit must be positive")
     root = root.resolve()
-    summary = validate_seed_dataset(root)
-    examples = load_jsonl(root / "evals/datasets/retrieval_seed.jsonl", RetrievalExample)
+    resolved_dataset = _resolve_dataset(root, dataset_path)
+    summary = validate_retrieval_dataset(root, resolved_dataset)
+    examples = load_jsonl(resolved_dataset, RetrievalExample)
     build_started = perf_counter()
     retriever = BM25Retriever.from_project(root, k1=k1, b=b)
     build_latency_ms = (perf_counter() - build_started) * 1000
@@ -188,7 +280,7 @@ def run_bm25_experiment(
             "ground_truth_level": "source_document_section",
         },
         limitations=[
-            "The 15-query seed set is small, single-annotator, and not a held-out benchmark.",
+            _label_limit(summary),
             "Latency on an in-memory 14-document corpus does not predict production latency.",
             "When filters are enabled, unsupported hard-filter keys are reported and left to "
             "lexical matching.",
@@ -197,6 +289,7 @@ def run_bm25_experiment(
         limit=limit,
         apply_filters=apply_filters,
         build_latency_ms=build_latency_ms,
+        dataset_path=resolved_dataset,
     )
 
 
@@ -207,12 +300,14 @@ def run_dense_experiment(
     model_name: str = BGE_SMALL_ZH_V15,
     cache_dir: Path | None = None,
     local_files_only: bool = False,
+    dataset_path: Path = _DEFAULT_RETRIEVAL_DATASET,
 ) -> dict[str, Any]:
     if limit < 1:
         raise ValueError("limit must be positive")
     root = root.resolve()
-    summary = validate_seed_dataset(root)
-    examples = load_jsonl(root / "evals/datasets/retrieval_seed.jsonl", RetrievalExample)
+    resolved_dataset = _resolve_dataset(root, dataset_path)
+    summary = validate_retrieval_dataset(root, resolved_dataset)
+    examples = load_jsonl(resolved_dataset, RetrievalExample)
     build_started = perf_counter()
     embedder = FastEmbedProvider(
         model_name=model_name,
@@ -241,7 +336,7 @@ def run_dense_experiment(
             "model_cache_mode": "local_only" if local_files_only else "download_if_missing",
         },
         limitations=[
-            "The 15-query seed set is small, single-annotator, and not a held-out benchmark.",
+            _label_limit(summary),
             "Qdrant local mode measures retrieval behavior, not remote service latency or HNSW "
             "scale.",
             "The cached artifact is checksummed, but the external registry remains outside project "
@@ -252,6 +347,7 @@ def run_dense_experiment(
         limit=limit,
         apply_filters=False,
         build_latency_ms=build_latency_ms,
+        dataset_path=resolved_dataset,
     )
 
 
@@ -267,6 +363,7 @@ def run_hybrid_experiment(
     rrf_k: int = 60,
     candidate_limit: int = 10,
     channel_timeout_seconds: float = 5.0,
+    dataset_path: Path = _DEFAULT_RETRIEVAL_DATASET,
 ) -> dict[str, Any]:
     if limit < 1:
         raise ValueError("limit must be positive")
@@ -278,8 +375,9 @@ def run_hybrid_experiment(
         raise ValueError("channel_timeout_seconds must be positive")
 
     root = root.resolve()
-    summary = validate_seed_dataset(root)
-    examples = load_jsonl(root / "evals/datasets/retrieval_seed.jsonl", RetrievalExample)
+    resolved_dataset = _resolve_dataset(root, dataset_path)
+    summary = validate_retrieval_dataset(root, resolved_dataset)
+    examples = load_jsonl(resolved_dataset, RetrievalExample)
     build_started = perf_counter()
     sparse = BM25Retriever.from_project(root, k1=k1, b=b)
     embedder = FastEmbedProvider(
@@ -331,7 +429,7 @@ def run_hybrid_experiment(
             "ground_truth_level": "source_document_section",
         },
         limitations=[
-            "The 15-query seed set is small, single-annotator, and not a held-out benchmark.",
+            _label_limit(summary),
             "RRF k=60 and candidate depth are untuned defaults, not optimized on a held-out set.",
             "Qdrant local mode and an in-process embedding model do not represent service latency.",
             "Thread timeouts stop waiting but cannot terminate already-running provider calls; "
@@ -342,6 +440,7 @@ def run_hybrid_experiment(
         limit=limit,
         apply_filters=False,
         build_latency_ms=build_latency_ms,
+        dataset_path=resolved_dataset,
     )
 
 
@@ -360,6 +459,7 @@ def run_reranked_hybrid_experiment(
     channel_timeout_seconds: float = 5.0,
     rerank_candidate_limit: int = 10,
     reranker_timeout_seconds: float = 5.0,
+    dataset_path: Path = _DEFAULT_RETRIEVAL_DATASET,
 ) -> dict[str, Any]:
     if limit < 1:
         raise ValueError("limit must be positive")
@@ -367,8 +467,9 @@ def run_reranked_hybrid_experiment(
         raise ValueError("rerank_candidate_limit must be at least limit")
 
     root = root.resolve()
-    summary = validate_seed_dataset(root)
-    examples = load_jsonl(root / "evals/datasets/retrieval_seed.jsonl", RetrievalExample)
+    resolved_dataset = _resolve_dataset(root, dataset_path)
+    summary = validate_retrieval_dataset(root, resolved_dataset)
+    examples = load_jsonl(resolved_dataset, RetrievalExample)
     model_cache = cache_dir or root / ".cache/fastembed"
     build_started = perf_counter()
     sparse = BM25Retriever.from_project(root, k1=k1, b=b)
@@ -439,7 +540,7 @@ def run_reranked_hybrid_experiment(
             "ground_truth_level": "source_document_section",
         },
         limitations=[
-            "The 15-query seed set is small, single-annotator, and not a held-out benchmark.",
+            _label_limit(summary),
             "The reranker sees only ten retrieved candidates and cannot recover omitted evidence.",
             "The 1.04GB registered model size and local CPU latency may not justify small gains.",
             "Thread deadlines stop waiting but cannot terminate already-running inference.",
@@ -450,4 +551,5 @@ def run_reranked_hybrid_experiment(
         limit=limit,
         apply_filters=False,
         build_latency_ms=build_latency_ms,
+        dataset_path=resolved_dataset,
     )

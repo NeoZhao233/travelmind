@@ -2,7 +2,7 @@ from __future__ import annotations
 
 from datetime import date, datetime
 from enum import StrEnum
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import AnyHttpUrl, BaseModel, Field, field_validator, model_validator
 
@@ -134,6 +134,10 @@ class RetrievalExample(BaseModel):
     notes: str = ""
     annotator: str = Field(min_length=1)
     reviewed: bool = False
+    evaluation_split: Literal["seed", "development", "test"] = "seed"
+    intent_id: str | None = Field(default=None, pattern=r"^[a-z0-9][a-z0-9-]+$")
+    paraphrase_id: str | None = Field(default=None, pattern=r"^[a-z0-9][a-z0-9-]+$")
+    challenge_tags: list[str] = Field(default_factory=list)
 
     @field_validator("relevant_documents")
     @classmethod
@@ -162,3 +166,6 @@ class DatasetSummary(BaseModel):
     retrieval_examples: int
     reviewed_examples: int
     query_types: dict[str, int]
+    intent_clusters: int = 0
+    abstention_examples: int = 0
+    evaluation_splits: dict[str, int] = Field(default_factory=dict)

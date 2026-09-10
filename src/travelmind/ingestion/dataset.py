@@ -43,11 +43,52 @@ def _index_unique(records: list[ModelT], attribute: str) -> dict[str, ModelT]:
     return indexed
 
 
-def validate_seed_dataset(root: Path) -> DatasetSummary:
+def _validate_intent_clusters(examples: list[RetrievalExample]) -> None:
+    clustered = [example for example in examples if example.intent_id is not None]
+    if not clustered:
+        return
+    if len(clustered) != len(examples):
+        raise ValueError("clustered retrieval datasets require intent_id on every example")
+    normalized_queries = ["".join(example.query.lower().split()) for example in examples]
+    if len(normalized_queries) != len(set(normalized_queries)):
+        raise ValueError("clustered retrieval dataset contains duplicate normalized queries")
+
+    by_intent: dict[str, list[RetrievalExample]] = defaultdict(list)
+    for example in examples:
+        by_intent[example.intent_id or example.query_id].append(example)
+    for intent_id, rows in by_intent.items():
+        if len(rows) != 3:
+            raise ValueError(f"intent {intent_id} must contain exactly three paraphrases")
+        if len({row.paraphrase_id for row in rows}) != 3 or any(
+            row.paraphrase_id is None for row in rows
+        ):
+            raise ValueError(f"intent {intent_id} requires three unique paraphrase IDs")
+        if len({row.evaluation_split for row in rows}) != 1:
+            raise ValueError(f"intent {intent_id} leaks across evaluation splits")
+        if len({row.query_type for row in rows}) != 1:
+            raise ValueError(f"intent {intent_id} mixes query types")
+        judgments = {
+            (
+                tuple(sorted(row.relevant_documents.items())),
+                row.should_abstain,
+                tuple(row.expected_place_ids),
+            )
+            for row in rows
+        }
+        if len(judgments) != 1:
+            raise ValueError(f"intent {intent_id} has inconsistent relevance judgments")
+
+
+def validate_retrieval_dataset(root: Path, retrieval_path: Path) -> DatasetSummary:
+    root = root.resolve()
+    retrieval_path = retrieval_path.resolve()
+    if not retrieval_path.is_relative_to(root):
+        raise ValueError("retrieval dataset path must stay inside the project root")
     places = load_jsonl(root / "data/seed/places.jsonl", PlaceRecord)
     documents = load_jsonl(root / "data/seed/documents.jsonl", SourceDocument)
     facts = load_jsonl(root / "data/seed/facts.jsonl", FactRecord)
-    examples = load_jsonl(root / "evals/datasets/retrieval_seed.jsonl", RetrievalExample)
+    examples = load_jsonl(retrieval_path, RetrievalExample)
+    _validate_intent_clusters(examples)
 
     place_by_id = _index_unique(places, "place_id")
     document_by_id = _index_unique(documents, "document_id")
@@ -107,6 +148,8 @@ def validate_seed_dataset(root: Path) -> DatasetSummary:
         raise ValueError("Chunk IDs must be unique")
 
     query_type_counts = Counter(example.query_type.value for example in examples)
+    split_counts = Counter(example.evaluation_split for example in examples)
+    intent_ids = {example.intent_id or example.query_id for example in examples}
     return DatasetSummary(
         places=len(places),
         documents=len(documents),
@@ -115,4 +158,14 @@ def validate_seed_dataset(root: Path) -> DatasetSummary:
         retrieval_examples=len(examples),
         reviewed_examples=sum(example.reviewed for example in examples),
         query_types=dict(query_type_counts),
+        intent_clusters=len(intent_ids),
+        abstention_examples=sum(example.should_abstain for example in examples),
+        evaluation_splits=dict(split_counts),
+    )
+
+
+def validate_seed_dataset(root: Path) -> DatasetSummary:
+    return validate_retrieval_dataset(
+        root,
+        root.resolve() / "evals/datasets/retrieval_seed.jsonl",
     )

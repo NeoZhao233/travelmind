@@ -4,7 +4,7 @@ TravelMind 是一个面向实习面试的旅游规划 Agent 项目。它不以�
 四个问题：**如何检索可信旅游信息、如何在有限上下文中保留关键证据、如何根据工具反馈重新
 规划，以及如何用评测而不是主观感觉决定组件是否上线。**
 
-项目已经可以离线运行、注入故障、复现实验并审计简历中的指标。当前版本通过 267 个测试和
+项目已经可以离线运行、注入故障、复现实验并审计简历中的指标。当前版本通过 273 个测试和
 46 项发布审计。
 
 ## 30 秒看懂项目
@@ -63,11 +63,12 @@ flowchart LR
 
 | 问题 | 实验结果 | 最终决策 |
 | --- | --- | --- |
-| Hybrid RAG 是否有效 | 15 条种子 Query 上 Recall@5 / MRR@5 / NDCG@5 = 0.956 / 0.956 / 0.933 | 默认使用 BM25+BGE+RRF |
-| Cross-Encoder 是否值得加入 | 固定候选集上 Recall@5 从 0.956 降至 0.900，并增加延迟 | 保留适配器，但不进入默认链路 |
+| Hybrid RAG 是否有效 | 105 条 Query/35 个意图簇草案上 Recall@5 为 0.971，意图簇 Bootstrap 区间为 [0.920, 1.000] | 默认使用 BM25+BGE+RRF；等待人工复核后再升级声明 |
+| Cross-Encoder 是否值得加入 | 扩集后 Recall@5 从 0.971 降至 0.958，平均本地延迟从 2.82 ms 增至 216.30 ms | 保留适配器，但不进入默认链路 |
 | 上下文压缩会不会损失答案质量 | 7 个真实 DeepSeek 案例中关键质量指标保持 1.000，总 Token 降低 45.3% | 选择 768-token refined-coverage Pipeline |
 | LLM 行程排序是否优于规则规划 | DeepSeek 多消耗 4,475 Token，目标地点命中率提升为 0 | 默认保留确定性 Planner |
-| 中途工具失败能否恢复 | 4 个受控多步案例中，可恢复故障恢复率由固定计划的 0% 提升到 100% | 选择 Plan-Act-Observe-Replan Runtime |
+| 中途工具失败能否恢复 | 34 个受控案例覆盖4个工具位置和6种故障模式，精确契约 34/34 通过 | 选择 Plan-Act-Observe-Replan Runtime；不解释为线上恢复率 |
+| Retriever 能否识别无答案问题 | 30 条无答案 Query 上原始排序器拒答准确率为 0；开发集调参的准入 Gate 在测试集达到 0.800 | 暴露排序与可回答性差异；因无人审标签暂不晋升 |
 | DeepSeek 是否适合控制 Runtime | 7 次调用契约提升为 0，42.9% 需要参数归一化，共消耗 5,725 Token | 候选被门禁拒绝，确定性 Planner 仍为默认 |
 | 声明是否与证据一致 | 21 个文件哈希 + 25 项语义检查，共 46/46 通过 | 冻结为 interview-v2 发布证据 |
 
@@ -91,19 +92,32 @@ travelmind demo "带父母去北京一天，预算300元，喜欢历史文化"
 运行最能体现 Agentic 特性的多步故障评测：
 
 ```bash
-travelmind eval-runtime-multistep --root . \
-  --output evals/results/stage11_runtime_multistep_v1.json
+travelmind eval-runtime-failure-matrix --root . \
+  --output evals/results/runtime_failure_matrix_v2_draft.json
 ```
 
 预期核心结果：
 
 ```json
 {
-  "baseline_intermediate_failure_recovery_rate": 0.0,
-  "agentic_intermediate_failure_recovery_rate": 1.0,
+  "case_contract_pass_rate": 1.0,
+  "baseline_replan_required_recovery_rate": 0.0,
+  "agentic_replan_required_recovery_rate": 1.0,
+  "transient_retry_recovery_rate": 1.0,
   "completed_observation_reuse_rate": 1.0,
   "unrecoverable_safe_stop_rate": 1.0
 }
+```
+
+复现扩展检索评测（需要已安装并缓存 Dense/Reranker 模型）：
+
+```bash
+travelmind eval-retrieval --root . \
+  --dataset evals/datasets/retrieval_benchmark_v2.jsonl \
+  --retriever hybrid --local-files-only \
+  --output evals/results/my_hybrid_v2.json
+travelmind eval-answerability-admission --root . \
+  --output evals/results/my_answerability_v2.json
 ```
 
 ## 一键面试演示
@@ -203,8 +217,11 @@ docs/
 
 ## 当前边界与后续工作
 
-- 检索集只有 15 条种子 Query；需要更大的独立标注集、Hard Negative 和盲测集。
-- 多步 Runtime 使用项目自建的 4 个故障案例和 Fixture Tool；尚未证明真实预订 API 可靠性。
+- 扩展检索集包含 105 条 Query/35 个意图簇，但目前由 Codex 草拟且未经独立人工复核；新指标
+  不能直接升级为简历质量声明。人工检查入口见
+  [35 个意图簇复核清单](evals/annotations/retrieval_benchmark_v2_review.md)。
+- Runtime 已扩展为 34 个项目自建故障案例，但仍使用 Fixture Tool；尚未证明真实预订 API
+  可靠性。
 - DeepSeek A/B 样本较小，结果只用于当前候选选择，不代表模型通用能力。
 - SQLite 只证明本地跨进程恢复；生产环境仍需 PostgreSQL、分布式锁和真实并发测试。
 - PDF Stage 10A 已完成安全获取与快照；版面解析、OCR、页码引用和 PDF RAG 评测仍待完成。

@@ -1,0 +1,5566 @@
+{
+  "schema_version": 1,
+  "experiment": "stage12-runtime-failure-matrix-v2",
+  "dataset_sha256": "23d3a744b13bf061d14566abbde73262c6f0c0190aa3ec768a8b85f337348472",
+  "configuration": {
+    "cases": 34,
+    "reviewed_cases": 0,
+    "failure_mode_counts": {
+      "timeout": 15,
+      "connection": 5,
+      "permission": 13,
+      "runtime": 8,
+      "invalid_output": 9,
+      "insufficient_evidence": 1
+    },
+    "max_tool_attempts": 2,
+    "max_replans": 1
+  },
+  "metrics": {
+    "case_contract_pass_rate": 1.0,
+    "baseline_replan_required_recovery_rate": 0.0,
+    "agentic_replan_required_recovery_rate": 1.0,
+    "transient_retry_recovery_rate": 1.0,
+    "completed_observation_reuse_rate": 1.0,
+    "unrecoverable_safe_stop_rate": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "matrix-healthy",
+      "faults": [],
+      "requires_replan": false,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 0,
+      "expected_tool_calls": 4,
+      "expected_final_place": "forbidden-city",
+      "reviewed": false,
+      "baseline": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "retry-search-timeout",
+      "faults": [
+        {
+          "tool_name": "candidate_search",
+          "place_id": null,
+          "occurrence": 1,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": false,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 0,
+      "expected_tool_calls": 5,
+      "expected_final_place": "forbidden-city",
+      "reviewed": false,
+      "baseline": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 2,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": false,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "transient_error",
+          "success",
+          "success",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 2,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": false,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "transient_error",
+          "success",
+          "success",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "retry-availability-connection",
+      "faults": [
+        {
+          "tool_name": "availability",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "connection"
+        }
+      ],
+      "requires_replan": false,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 0,
+      "expected_tool_calls": 5,
+      "expected_final_place": "forbidden-city",
+      "reviewed": false,
+      "baseline": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "transient_error",
+          "success",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "transient_error",
+          "success",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "retry-booking-timeout",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": false,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 0,
+      "expected_tool_calls": 5,
+      "expected_final_place": "forbidden-city",
+      "reviewed": false,
+      "baseline": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 2,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 2,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "retry-travel-connection",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "connection"
+        }
+      ],
+      "requires_replan": false,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 0,
+      "expected_tool_calls": 5,
+      "expected_final_place": "forbidden-city",
+      "reviewed": false,
+      "baseline": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "transient_error",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 2
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "forbidden-city",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "transient_error",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 2
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-search-permission",
+      "faults": [
+        {
+          "tool_name": "candidate_search",
+          "place_id": null,
+          "occurrence": 1,
+          "mode": "permission"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 3,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 1,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 0,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-search-runtime",
+      "faults": [
+        {
+          "tool_name": "candidate_search",
+          "place_id": null,
+          "occurrence": 1,
+          "mode": "runtime"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 3,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 1,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 0,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-search-invalid-output",
+      "faults": [
+        {
+          "tool_name": "candidate_search",
+          "place_id": null,
+          "occurrence": 1,
+          "mode": "invalid_output"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 3,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 1,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 0,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "invalid_output",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-search-insufficient",
+      "faults": [
+        {
+          "tool_name": "candidate_search",
+          "place_id": null,
+          "occurrence": 1,
+          "mode": "insufficient_evidence"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 3,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 1,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 0,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "insufficient_evidence"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "insufficient_evidence",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INSUFFICIENT_EVIDENCE"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": false,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "insufficient_evidence",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "insufficient_evidence",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-availability-permission",
+      "faults": [
+        {
+          "tool_name": "availability",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 4,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 2,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-availability-runtime",
+      "faults": [
+        {
+          "tool_name": "availability",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "runtime"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 4,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 2,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-availability-invalid",
+      "faults": [
+        {
+          "tool_name": "availability",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 4,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 2,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "invalid_output",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-booking-permission",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 5,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-booking-runtime",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "runtime"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 5,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-booking-invalid",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 5,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "invalid_output",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-travel-permission",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-travel-runtime",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "runtime"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-travel-invalid",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "invalid_output",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-search-timeout-exhausted",
+      "faults": [
+        {
+          "tool_name": "candidate_search",
+          "place_id": null,
+          "occurrence": 1,
+          "mode": "timeout"
+        },
+        {
+          "tool_name": "candidate_search",
+          "place_id": null,
+          "occurrence": 2,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 4,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 2,
+        "calls_by_tool": {
+          "candidate_search": 2,
+          "availability": 0,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": false,
+        "candidate_search_succeeded": false,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "transient_error",
+          "transient_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 2
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "TRANSIENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 2,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": false,
+        "candidate_search_succeeded": false,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "transient_error",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 2
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-availability-connection-exhausted",
+      "faults": [
+        {
+          "tool_name": "availability",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "connection"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "forbidden-city",
+          "occurrence": 2,
+          "mode": "connection"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 5,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "transient_error",
+          "transient_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 2
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "TRANSIENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 3,
+          "booking": 0,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "transient_error",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 2
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-booking-timeout-exhausted",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "timeout"
+        },
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 2,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 2,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "transient_error",
+          "transient_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 2
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "TRANSIENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 2,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "transient_error",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 2
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "replan-travel-timeout-exhausted",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "timeout"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 2,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 7,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "transient_error",
+          "transient_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 2
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "TRANSIENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 7,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 3
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "transient_error",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 2
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "recover-booking-then-fallback-availability-timeout",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 3,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "recover-booking-then-fallback-travel-timeout",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "transient_error",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 2
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "recover-travel-then-fallback-availability-connection",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "runtime"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "connection"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 7,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 7,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 3,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error",
+          "transient_error",
+          "success",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "recover-travel-then-fallback-travel-timeout",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "runtime"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": true,
+      "expected_status": "completed",
+      "expected_replans": 1,
+      "expected_tool_calls": 7,
+      "expected_final_place": "national-museum",
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "completed",
+        "replans": 1,
+        "tool_calls": 7,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 3
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": "national-museum",
+        "safe_stop": false,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "transient_error",
+          "success"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 2
+          },
+          {
+            "node": "generate",
+            "outcome": "generated"
+          },
+          {
+            "node": "validate",
+            "outcome": "completed"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-primary-and-fallback-availability",
+      "faults": [
+        {
+          "tool_name": "availability",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "permission"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 3,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 2,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 0,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "permanent_error",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-booking-and-fallback-invalid-availability",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 4,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-primary-and-fallback-travel",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "runtime"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "permission"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-primary-and-fallback-invalid-travel",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 6,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 6,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 2
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "invalid_output",
+          "success",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-invalid-booking-and-fallback-travel",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "runtime"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 5,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "invalid_output",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-invalid-primary-travel-and-fallback-availability",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "invalid_output"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "permission"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 5,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "invalid_output"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "INVALID_OUTPUT"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "invalid_output",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "invalid_output",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-booking-and-fallback-retry-exhausted",
+      "faults": [
+        {
+          "tool_name": "booking",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "timeout"
+        },
+        {
+          "tool_name": "availability",
+          "place_id": "national-museum",
+          "occurrence": 2,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 5,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 3,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 5,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 3,
+          "booking": 1,
+          "travel_time": 0
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "permanent_error",
+          "transient_error",
+          "transient_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 2
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "TRANSIENT_ERROR"
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "stop-travel-and-fallback-retry-exhausted",
+      "faults": [
+        {
+          "tool_name": "travel_time",
+          "place_id": "forbidden-city",
+          "occurrence": 1,
+          "mode": "permission"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "national-museum",
+          "occurrence": 1,
+          "mode": "timeout"
+        },
+        {
+          "tool_name": "travel_time",
+          "place_id": "national-museum",
+          "occurrence": 2,
+          "mode": "timeout"
+        }
+      ],
+      "requires_replan": true,
+      "recoverable": false,
+      "expected_status": "failed",
+      "expected_replans": 1,
+      "expected_tool_calls": 7,
+      "expected_final_place": null,
+      "reviewed": false,
+      "baseline": {
+        "status": "failed",
+        "replans": 0,
+        "tool_calls": 4,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 1,
+          "booking": 1,
+          "travel_time": 1
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "PERMANENT_ERROR"
+          }
+        ]
+      },
+      "agentic": {
+        "status": "failed",
+        "replans": 1,
+        "tool_calls": 7,
+        "calls_by_tool": {
+          "candidate_search": 1,
+          "availability": 2,
+          "booking": 1,
+          "travel_time": 3
+        },
+        "candidate_search_reused": true,
+        "candidate_search_succeeded": true,
+        "final_place": null,
+        "safe_stop": true,
+        "outcomes": [
+          "success",
+          "success",
+          "success",
+          "permanent_error",
+          "success",
+          "transient_error",
+          "transient_error"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "outcome": "initialized"
+          },
+          {
+            "node": "plan",
+            "outcome": "created",
+            "revision": 1,
+            "step_count": 4
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "search_candidates",
+            "tool": "candidate_search",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "primary_booking",
+            "tool": "booking",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "permanent_error",
+            "step_id": "primary_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "replan",
+            "outcome": "created",
+            "revision": 2,
+            "step_count": 2
+          },
+          {
+            "node": "execute",
+            "outcome": "success",
+            "step_id": "fallback_availability",
+            "tool": "availability",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 1
+          },
+          {
+            "node": "execute",
+            "outcome": "transient_error",
+            "step_id": "fallback_travel_time",
+            "tool": "travel_time",
+            "attempt": 2
+          },
+          {
+            "node": "fail",
+            "outcome": "safe_stop",
+            "reason_code": "TRANSIENT_ERROR"
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "The matrix is project-authored and has no independent human review.",
+    "Deterministic fixture tools validate control flow, not live provider reliability.",
+    "Failure-rate metrics describe this matrix and are not production incident rates."
+  ]
+}

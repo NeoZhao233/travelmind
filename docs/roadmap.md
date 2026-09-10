@@ -15,9 +15,10 @@ reproducible evidence are present.
 | 6 | End-to-end evaluation and optimization loop | In progress (6C reference Judge rejected; human verification and v2 data pending) | Versioned dataset, calibrated judging, regression gates, error taxonomy |
 | 7 | Production hardening: checkpoints, cache, observability, dependency fallbacks | Complete at pilot level | Outage drills expose degradation and preserve safety boundaries |
 | 8 | Temporal RAG ingestion and index lifecycle | Complete at pilot level | Live-source changes cannot partially publish or silently bypass freshness policy |
-| 9 | Interview release, evidence audit, and rehearsal | In progress (9A–9B complete) | Claims are reproducible, explainable, and demonstrable under interview constraints |
+| 9 | Interview release, evidence audit, and rehearsal | Complete | Claims are reproducible, explainable, and demonstrable under interview constraints |
 | 10 | Complex official-PDF ingestion and retrieval | Paused after 10A | Page-grounded PDF knowledge improves governed retrieval without weakening safety |
-| 11 | Runtime planning, tool observation, replanning, and causal failure analysis | In progress (11A–11C.3 complete) | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
+| 11 | Runtime planning, tool observation, replanning, and causal failure analysis | Complete | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
+| 12 | Evaluation expansion, no-answer admission, and fault-matrix re-test | Draft complete; human review blocked | Intent-isolated labels reviewed independently before metric promotion |
 
 Stage 4 order: ~~4A typed baseline and privacy-safe trace~~; ~~4B deterministic budget and sweep~~;
 ~~4C coverage-aware evidence packing~~; ~~4D deduplication, conflict handling, and compression~~;
@@ -58,6 +59,11 @@ and frozen gates~~; ~~11C.2 multi-step mid-flight replan with completed-observat
 interview narrative, release audit, and timed failure demo~~. Stage 11 is complete; Stage 10B–10D
 remain available as the next document-ingestion track.
 
+Stage 12 order: ~~12A expand retrieval evaluation to 105 queries/35 intent clusters with split
+isolation and no-answer cases~~; ~~12B rerun BM25, Dense, Hybrid, and Reranker with cluster-level
+uncertainty~~; ~~12C expand runtime faults to 34 exact contracts~~; ~~12D add a development-tuned
+answerability admission candidate~~; 12E independent human label review and release promotion.
+
 ## Stage 2 implementation order
 
 1. ~~Add a retrieval evaluation runner and metric contracts before advanced retrieval.~~
@@ -68,8 +74,9 @@ remain available as the next document-ingestion track.
 6. ~~Evaluate reranking; retain its adapter but reject it as default because its measured result does not justify latency.~~
 7. ~~Inject single-channel and reranker exception/timeout failures and verify degraded modes.~~
 
-The current 15-query set is a pipeline seed. Before resume-grade metric claims, expand it, create a
-held-out split, add hard negatives and abstention cases, and obtain independent label review.
+The original 15-query set remains a pipeline seed. Stage 12 expands it to 105 queries/35 intent
+clusters with split isolation and abstention cases. Independent human review remains required before
+the new metric can become a resume-grade claim.
 
 ## Stage 3 implementation order
 

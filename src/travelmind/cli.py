@@ -11,6 +11,7 @@ from travelmind.agentic.llm_provider import DeepSeekConfig, DeepSeekHTTPProvider
 from travelmind.evaluation.agentic_runner import (
     run_deterministic_agentic_policy_experiment,
 )
+from travelmind.evaluation.answerability_runner import run_answerability_admission_experiment
 from travelmind.evaluation.candidate_planning_runner import (
     run_candidate_planning_experiment,
 )
@@ -54,6 +55,9 @@ from travelmind.evaluation.runner import (
     run_dense_experiment,
     run_hybrid_experiment,
     run_reranked_hybrid_experiment,
+)
+from travelmind.evaluation.runtime_failure_matrix_runner import (
+    run_runtime_failure_matrix_experiment,
 )
 from travelmind.evaluation.runtime_multistep_runner import run_runtime_multistep_experiment
 from travelmind.evaluation.runtime_replanning_runner import run_runtime_replanning_experiment
@@ -283,6 +287,61 @@ def eval_runtime_multistep(
     destination.write_text(f"{serialized}\n", encoding="utf-8")
     typer.echo(f"Wrote multi-step runtime report to {destination}")
     typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
+
+
+@app.command("eval-runtime-failure-matrix")
+def eval_runtime_failure_matrix(
+    root: Annotated[
+        Path,
+        typer.Option("--root", help="Project root containing the Stage 12 fault matrix."),
+    ] = Path("."),
+    output: Annotated[
+        Path | None,
+        typer.Option("--output", help="Optional JSON report path."),
+    ] = None,
+) -> None:
+    """Evaluate retry, replan, reuse, and safe stop over the expanded fault matrix."""
+
+    project_root = root.resolve()
+    report = run_runtime_failure_matrix_experiment(project_root)
+    serialized = json.dumps(report, ensure_ascii=False, indent=2)
+    if output is None:
+        typer.echo(serialized)
+        return
+    destination = output if output.is_absolute() else project_root / output
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(f"{serialized}\n", encoding="utf-8")
+    typer.echo(f"Wrote runtime failure matrix report to {destination}")
+    typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
+
+
+@app.command("eval-answerability-admission")
+def eval_answerability_admission(
+    root: Annotated[Path, typer.Option("--root")] = Path("."),
+    output: Annotated[Path | None, typer.Option("--output")] = None,
+) -> None:
+    """Tune admission on development labels and evaluate once on the frozen test split."""
+
+    project_root = root.resolve()
+    report = run_answerability_admission_experiment(project_root)
+    serialized = json.dumps(report, ensure_ascii=False, indent=2)
+    if output is None:
+        typer.echo(serialized)
+        return
+    destination = output if output.is_absolute() else project_root / output
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(f"{serialized}\n", encoding="utf-8")
+    typer.echo(f"Wrote answerability admission report to {destination}")
+    typer.echo(
+        json.dumps(
+            {
+                "test": report["metrics_by_split"]["test"],
+                "selection": report["selection"],
+            },
+            ensure_ascii=False,
+            indent=2,
+        )
+    )
 
 
 @app.command("eval-live-agentic")
@@ -582,6 +641,10 @@ def eval_retrieval(
         Path,
         typer.Option("--root", help="Project root containing data and evaluation labels."),
     ] = Path("."),
+    dataset: Annotated[
+        Path,
+        typer.Option("--dataset", help="Retrieval JSONL path relative to the project root."),
+    ] = Path("evals/datasets/retrieval_seed.jsonl"),
     output: Annotated[
         Path | None,
         typer.Option("--output", help="Optional JSON report path, relative to the project root."),
@@ -638,6 +701,7 @@ def eval_retrieval(
             k1=k1,
             b=b,
             apply_filters=apply_filters,
+            dataset_path=dataset,
         )
     elif retriever in {"dense", "hybrid", "reranked"}:
         if apply_filters:
@@ -654,6 +718,7 @@ def eval_retrieval(
                     limit=limit,
                     model_name=model_name,
                     local_files_only=local_files_only,
+                    dataset_path=dataset,
                 )
             elif retriever == "hybrid":
                 report = run_hybrid_experiment(
@@ -666,6 +731,7 @@ def eval_retrieval(
                     rrf_k=rrf_k,
                     candidate_limit=candidate_limit,
                     channel_timeout_seconds=channel_timeout_seconds,
+                    dataset_path=dataset,
                 )
             else:
                 if rerank_candidate_limit < limit:
@@ -683,6 +749,7 @@ def eval_retrieval(
                     channel_timeout_seconds=channel_timeout_seconds,
                     rerank_candidate_limit=rerank_candidate_limit,
                     reranker_timeout_seconds=reranker_timeout_seconds,
+                    dataset_path=dataset,
                 )
         except (
             DenseDependencyError,
