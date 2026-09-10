@@ -1,0 +1,86 @@
+{
+  "experiment": "stage5b-explainable-greedy-candidate-planning",
+  "algorithm": "explainable-greedy-v1",
+  "dataset": "evals/datasets/candidate_planning_seed.json",
+  "dataset_sha256": "144c14b2db9a9442ea2bff29475452251b5f264d58e6742976b91b56cfb29a1a",
+  "metrics": {
+    "case_count": 5,
+    "expected_outcome_exact_match": 1.0,
+    "unsafe_activity_admission_free_rate": 1.0,
+    "candidate_decision_trace_coverage": 1.0
+  },
+  "limitations": [
+    "Project-authored controlled fixtures, not independently reviewed traffic.",
+    "Greedy selection is deterministic but does not prove global optimality.",
+    "Travel times are static directed fixtures and do not model traffic uncertainty."
+  ],
+  "cases": [
+    {
+      "case_id": "required_then_utility",
+      "selected": [
+        "museum",
+        "park"
+      ],
+      "skips": {
+        "bar": "excluded_by_request"
+      },
+      "unscheduled_required": [],
+      "violation_codes": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "missing_inbound_route",
+      "selected": [
+        "park"
+      ],
+      "skips": {
+        "museum": "inbound_travel_unavailable"
+      },
+      "unscheduled_required": [
+        "museum"
+      ],
+      "violation_codes": [
+        "REQUIRED_PLACE_MISSING"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "budget_preserves_required",
+      "selected": [
+        "museum"
+      ],
+      "skips": {
+        "park": "budget_exceeded"
+      },
+      "unscheduled_required": [],
+      "violation_codes": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "booking_fail_closed",
+      "selected": [
+        "park"
+      ],
+      "skips": {
+        "museum": "booking_unconfirmed"
+      },
+      "unscheduled_required": [
+        "museum"
+      ],
+      "violation_codes": [
+        "REQUIRED_PLACE_MISSING"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "return_route_fail_closed",
+      "selected": [],
+      "skips": {
+        "far": "return_travel_unavailable"
+      },
+      "unscheduled_required": [],
+      "violation_codes": [],
+      "exact_match": true
+    }
+  ]
+}

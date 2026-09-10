@@ -1,0 +1,28 @@
+{
+  "experiment": "stage8c-typed-parse-conflict-and-incremental-index-drill",
+  "configuration_sha256": "8ca8f790f1b15346b5d4f00ae85fe43d63c7866268b99078ca17aac021d9ddc8",
+  "checks": {
+    "typed_payload_accepted": true,
+    "invalid_cross_reference_quarantined": true,
+    "quarantine_payload_redacted": true,
+    "authority_conflict_selected_official": true,
+    "equal_precedence_conflict_unresolved": true,
+    "incremental_update_touched_one_of_two_keys": true,
+    "identical_batch_was_no_op": true,
+    "failed_update_preserved_previous_state": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "parse_quarantine_accuracy": 1.0,
+    "conflict_policy_accuracy": 1.0,
+    "incremental_key_recompute_ratio": 0.5,
+    "no_op_detection_rate": 1.0,
+    "failed_update_state_preservation_rate": 1.0
+  },
+  "limitations": [
+    "The parser consumes controlled JSON rather than real HTML layouts.",
+    "The incremental reference index is in memory, not Qdrant or Elasticsearch.",
+    "Authority-first precedence needs source-owner review for each fact class.",
+    "Unresolved facts are excluded; user-facing uncertainty integration is future work."
+  ]
+}

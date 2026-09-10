@@ -1,0 +1,133 @@
+{
+  "experiment": "stage6d-frozen-regression-gate",
+  "profile_id": "e2e-planning-release-v1",
+  "profile": "evals/baselines/e2e_planning_release_v1.json",
+  "profile_sha256": "95a0e77f3811e70d70bfeb7e32189b50895e1c46d3ac7541a1b2b817aee137c0",
+  "baseline_audit": "evals/results/stage6ab_evaluation_audit_v1.json",
+  "baseline_audit_sha256": "bae0751fdc5525c4a4b73de34029b3fd4712c8d7aba689b71427d3e38f21b7cc",
+  "candidate_audit": "evals/results/stage6ab_evaluation_audit_v1.json",
+  "candidate_audit_sha256": "bae0751fdc5525c4a4b73de34029b3fd4712c8d7aba689b71427d3e38f21b7cc",
+  "baseline_variant": "deterministic",
+  "candidate_variant": "deepseek_ranked",
+  "status": "rejected",
+  "gate_passed": false,
+  "checks": [
+    {
+      "name": "same_dataset_sha256",
+      "passed": true,
+      "actual": "17f3b4fdaeffa3c04e9da4167fe3db400539bfce7b3026a641d737c9a90e7623",
+      "expected": "17f3b4fdaeffa3c04e9da4167fe3db400539bfce7b3026a641d737c9a90e7623"
+    },
+    {
+      "name": "same_manifest_sha256",
+      "passed": true,
+      "actual": "f2dbf478e68dade99c06a254737155eaeded8dc9a7e410cc9b123ea7ba923aba",
+      "expected": "f2dbf478e68dade99c06a254737155eaeded8dc9a7e410cc9b123ea7ba923aba"
+    },
+    {
+      "name": "development.task_success_rate.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "development.valid_plan_rate.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "development.constraint_satisfaction_rate.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "development.required_place_coverage.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "development.expected_place_hit_rate.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "test.task_success_rate.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "test.valid_plan_rate.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "test.constraint_satisfaction_rate.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "test.required_place_coverage.non_decreasing",
+      "passed": true,
+      "actual": 1.0,
+      "expected": ">=1.0"
+    },
+    {
+      "name": "test.expected_place_hit_rate.non_decreasing",
+      "passed": true,
+      "actual": 0.8333333333333333,
+      "expected": ">=0.8333333333333333"
+    },
+    {
+      "name": "maximum_fallback_rate",
+      "passed": true,
+      "actual": 0.0,
+      "expected": "<=0.1"
+    },
+    {
+      "name": "maximum_provider_tokens_per_case",
+      "passed": true,
+      "actual": 895.0,
+      "expected": "<=1000.0"
+    },
+    {
+      "name": "maximum_mean_provider_latency_ms",
+      "passed": true,
+      "actual": 877.0209918002365,
+      "expected": "<=1500.0"
+    },
+    {
+      "name": "no_forbidden_issue_codes",
+      "passed": true,
+      "actual": {},
+      "expected": {}
+    },
+    {
+      "name": "paid_candidate_expected_hit_lift",
+      "passed": false,
+      "actual": {
+        "paid_candidate": true,
+        "lift": 0.0
+      },
+      "expected": ">=0.05"
+    }
+  ],
+  "summary": {
+    "check_count": 17,
+    "failed_check_count": 1,
+    "provider_tokens_per_case": 895.0,
+    "mean_provider_latency_ms": 877.0209918002365,
+    "expected_place_hit_rate_lift": 0.0
+  },
+  "limitations": [
+    "The frozen pilot has five project-authored non-blind cases.",
+    "Passing prevents measured regressions; it does not establish production quality.",
+    "Subjective Judge metrics remain excluded until Stage 6C calibration passes."
+  ]
+}

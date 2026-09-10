@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "selection_gate": {
+    "non_decreasing_valid_plan_rate": true,
+    "non_decreasing_constraint_satisfaction_rate": true,
+    "non_decreasing_expected_place_hit_rate": true,
+    "minimum_expected_place_hit_rate_lift": 0.05,
+    "maximum_candidate_fallback_rate": 0.10
+  },
+  "cases": [
+    {
+      "case_id": "history_two_days",
+      "query": "北京两天历史文化行程，必去故宫，也想看皇家建筑",
+      "constraints": {"destination": "北京", "days": 2, "budget": 200, "pace": "relaxed", "interests": ["历史文化", "传统建筑"], "required_places": ["palace-museum"]},
+      "expected_place_ids": ["palace-museum", "temple-of-heaven", "summer-palace"],
+      "minimum_expected_hits": 2
+    },
+    {
+      "case_id": "accessible_free",
+      "query": "带行动不便的长辈，想去免费、不用预约的开放历史街区",
+      "constraints": {"destination": "北京", "days": 1, "budget": 0, "pace": "relaxed", "interests": ["历史街区", "开放空间"], "required_places": ["shichahai-park"], "excluded_places": ["palace-museum", "national-museum-china"]},
+      "expected_place_ids": ["shichahai-park"],
+      "minimum_expected_hits": 1
+    },
+    {
+      "case_id": "royal_garden",
+      "query": "喜欢皇家园林和湖景，一天轻松游",
+      "constraints": {"destination": "北京", "days": 1, "budget": 100, "pace": "relaxed", "interests": ["皇家园林", "湖景"], "required_places": ["summer-palace"]},
+      "expected_place_ids": ["summer-palace"],
+      "minimum_expected_hits": 1
+    },
+    {
+      "case_id": "low_budget_no_booking",
+      "query": "预算50元，想安排北京历史文化景点，尽量不用预约",
+      "constraints": {"destination": "北京", "days": 1, "budget": 50, "pace": "relaxed", "interests": ["历史文化"], "excluded_places": ["palace-museum", "national-museum-china"]},
+      "expected_place_ids": ["shichahai-park", "temple-of-heaven"],
+      "minimum_expected_hits": 1
+    },
+    {
+      "case_id": "exclude_museums",
+      "query": "不去博物馆，想看北京传统建筑和公园",
+      "constraints": {"destination": "北京", "days": 1, "budget": 100, "pace": "relaxed", "interests": ["传统建筑", "公园"], "excluded_places": ["palace-museum", "national-museum-china"]},
+      "expected_place_ids": ["temple-of-heaven", "summer-palace", "shichahai-park"],
+      "minimum_expected_hits": 2
+    }
+  ]
+}

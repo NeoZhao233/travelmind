@@ -1,0 +1,240 @@
+{
+  "schema_version": 1,
+  "experiment": "context-refinement-controlled-v1",
+  "dataset_fingerprint_sha256": "112e5ef204b7b455bca7f003f140dd1316abdabe43dd6583b1112133cfc2e922",
+  "configuration": {
+    "compression_target_tokens": 45,
+    "duplicate_threshold": 0.92,
+    "estimator": "heuristic-cjk1-ascii4-v1"
+  },
+  "metrics": {
+    "cases": 7,
+    "decision_accuracy": 1.0,
+    "head_critical_fact_preservation": 0.0,
+    "extractive_critical_fact_preservation": 1.0,
+    "estimated_evidence_token_reduction": 0.42402826855123676,
+    "duplicate_groups": 2,
+    "resolved_conflicts": 2,
+    "unresolved_conflicts": 1
+  },
+  "selection": {
+    "selected_policy": "deterministic-refinement-v1",
+    "gate_passed": true
+  },
+  "cases": [
+    {
+      "case_id": "duplicate-exact-authority",
+      "decision_correct": true,
+      "actual_kept_ids": [
+        "official"
+      ],
+      "conflict_status": null,
+      "compression_case": false,
+      "head_critical_facts_preserved": 0,
+      "extractive_critical_facts_preserved": 0,
+      "critical_fact_count": 0,
+      "trace": {
+        "trace_version": "evidence-refinement-v1",
+        "duplicate_groups": [
+          {
+            "kept_item_id": "evidence:official",
+            "suppressed_item_ids": [
+              "evidence:guide"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "compressed_item_ids": [],
+        "compression_skipped_item_ids": [],
+        "estimated_evidence_tokens_before": 34,
+        "estimated_evidence_tokens_after": 17,
+        "degraded_components": []
+      }
+    },
+    {
+      "case_id": "duplicate-near-authority",
+      "decision_correct": true,
+      "actual_kept_ids": [
+        "source"
+      ],
+      "conflict_status": null,
+      "compression_case": false,
+      "head_critical_facts_preserved": 0,
+      "extractive_critical_facts_preserved": 0,
+      "critical_fact_count": 0,
+      "trace": {
+        "trace_version": "evidence-refinement-v1",
+        "duplicate_groups": [
+          {
+            "kept_item_id": "evidence:source",
+            "suppressed_item_ids": [
+              "evidence:copy"
+            ]
+          }
+        ],
+        "conflicts": [],
+        "compressed_item_ids": [],
+        "compression_skipped_item_ids": [],
+        "estimated_evidence_tokens_before": 50,
+        "estimated_evidence_tokens_after": 25,
+        "degraded_components": []
+      }
+    },
+    {
+      "case_id": "conflict-authority-before-recency",
+      "decision_correct": true,
+      "actual_kept_ids": [
+        "official-old"
+      ],
+      "conflict_status": "resolved",
+      "compression_case": false,
+      "head_critical_facts_preserved": 0,
+      "extractive_critical_facts_preserved": 0,
+      "critical_fact_count": 0,
+      "trace": {
+        "trace_version": "evidence-refinement-v1",
+        "duplicate_groups": [],
+        "conflicts": [
+          {
+            "fact_key": "ticket:high",
+            "status": "resolved",
+            "kept_item_ids": [
+              "evidence:official-old"
+            ],
+            "suppressed_item_ids": [
+              "evidence:guide-new"
+            ],
+            "reason_code": "higher_authority"
+          }
+        ],
+        "compressed_item_ids": [],
+        "compression_skipped_item_ids": [],
+        "estimated_evidence_tokens_before": 27,
+        "estimated_evidence_tokens_after": 15,
+        "degraded_components": []
+      }
+    },
+    {
+      "case_id": "conflict-same-authority-newer",
+      "decision_correct": true,
+      "actual_kept_ids": [
+        "new"
+      ],
+      "conflict_status": "resolved",
+      "compression_case": false,
+      "head_critical_facts_preserved": 0,
+      "extractive_critical_facts_preserved": 0,
+      "critical_fact_count": 0,
+      "trace": {
+        "trace_version": "evidence-refinement-v1",
+        "duplicate_groups": [],
+        "conflicts": [
+          {
+            "fact_key": "closing",
+            "status": "resolved",
+            "kept_item_ids": [
+              "evidence:new"
+            ],
+            "suppressed_item_ids": [
+              "evidence:old"
+            ],
+            "reason_code": "newer_observation"
+          }
+        ],
+        "compressed_item_ids": [],
+        "compression_skipped_item_ids": [],
+        "estimated_evidence_tokens_before": 24,
+        "estimated_evidence_tokens_after": 12,
+        "degraded_components": []
+      }
+    },
+    {
+      "case_id": "conflict-unresolved-equal-precedence",
+      "decision_correct": true,
+      "actual_kept_ids": [
+        "official-a",
+        "official-b"
+      ],
+      "conflict_status": "unresolved",
+      "compression_case": false,
+      "head_critical_facts_preserved": 2,
+      "extractive_critical_facts_preserved": 2,
+      "critical_fact_count": 2,
+      "trace": {
+        "trace_version": "evidence-refinement-v1",
+        "duplicate_groups": [],
+        "conflicts": [
+          {
+            "fact_key": "closing",
+            "status": "unresolved",
+            "kept_item_ids": [
+              "evidence:official-a",
+              "evidence:official-b"
+            ],
+            "suppressed_item_ids": [],
+            "reason_code": "insufficient_precedence"
+          }
+        ],
+        "compressed_item_ids": [],
+        "compression_skipped_item_ids": [],
+        "estimated_evidence_tokens_before": 20,
+        "estimated_evidence_tokens_after": 20,
+        "degraded_components": []
+      }
+    },
+    {
+      "case_id": "compression-late-price-and-closure",
+      "decision_correct": true,
+      "actual_kept_ids": [
+        "long-ticket"
+      ],
+      "conflict_status": null,
+      "compression_case": true,
+      "head_critical_facts_preserved": 0,
+      "extractive_critical_facts_preserved": 2,
+      "critical_fact_count": 2,
+      "trace": {
+        "trace_version": "evidence-refinement-v1",
+        "duplicate_groups": [],
+        "conflicts": [],
+        "compressed_item_ids": [
+          "evidence:long-ticket"
+        ],
+        "compression_skipped_item_ids": [],
+        "estimated_evidence_tokens_before": 66,
+        "estimated_evidence_tokens_after": 37,
+        "degraded_components": []
+      }
+    },
+    {
+      "case_id": "compression-late-booking-exception",
+      "decision_correct": true,
+      "actual_kept_ids": [
+        "long-booking"
+      ],
+      "conflict_status": null,
+      "compression_case": true,
+      "head_critical_facts_preserved": 0,
+      "extractive_critical_facts_preserved": 2,
+      "critical_fact_count": 2,
+      "trace": {
+        "trace_version": "evidence-refinement-v1",
+        "duplicate_groups": [],
+        "conflicts": [],
+        "compressed_item_ids": [
+          "evidence:long-booking"
+        ],
+        "compression_skipped_item_ids": [],
+        "estimated_evidence_tokens_before": 62,
+        "estimated_evidence_tokens_after": 37,
+        "degraded_components": []
+      }
+    }
+  ],
+  "limitations": [
+    "The controlled seven-case seed isolates behavior but is not a natural traffic set.",
+    "Near-duplicate matching is lexical and does not detect paraphrases.",
+    "Conflict resolution requires trustworthy authority and observation metadata.",
+    "Extractive compression preserves text spans, not full answer faithfulness."
+  ]
+}

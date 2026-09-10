@@ -1,0 +1,58 @@
+{
+  "experiment": "stage7a-observability-and-redaction-drill",
+  "configuration_sha256": "63bb90646739fffb9e75dcd86aeec5f2a31e8f0b8fdfc0f8cbe4c007e259805a",
+  "metrics": {
+    "business_completion_rate": 1.0,
+    "canary_leak_rate": 0.0,
+    "trace_integrity_rate_when_sink_available": 1.0,
+    "telemetry_outage_survival_rate": 1.0,
+    "retrieval_fallback_visibility_rate": 1.0
+  },
+  "cases": [
+    {
+      "scenario": "healthy",
+      "business_completed": true,
+      "trace_id": "00000000000000000000000000000001",
+      "telemetry_degraded": false,
+      "degraded_components": [],
+      "event_count": 9,
+      "sequence_contiguous": true,
+      "trace_correlated": true,
+      "canary_leaked": false,
+      "safe_error_types": []
+    },
+    {
+      "scenario": "telemetry_outage",
+      "business_completed": true,
+      "trace_id": "00000000000000000000000000000002",
+      "telemetry_degraded": true,
+      "degraded_components": [],
+      "event_count": 0,
+      "sequence_contiguous": true,
+      "trace_correlated": true,
+      "canary_leaked": false,
+      "safe_error_types": []
+    },
+    {
+      "scenario": "retrieval_fallback",
+      "business_completed": true,
+      "trace_id": "00000000000000000000000000000003",
+      "telemetry_degraded": false,
+      "degraded_components": [
+        "retriever"
+      ],
+      "event_count": 11,
+      "sequence_contiguous": true,
+      "trace_correlated": true,
+      "canary_leaked": false,
+      "safe_error_types": [
+        "TimeoutError"
+      ]
+    }
+  ],
+  "limitations": [
+    "The sink is in-memory; remote exporter delivery is not measured.",
+    "The drill uses injected exceptions rather than a real collector outage.",
+    "Metrics validate trace contracts, not production throughput or cardinality cost."
+  ]
+}

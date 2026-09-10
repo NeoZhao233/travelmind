@@ -1,0 +1,51 @@
+{
+  "experiment": "stage7c2-durable-cross-process-resume-and-receipt-drill",
+  "configuration_sha256": "166850f867b96da6b726c200be0ddfa6804bef8cf76dc0b65136e9974329d6d6",
+  "checks": {
+    "first_process_persisted_validate_as_next": true,
+    "second_process_resumed_without_planner": true,
+    "first_process_committed_receipt": true,
+    "second_process_replayed_receipt": true,
+    "checkpoint_file_owner_only": true,
+    "receipt_file_owner_only": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "cross_process_resume_success_rate": 1.0,
+    "cross_process_receipt_replay_rate": 1.0,
+    "owner_only_file_mode_rate": 1.0
+  },
+  "process_results": {
+    "checkpoint_prepare": {
+      "mode": "checkpoint-prepare",
+      "status": "generated",
+      "planner_calls_in_process": 1,
+      "next_nodes": [
+        "validate"
+      ]
+    },
+    "checkpoint_resume": {
+      "mode": "checkpoint-resume",
+      "status": "completed",
+      "planner_calls_in_process": 0,
+      "next_nodes": []
+    },
+    "receipt_first": {
+      "mode": "receipt-run",
+      "planner_calls_in_process": 1,
+      "executions": 1,
+      "replays": 0
+    },
+    "receipt_second": {
+      "mode": "receipt-run",
+      "planner_calls_in_process": 0,
+      "executions": 0,
+      "replays": 1
+    }
+  },
+  "limitations": [
+    "SQLite is for local/small synchronous workloads, not multi-instance production.",
+    "The drill uses sequential processes and does not establish concurrent write capacity.",
+    "Expired in-progress receipts fail closed and require operator reconciliation."
+  ]
+}

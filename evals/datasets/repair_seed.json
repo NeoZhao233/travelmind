@@ -1,0 +1,9 @@
+[
+  {"case_id":"valid_noop","scenario":"valid","expected_status":"completed","expected_attempts":0,"expected_modified_days":[]},
+  {"case_id":"recompute_total","scenario":"cost_mismatch","expected_status":"completed","expected_attempts":1,"expected_modified_days":[]},
+  {"case_id":"drop_optional_for_budget","scenario":"budget","expected_status":"completed","expected_attempts":1,"expected_modified_days":[1]},
+  {"case_id":"replace_closed_on_day_one","scenario":"closed_day","expected_status":"completed","expected_attempts":1,"expected_modified_days":[1]},
+  {"case_id":"impossible_required_bounded","scenario":"impossible","expected_status":"failed","expected_attempts":2,"expected_modified_days":[]},
+  {"case_id":"nonrepairable_day_numbering","scenario":"nonrepairable","expected_status":"failed","expected_attempts":0,"expected_modified_days":[]},
+  {"case_id":"primary_repairer_outage","scenario":"repairer_outage","expected_status":"completed","expected_attempts":1,"expected_modified_days":[]}
+]

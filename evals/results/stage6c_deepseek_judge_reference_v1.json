@@ -1,0 +1,430 @@
+{
+  "experiment": "stage6c-llm-judge-calibration",
+  "dataset_sha256": "78ffca48ee428afe8ddff2d49f0c573d5a25e5ec3a66d826529b1103be7d0283",
+  "rubric_version": "subjective-answer-rubric-v1",
+  "label_provenance": "ai_assisted_unverified",
+  "repeats": 3,
+  "dimension_metrics": {
+    "answer_correctness": {
+      "mae": 0.5714285714285714,
+      "exact_agreement": 0.8571428571428571,
+      "within_one_agreement": 0.8571428571428571,
+      "quadratic_weighted_kappa": 0.0,
+      "mean_bias": -0.5714285714285714
+    },
+    "evidence_grounding": {
+      "mae": 0.5714285714285714,
+      "exact_agreement": 0.8571428571428571,
+      "within_one_agreement": 0.8571428571428571,
+      "quadratic_weighted_kappa": 0.0,
+      "mean_bias": -0.5714285714285714
+    },
+    "clarity_actionability": {
+      "mae": 0.8571428571428571,
+      "exact_agreement": 0.5714285714285714,
+      "within_one_agreement": 0.8571428571428571,
+      "quadratic_weighted_kappa": -0.08620689655172398,
+      "mean_bias": -0.5714285714285714
+    },
+    "uncertainty_calibration": {
+      "mae": 0.7142857142857143,
+      "exact_agreement": 0.5714285714285714,
+      "within_one_agreement": 0.8571428571428571,
+      "quadratic_weighted_kappa": 0.3185840707964601,
+      "mean_bias": -0.42857142857142855
+    }
+  },
+  "repeat_exact_consistency": 0.8571428571428571,
+  "fallback_rate": 0.0,
+  "total_provider_tokens": 6827,
+  "selection": {
+    "judge_accepted": false,
+    "metrics_gate_passed": false,
+    "status": "reference_only"
+  },
+  "calls": [
+    {
+      "candidate_id": "d69c5d42013deda1",
+      "case_id": "answer-accessible-budget",
+      "repeat": 1,
+      "success": true,
+      "scores": {
+        "answer_correctness": 1,
+        "evidence_grounding": 1,
+        "clarity_actionability": 1,
+        "uncertainty_calibration": 1
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答仅提及什刹海，未提供其他选项或预约信息，证据单一且未说明来源，缺乏可执行细节。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 961.469500005478,
+      "total_tokens": 315,
+      "error_type": null
+    },
+    {
+      "candidate_id": "d69c5d42013deda1",
+      "case_id": "answer-accessible-budget",
+      "repeat": 2,
+      "success": true,
+      "scores": {
+        "answer_correctness": 1,
+        "evidence_grounding": 1,
+        "clarity_actionability": 1,
+        "uncertainty_calibration": 1
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答仅提及什刹海，未提供其他备选或预约信息，证据单一，缺乏可执行细节。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1057.4995420029154,
+      "total_tokens": 312,
+      "error_type": null
+    },
+    {
+      "candidate_id": "d69c5d42013deda1",
+      "case_id": "answer-accessible-budget",
+      "repeat": 3,
+      "success": true,
+      "scores": {
+        "answer_correctness": 1,
+        "evidence_grounding": 1,
+        "clarity_actionability": 1,
+        "uncertainty_calibration": 1
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答仅提及什刹海公园，未提供证据ID对应内容，且未考虑周一闭馆、预约政策等，证据不足。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1278.9523749961518,
+      "total_tokens": 317,
+      "error_type": null
+    },
+    {
+      "candidate_id": "22fdaa4f63b96a48",
+      "case_id": "answer-inner-garden",
+      "repeat": 1,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确周一不能参观佛香阁，引用证据ID，无不确定性，清晰可执行。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1081.8332079943502,
+      "total_tokens": 323,
+      "error_type": null
+    },
+    {
+      "candidate_id": "22fdaa4f63b96a48",
+      "case_id": "answer-inner-garden",
+      "repeat": 2,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确周一不能参观佛香阁，引用证据ID，无不确定性，清晰可执行。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 890.0072499964153,
+      "total_tokens": 323,
+      "error_type": null
+    },
+    {
+      "candidate_id": "22fdaa4f63b96a48",
+      "case_id": "answer-inner-garden",
+      "repeat": 3,
+      "success": true,
+      "scores": {
+        "answer_correctness": 1,
+        "evidence_grounding": 1,
+        "clarity_actionability": 1,
+        "uncertainty_calibration": 1
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答基于单一证据，未核实官方开放时间，且未提及节假日例外，证据不足。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 860.7611670013284,
+      "total_tokens": 323,
+      "error_type": null
+    },
+    {
+      "candidate_id": "c3e40242fbc9845d",
+      "case_id": "answer-palace-monday",
+      "repeat": 1,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 4,
+        "uncertainty_calibration": 4
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确周一闭馆（法定节假日除外），并建议避开或查官网，证据ID指向官方公告，但未提供具体日期或链接。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1296.4881250081817,
+      "total_tokens": 342,
+      "error_type": null
+    },
+    {
+      "candidate_id": "c3e40242fbc9845d",
+      "case_id": "answer-palace-monday",
+      "repeat": 2,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 4,
+        "uncertainty_calibration": 4
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答准确指出周一闭馆及法定节假日例外，引用证据支持，建议查看官网，但未明确提及具体年份或日期，略有模糊。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1015.5488339951262,
+      "total_tokens": 342,
+      "error_type": null
+    },
+    {
+      "candidate_id": "c3e40242fbc9845d",
+      "case_id": "answer-palace-monday",
+      "repeat": 3,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 4,
+        "uncertainty_calibration": 4
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答准确指出周一闭馆及法定节假日例外，引用证据支持，建议查看官网，但未明确提及具体年份或日期，略有模糊。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1430.1380830002017,
+      "total_tokens": 342,
+      "error_type": null
+    },
+    {
+      "candidate_id": "ab7424c188142247",
+      "case_id": "answer-route",
+      "repeat": 1,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答准确说明午门进、神武门或东华门出，与证据一致，信息清晰可执行，无不确定性。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1175.7092920015566,
+      "total_tokens": 344,
+      "error_type": null
+    },
+    {
+      "candidate_id": "ab7424c188142247",
+      "case_id": "answer-route",
+      "repeat": 2,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确午门进、神武门或东华门出，与证据ID一致，无不确定表述。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 740.2040000015404,
+      "total_tokens": 340,
+      "error_type": null
+    },
+    {
+      "candidate_id": "ab7424c188142247",
+      "case_id": "answer-route",
+      "repeat": 3,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答准确说明午门进、神武门或东华门出，与证据一致，信息清晰可执行，无不确定性。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1065.3519580082502,
+      "total_tokens": 344,
+      "error_type": null
+    },
+    {
+      "candidate_id": "1d106d48d3e5d2f8",
+      "case_id": "answer-temple-monday",
+      "repeat": 1,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答准确指出周一祈年殿关闭及联票不可用，建议改期或购大门票，与证据一致，清晰可执行。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1057.670334004797,
+      "total_tokens": 368,
+      "error_type": null
+    },
+    {
+      "candidate_id": "1d106d48d3e5d2f8",
+      "case_id": "answer-temple-monday",
+      "repeat": 2,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答准确指出周一祈年殿关闭及联票不可用，建议改期或购大门票，与证据一致，清晰可执行。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1092.8369580069557,
+      "total_tokens": 368,
+      "error_type": null
+    },
+    {
+      "candidate_id": "1d106d48d3e5d2f8",
+      "case_id": "answer-temple-monday",
+      "repeat": 3,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答准确指出周一祈年殿关闭及联票不可用，建议改期或购大门票，与证据一致，清晰可执行。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1104.8613749881042,
+      "total_tokens": 368,
+      "error_type": null
+    },
+    {
+      "candidate_id": "e7b664066a58fb98",
+      "case_id": "answer-ticket",
+      "repeat": 1,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确给出旺季普通门票30元、联票60元，与证据ID对应，无不确定表述。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1088.042958988808,
+      "total_tokens": 321,
+      "error_type": null
+    },
+    {
+      "candidate_id": "e7b664066a58fb98",
+      "case_id": "answer-ticket",
+      "repeat": 2,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答直接给出旺季门票价格，与证据ID对应，无不确定表述，清晰可执行。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1262.02695799293,
+      "total_tokens": 318,
+      "error_type": null
+    },
+    {
+      "candidate_id": "e7b664066a58fb98",
+      "case_id": "answer-ticket",
+      "repeat": 3,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确给出旺季普通门票30元、联票60元，与证据ID对应，无不确定表述。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1226.8059579946566,
+      "total_tokens": 321,
+      "error_type": null
+    },
+    {
+      "candidate_id": "fc71c2d3e239148d",
+      "case_id": "answer-unsupported-live",
+      "repeat": 1,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确拒绝提供实时数据，符合证据缺失情况，未编造信息，清晰说明无法回答。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1452.790166993509,
+      "total_tokens": 266,
+      "error_type": null
+    },
+    {
+      "candidate_id": "fc71c2d3e239148d",
+      "case_id": "answer-unsupported-live",
+      "repeat": 2,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确拒绝提供实时数据，符合证据缺失情况，未编造信息，不确定性处理恰当。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1189.9702920054551,
+      "total_tokens": 265,
+      "error_type": null
+    },
+    {
+      "candidate_id": "fc71c2d3e239148d",
+      "case_id": "answer-unsupported-live",
+      "repeat": 3,
+      "success": true,
+      "scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "reason_codes": [],
+      "evidence_summary": "回答明确拒绝提供实时数据，符合证据缺失情况，未编造信息，不确定性处理恰当。",
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1256.6081249970011,
+      "total_tokens": 265,
+      "error_type": null
+    }
+  ],
+  "limitations": [
+    "Calibration quality is bounded by the human rubric labels and annotator agreement.",
+    "A small seed can validate plumbing but cannot establish general judge reliability.",
+    "Deterministic safety and citation checks remain outside the LLM judge."
+  ]
+}

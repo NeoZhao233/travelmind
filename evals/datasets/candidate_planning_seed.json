@@ -1,0 +1,62 @@
+[
+  {
+    "case_id": "required_then_utility",
+    "constraints": {"days": 1, "budget": 200, "pace": "relaxed", "interests": ["history"], "required_places": ["museum"], "excluded_places": ["bar"]},
+    "candidates": [
+      {"place_id": "museum", "duration_minutes": 120, "cost": 60, "relevance": 0.7, "interest_tags": ["history"], "booking_required": true, "booking_status": "confirmed"},
+      {"place_id": "park", "duration_minutes": 90, "cost": 10, "relevance": 0.9, "interest_tags": ["nature"], "booking_status": "not_required"},
+      {"place_id": "bar", "duration_minutes": 60, "cost": 30, "relevance": 1.0}
+    ],
+    "edges": [["hotel", "museum", 30], ["museum", "hotel", 30], ["hotel", "park", 20], ["park", "hotel", 20], ["museum", "park", 25], ["park", "museum", 25]],
+    "expected_selected": ["museum", "park"],
+    "expected_unscheduled_required": [],
+    "expected_skips": {"bar": "excluded_by_request"}
+  },
+  {
+    "case_id": "missing_inbound_route",
+    "constraints": {"days": 1, "pace": "relaxed", "required_places": ["museum"]},
+    "candidates": [
+      {"place_id": "museum", "duration_minutes": 120, "cost": 60, "relevance": 1.0},
+      {"place_id": "park", "duration_minutes": 90, "cost": 0, "relevance": 0.8, "booking_status": "not_required"}
+    ],
+    "edges": [["museum", "hotel", 30], ["hotel", "park", 20], ["park", "hotel", 20]],
+    "expected_selected": ["park"],
+    "expected_unscheduled_required": ["museum"],
+    "expected_skips": {"museum": "inbound_travel_unavailable"}
+  },
+  {
+    "case_id": "budget_preserves_required",
+    "constraints": {"days": 1, "budget": 65, "pace": "balanced", "required_places": ["museum"]},
+    "candidates": [
+      {"place_id": "museum", "duration_minutes": 120, "cost": 60, "relevance": 0.6},
+      {"place_id": "park", "duration_minutes": 90, "cost": 10, "relevance": 0.9, "booking_status": "not_required"}
+    ],
+    "edges": [["hotel", "museum", 30], ["museum", "hotel", 30], ["hotel", "park", 20], ["park", "hotel", 20], ["museum", "park", 25], ["park", "museum", 25]],
+    "expected_selected": ["museum"],
+    "expected_unscheduled_required": [],
+    "expected_skips": {"park": "budget_exceeded"}
+  },
+  {
+    "case_id": "booking_fail_closed",
+    "constraints": {"days": 1, "pace": "relaxed", "required_places": ["museum"]},
+    "candidates": [
+      {"place_id": "museum", "duration_minutes": 120, "cost": 60, "relevance": 1.0, "booking_required": true, "booking_status": "unconfirmed"},
+      {"place_id": "park", "duration_minutes": 90, "cost": 0, "relevance": 0.7, "booking_status": "not_required"}
+    ],
+    "edges": [["hotel", "museum", 30], ["museum", "hotel", 30], ["hotel", "park", 20], ["park", "hotel", 20]],
+    "expected_selected": ["park"],
+    "expected_unscheduled_required": ["museum"],
+    "expected_skips": {"museum": "booking_unconfirmed"}
+  },
+  {
+    "case_id": "return_route_fail_closed",
+    "constraints": {"days": 1, "pace": "relaxed"},
+    "candidates": [
+      {"place_id": "far", "duration_minutes": 120, "cost": 0, "relevance": 1.0}
+    ],
+    "edges": [["hotel", "far", 30]],
+    "expected_selected": [],
+    "expected_unscheduled_required": [],
+    "expected_skips": {"far": "return_travel_unavailable"}
+  }
+]

@@ -1,0 +1,15 @@
+.venv/
+.cache/
+.env
+.env.local
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+.DS_Store
+data/raw/
+data/processed/
+artifacts/
+*.ses

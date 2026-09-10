@@ -1,0 +1,1269 @@
+{
+  "schema_version": 1,
+  "experiment": "live-hybrid-direct-vs-agentic-rule-v1",
+  "generated_at": "2026-09-08T12:43:49.916226+00:00",
+  "dataset_fingerprint_sha256": "75dece679fb8a39e2ea94871a6c2aa3173328c8a7d6d0d30fde1c96a90e55933",
+  "dataset_summary": {
+    "places": 5,
+    "documents": 14,
+    "facts": 22,
+    "chunks": 14,
+    "retrieval_examples": 15,
+    "reviewed_examples": 15,
+    "query_types": {
+      "semantic": 3,
+      "exact": 3,
+      "metadata": 3,
+      "temporal": 3,
+      "multi_constraint": 3
+    }
+  },
+  "configuration": {
+    "limit": 3,
+    "retriever": "BM25 + BGE-small-zh-v1.5 + RRF",
+    "agentic_max_attempts": 2,
+    "agentic_max_query_fanout": 4,
+    "model_cache_mode": "local_only"
+  },
+  "build_latency_ms": 527.3618329956662,
+  "direct_metrics": {
+    "cases": 15,
+    "supported_completion_rate": 0.9333333333333333,
+    "unsupported_generation_rate": 0.0,
+    "abstention_rate": 0.06666666666666667,
+    "average_hybrid_rank_calls": 1.0,
+    "latency_ms": {
+      "mean": 2.738541665409381,
+      "p95": 4.4965840061195195
+    }
+  },
+  "agentic_metrics": {
+    "cases": 15,
+    "supported_completion_rate": 0.9333333333333333,
+    "unsupported_generation_rate": 0.0,
+    "abstention_rate": 0.06666666666666667,
+    "average_hybrid_rank_calls": 1.1333333333333333,
+    "latency_ms": {
+      "mean": 3.828330537847554,
+      "p95": 9.587458000169136
+    }
+  },
+  "rank_call_amplification": 1.1333333333333333,
+  "cases": [
+    {
+      "query_id": "beijing-semantic-001",
+      "query_type": "semantic",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 3.9594999980181456,
+        "document_ids": [
+          "palace-description-20260908",
+          "summer-palace-description-20260908",
+          "temple-heaven-description-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 5.437917003291659,
+        "document_ids": [
+          "palace-description-20260908",
+          "summer-palace-description-20260908",
+          "temple-heaven-description-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:semantic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-semantic-002",
+      "query_type": "semantic",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.4750409938860685,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "shichahai-access-20260908",
+          "summer-palace-inner-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.4694170026341453,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "shichahai-access-20260908",
+          "summer-palace-inner-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:multi_constraint",
+              "aspect:admission",
+              "aspect:opening_hours",
+              "aspect:accessibility"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-semantic-003",
+      "query_type": "semantic",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.477250003721565,
+        "document_ids": [
+          "summer-palace-description-20260908",
+          "summer-palace-ticket-20260908",
+          "temple-heaven-description-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.358832997037098,
+        "document_ids": [
+          "summer-palace-description-20260908",
+          "summer-palace-ticket-20260908",
+          "temple-heaven-description-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:generic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-exact-001",
+      "query_type": "exact",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.3409999994328246,
+        "document_ids": [
+          "palace-description-20260908",
+          "palace-opening-20260908",
+          "palace-route-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.2397090108133852,
+        "document_ids": [
+          "palace-description-20260908",
+          "palace-opening-20260908",
+          "palace-route-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:generic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-exact-002",
+      "query_type": "exact",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.3386659886455163,
+        "document_ids": [
+          "summer-palace-inner-20260908",
+          "summer-palace-ticket-20260908",
+          "temple-heaven-hours-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.3193330018548295,
+        "document_ids": [
+          "summer-palace-inner-20260908",
+          "summer-palace-ticket-20260908",
+          "temple-heaven-hours-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:exact_fact",
+              "aspect:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-exact-003",
+      "query_type": "exact",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.38716701278463,
+        "document_ids": [
+          "summer-palace-ticket-20260908",
+          "temple-heaven-booking-20260908",
+          "temple-heaven-hours-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.1968750117812306,
+        "document_ids": [
+          "summer-palace-ticket-20260908",
+          "temple-heaven-booking-20260908",
+          "temple-heaven-hours-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:generic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-metadata-001",
+      "query_type": "metadata",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.346375011256896,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "national-museum-hours-20260908",
+          "palace-booking-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.1942500063451007,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "national-museum-hours-20260908",
+          "palace-booking-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:exact_fact",
+              "aspect:booking"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-metadata-002",
+      "query_type": "metadata",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 4.4965840061195195,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "shichahai-access-20260908",
+          "temple-heaven-hours-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.329875005874783,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "shichahai-access-20260908",
+          "temple-heaven-hours-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:multi_constraint",
+              "aspect:admission",
+              "aspect:opening_hours",
+              "aspect:booking"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-metadata-003",
+      "query_type": "metadata",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.359209000132978,
+        "document_ids": [
+          "summer-palace-description-20260908",
+          "summer-palace-hours-20260908",
+          "summer-palace-ticket-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.7031659885542467,
+        "document_ids": [
+          "summer-palace-description-20260908",
+          "summer-palace-hours-20260908",
+          "summer-palace-ticket-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:exact_fact",
+              "aspect:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-temporal-001",
+      "query_type": "temporal",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 1.9706249877344817,
+        "document_ids": [
+          "palace-opening-20260908",
+          "summer-palace-inner-20260908",
+          "temple-heaven-hours-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 2.585375012131408,
+        "document_ids": [
+          "palace-opening-20260908",
+          "summer-palace-inner-20260908",
+          "temple-heaven-hours-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:temporal",
+              "aspect:opening_hours"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-temporal-002",
+      "query_type": "temporal",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.230999991297722,
+        "document_ids": [
+          "summer-palace-description-20260908",
+          "summer-palace-inner-20260908",
+          "temple-heaven-hours-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.033750006579794,
+        "document_ids": [
+          "summer-palace-description-20260908",
+          "summer-palace-inner-20260908",
+          "temple-heaven-hours-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:temporal",
+              "aspect:opening_hours"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-temporal-003",
+      "query_type": "temporal",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 2.1722079982282594,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "national-museum-hours-20260908",
+          "palace-opening-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.0082920129643753,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "national-museum-hours-20260908",
+          "palace-opening-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:generic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-multi-001",
+      "query_type": "multi_constraint",
+      "direct": {
+        "completed": false,
+        "oracle_supported": false,
+        "rank_calls": 1,
+        "latency_ms": 2.698582989978604,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "national-museum-hours-20260908",
+          "palace-booking-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": false,
+        "oracle_supported": false,
+        "rank_calls": 3,
+        "retrieval_attempts": 2,
+        "rewrite_attempts": 1,
+        "latency_ms": 9.587458000169136,
+        "document_ids": [
+          "national-museum-booking-20260908",
+          "national-museum-hours-20260908",
+          "palace-booking-20260908",
+          "temple-heaven-booking-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:multi_constraint",
+              "aspect:admission",
+              "aspect:opening_hours",
+              "aspect:booking",
+              "aspect:accessibility"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "insufficient",
+            "reason_codes": [
+              "missing:accessibility"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "rewrite_query",
+            "attempt": 1,
+            "outcome": "rewritten",
+            "reason_codes": [
+              "accessibility"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 2,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 2,
+            "outcome": "insufficient",
+            "reason_codes": [
+              "missing:accessibility"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "fallback",
+            "attempt": 2,
+            "outcome": "insufficient_evidence",
+            "reason_codes": [
+              "accessibility"
+            ],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-multi-002",
+      "query_type": "multi_constraint",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 3.3531249937368557,
+        "document_ids": [
+          "palace-description-20260908",
+          "palace-opening-20260908",
+          "palace-route-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.655000007711351,
+        "document_ids": [
+          "palace-description-20260908",
+          "palace-opening-20260908",
+          "palace-route-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:generic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "query_id": "beijing-multi-003",
+      "query_type": "multi_constraint",
+      "direct": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "latency_ms": 3.471792006166652,
+        "document_ids": [
+          "temple-heaven-booking-20260908",
+          "temple-heaven-description-20260908",
+          "temple-heaven-hours-20260908"
+        ]
+      },
+      "agentic": {
+        "completed": true,
+        "oracle_supported": true,
+        "rank_calls": 1,
+        "retrieval_attempts": 1,
+        "rewrite_attempts": 0,
+        "latency_ms": 3.305707999970764,
+        "document_ids": [
+          "temple-heaven-booking-20260908",
+          "temple-heaven-description-20260908",
+          "temple-heaven-hours-20260908"
+        ],
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:temporal",
+              "aspect:opening_hours"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:3"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "The 15-query seed is small and not an independent held-out Agentic benchmark.",
+    "Oracle support uses retrieval relevance plus expected fact-type coverage.",
+    "Latency is local in-process execution and excludes model/index construction.",
+    "The deterministic planner is not an answer-quality evaluation."
+  ]
+}

@@ -1,0 +1,29 @@
+{
+  "experiment": "stage7c-checkpoint-resume-and-idempotency-drill",
+  "configuration_sha256": "6b717c85b0d6827168a2f44188186cbd64fa1571d12e7253fa10c6ea59f91f82",
+  "checks": {
+    "interrupted_after_generate": true,
+    "rebuilt_graph_resumed_to_completion": true,
+    "planner_not_repeated_on_resume": true,
+    "completed_receipt_replayed": true,
+    "checkpoint_outage_fails_closed": true,
+    "checkpoint_error_payload_redacted": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "logical_resume_success_rate": 1.0,
+    "duplicate_side_effect_prevention_rate": 1.0,
+    "checkpoint_outage_safe_failure_rate": 1.0
+  },
+  "diagnostics": {
+    "planner_calls_across_resume": 1,
+    "idempotent_planner_executions": 1,
+    "idempotent_planner_replays": 1,
+    "checkpoint_error_type": "ConnectionError"
+  },
+  "limitations": [
+    "InMemorySaver validates logical resume but does not survive OS process loss.",
+    "In-memory receipts do not provide cross-process uniqueness or durable recovery.",
+    "A crash after an external side effect but before receipt commit remains ambiguous."
+  ]
+}

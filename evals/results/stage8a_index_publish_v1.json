@@ -1,0 +1,26 @@
+{
+  "experiment": "stage8a-versioned-index-atomic-publish-drill",
+  "configuration_sha256": "8baaa044e04a1d65acc171faac6e7f91b093c273b78d4cbc5ad5b44e03319144",
+  "checks": {
+    "identical_content_deduplicated": true,
+    "changed_content_created_new_snapshot": true,
+    "invalid_build_quarantined": true,
+    "rejection_preserved_previous_build": true,
+    "valid_update_promoted": true,
+    "rollback_restored_previous_records": true,
+    "control_and_snapshot_files_owner_only": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "invalid_publish_block_rate": 1.0,
+    "previous_version_preservation_rate": 1.0,
+    "rollback_success_rate": 1.0,
+    "snapshot_deduplication_rate": 1.0
+  },
+  "limitations": [
+    "The reference publisher targets a local filesystem, not object storage.",
+    "It does not yet fetch HTTP sources or validate parser-specific schemas.",
+    "Atomic rename assumes staging and published builds share one filesystem.",
+    "Production needs retention, signing, access control, and multi-writer coordination."
+  ]
+}

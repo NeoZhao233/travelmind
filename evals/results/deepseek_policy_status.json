@@ -1,0 +1,28 @@
+{
+  "schema_version": 1,
+  "stage": "3D-3E",
+  "status": "evaluated_mixed_stack_selected",
+  "selected_policies": {
+    "router": "LLMQueryRouter:router-v2-nonthinking",
+    "grader": "CoverageEvidenceGrader",
+    "rewriter": "MissingAspectQueryRewriter"
+  },
+  "reason_codes": [
+    "router_quality_and_reliability_gates_passed",
+    "grader_quality_lift_gate_failed",
+    "rewriter_requires_trajectory_evidence"
+  ],
+  "repeated_candidate_results": {
+    "runs": 2,
+    "router_test_accuracy_each_run": [1.0, 1.0],
+    "grader_test_f1_each_run": [0.6666666667, 0.6666666667],
+    "fallback_rate_each_run": [0.0, 0.0],
+    "mean_success_latency_ms_each_run": [970.0475, 864.7592],
+    "total_tokens_each_run": [6716, 6732]
+  },
+  "limitations": [
+    "The test split has five project-authored cases and is not blind.",
+    "The test cases were observed during iterative prompt development.",
+    "The selected Router result is a pilot result, not a production accuracy claim."
+  ]
+}

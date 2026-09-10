@@ -1,0 +1,2392 @@
+{
+  "schema_version": 1,
+  "experiment": "context-priority-vs-coverage-v1",
+  "dataset_fingerprint_sha256": "7709dddcb9cb2afdbabc24c48f24aa906b54ab3771712832e8c50239cbfd593b",
+  "configuration": {
+    "max_context_tokens": 768,
+    "reserved_output_tokens": 192,
+    "safety_margin_tokens": 64,
+    "max_tokens_per_evidence": 160,
+    "min_tokens_for_clipped_evidence": 24
+  },
+  "selection_policy": {
+    "name": "bounded-aspect-gain-v1",
+    "coverage_bonus": 10
+  },
+  "selector_inputs": "query, hard_filters, typed fact metadata; no relevance labels",
+  "metrics": {
+    "cases": 15,
+    "mean_priority_relevant_document_recall": 0.9222222222222223,
+    "mean_coverage_relevant_document_recall": 0.9444444444444444,
+    "mean_priority_expected_aspect_coverage": 0.9666666666666667,
+    "mean_coverage_expected_aspect_coverage": 1.0,
+    "multi_constraint_priority_relevant_document_recall": 0.7777777777777777,
+    "multi_constraint_coverage_relevant_document_recall": 0.8888888888888888,
+    "multi_constraint_priority_expected_aspect_coverage": 0.8333333333333334,
+    "multi_constraint_coverage_expected_aspect_coverage": 1.0,
+    "mean_priority_estimated_tokens": 511.26666666666665,
+    "mean_coverage_estimated_tokens": 511.26666666666665,
+    "mandatory_preservation_rate": 1.0,
+    "recall_improved_cases": 1,
+    "recall_regressed_cases": 0
+  },
+  "selection": {
+    "selected_policy": "bounded-aspect-gain-v1",
+    "gate_passed": true,
+    "gate": "mandatory preservation 1.0; zero per-case recall regressions; mean recall non-decreasing; mean expected-aspect coverage strictly increasing"
+  },
+  "cases": [
+    {
+      "query_id": "beijing-semantic-001",
+      "query_type": "semantic",
+      "inferred_targets": [
+        "description"
+      ],
+      "priority_estimated_tokens": 507,
+      "coverage_estimated_tokens": 507,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1439,
+        "estimated_input_tokens_after": 507,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "evidence:palace-description-20260908",
+          "evidence:temple-heaven-description-20260908",
+          "evidence:summer-palace-description-20260908"
+        ],
+        "clipped_item_ids": [],
+        "dropped_item_ids": [
+          "evidence:palace-route-20260908",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:shichahai-access-20260908",
+          "evidence:summer-palace-ticket-20260908"
+        ],
+        "coverage_targets": [
+          "description"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 37,
+            "estimated_tokens_after": 37,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 128,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:temple-heaven-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 122,
+            "estimated_tokens_after": 122,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 133,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-semantic-002",
+      "query_type": "semantic",
+      "inferred_targets": [
+        "accessibility",
+        "admission",
+        "description",
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1523,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:shichahai-access-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:national-museum-booking-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:national-museum-booking-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:summer-palace-inner-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:national-museum-hours-20260908",
+          "evidence:temple-heaven-description-20260908"
+        ],
+        "coverage_targets": [
+          "accessibility",
+          "admission",
+          "description",
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 44,
+            "estimated_tokens_after": 44,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 41,
+            "estimated_tokens_after": 41,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 140,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 67,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 133,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 122,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-semantic-003",
+      "query_type": "semantic",
+      "inferred_targets": [
+        "description"
+      ],
+      "priority_estimated_tokens": 506,
+      "coverage_estimated_tokens": 506,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1450,
+        "estimated_input_tokens_after": 506,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "evidence:summer-palace-description-20260908",
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:temple-heaven-description-20260908"
+        ],
+        "clipped_item_ids": [],
+        "dropped_item_ids": [
+          "evidence:summer-palace-hours-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:palace-description-20260908",
+          "evidence:shichahai-access-20260908",
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:palace-route-20260908"
+        ],
+        "coverage_targets": [
+          "description"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 41,
+            "estimated_tokens_after": 41,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 133,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 123,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 122,
+            "estimated_tokens_after": 122,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-exact-001",
+      "query_type": "exact",
+      "inferred_targets": [
+        "access"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1468,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "evidence:palace-route-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:palace-description-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:palace-description-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:palace-booking-20260908",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:national-museum-booking-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:temple-heaven-booking-20260908"
+        ],
+        "coverage_targets": [
+          "access"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 31,
+            "estimated_tokens_after": 31,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 124,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 157,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 113,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-exact-002",
+      "query_type": "exact",
+      "inferred_targets": [
+        "admission"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1524,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:summer-palace-hours-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:shichahai-access-20260908"
+        ],
+        "coverage_targets": [
+          "admission"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 35,
+            "estimated_tokens_after": 35,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 31,
+            "estimated_tokens_after": 31,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 123,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 128,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 108,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-exact-003",
+      "query_type": "exact",
+      "inferred_targets": [
+        "admission"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1527,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:temple-heaven-booking-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:temple-heaven-booking-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:temple-heaven-description-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:summer-palace-hours-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:shichahai-access-20260908"
+        ],
+        "coverage_targets": [
+          "admission"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 29,
+            "estimated_tokens_after": 29,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 42,
+            "estimated_tokens_after": 42,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 143,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 123,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 88,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 122,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-metadata-001",
+      "query_type": "metadata",
+      "inferred_targets": [
+        "booking"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1552,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:national-museum-booking-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:national-museum-hours-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:national-museum-hours-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:palace-description-20260908",
+          "evidence:shichahai-access-20260908",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:summer-palace-inner-20260908"
+        ],
+        "coverage_targets": [
+          "booking"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 36,
+            "estimated_tokens_after": 36,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 53,
+            "estimated_tokens_after": 53,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 140,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 142,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 54,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-metadata-002",
+      "query_type": "metadata",
+      "inferred_targets": [
+        "admission",
+        "booking",
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1582,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:shichahai-access-20260908",
+          "evidence:national-museum-booking-20260908",
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:summer-palace-hours-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:national-museum-hours-20260908",
+          "evidence:palace-opening-20260908"
+        ],
+        "coverage_targets": [
+          "admission",
+          "booking",
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 36,
+            "estimated_tokens_after": 36,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 53,
+            "estimated_tokens_after": 53,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 140,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 140,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 56,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-metadata-003",
+      "query_type": "metadata",
+      "inferred_targets": [
+        "admission",
+        "description"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1497,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:summer-palace-hours-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:summer-palace-hours-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:summer-palace-inner-20260908",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:shichahai-access-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:national-museum-booking-20260908",
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:temple-heaven-description-20260908"
+        ],
+        "coverage_targets": [
+          "admission",
+          "description"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 31,
+            "estimated_tokens_after": 31,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 45,
+            "estimated_tokens_after": 45,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 123,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 133,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 93,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 122,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-temporal-001",
+      "query_type": "temporal",
+      "inferred_targets": [
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1532,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:palace-opening-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:palace-booking-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:national-museum-hours-20260908",
+          "evidence:palace-description-20260908",
+          "evidence:summer-palace-hours-20260908",
+          "evidence:shichahai-access-20260908",
+          "evidence:summer-palace-description-20260908"
+        ],
+        "coverage_targets": [
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 27,
+            "estimated_tokens_after": 27,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 32,
+            "estimated_tokens_after": 32,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 157,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 128,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 81,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-temporal-002",
+      "query_type": "temporal",
+      "inferred_targets": [
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 0.5,
+      "coverage_relevant_document_recall": 0.5,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1535,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:temple-heaven-hours-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:summer-palace-hours-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:national-museum-booking-20260908"
+        ],
+        "coverage_targets": [
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 34,
+            "estimated_tokens_after": 34,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 43,
+            "estimated_tokens_after": 43,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 128,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 133,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 87,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-temporal-003",
+      "query_type": "temporal",
+      "inferred_targets": [
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1537,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:national-museum-hours-20260908",
+          "evidence:national-museum-booking-20260908",
+          "evidence:palace-opening-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:palace-opening-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:palace-route-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:palace-description-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:summer-palace-hours-20260908",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:summer-palace-ticket-20260908"
+        ],
+        "coverage_targets": [
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 35,
+            "estimated_tokens_after": 35,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 39,
+            "estimated_tokens_after": 39,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 142,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 140,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 69,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-multi-001",
+      "query_type": "multi_constraint",
+      "inferred_targets": [
+        "accessibility",
+        "admission",
+        "booking",
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 0.3333333333333333,
+      "coverage_relevant_document_recall": 0.6666666666666666,
+      "priority_expected_aspect_coverage": 0.5,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1534,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:shichahai-access-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:palace-opening-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:palace-opening-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:national-museum-booking-20260908",
+          "evidence:national-museum-hours-20260908",
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:temple-heaven-description-20260908"
+        ],
+        "coverage_targets": [
+          "accessibility",
+          "admission",
+          "booking",
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 47,
+            "estimated_tokens_after": 47,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 50,
+            "estimated_tokens_after": 50,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 142,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 46,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 122,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 140,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-multi-002",
+      "query_type": "multi_constraint",
+      "inferred_targets": [
+        "access",
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1572,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:palace-route-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:palace-description-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:palace-description-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:palace-booking-20260908",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:summer-palace-hours-20260908",
+          "evidence:shichahai-access-20260908",
+          "evidence:summer-palace-description-20260908",
+          "evidence:temple-heaven-booking-20260908",
+          "evidence:national-museum-hours-20260908"
+        ],
+        "coverage_targets": [
+          "access",
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 47,
+            "estimated_tokens_after": 47,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 48,
+            "estimated_tokens_after": 48,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 124,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 49,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 157,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 149,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 133,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    },
+    {
+      "query_id": "beijing-multi-003",
+      "query_type": "multi_constraint",
+      "inferred_targets": [
+        "admission",
+        "opening_hours"
+      ],
+      "priority_estimated_tokens": 512,
+      "coverage_estimated_tokens": 512,
+      "priority_evidence_count": 3,
+      "coverage_evidence_count": 3,
+      "priority_relevant_document_recall": 1.0,
+      "coverage_relevant_document_recall": 1.0,
+      "priority_expected_aspect_coverage": 1.0,
+      "coverage_expected_aspect_coverage": 1.0,
+      "mandatory_preserved": true,
+      "trace": {
+        "trace_version": "context-trace-v1",
+        "mode": "budgeted-coverage-v1",
+        "estimator": "heuristic-cjk1-ascii4-v1",
+        "max_context_tokens": 768,
+        "input_token_limit": 512,
+        "reserved_output_tokens": 192,
+        "safety_margin_tokens": 64,
+        "estimated_input_tokens_before": 1538,
+        "estimated_input_tokens_after": 512,
+        "included_item_ids": [
+          "system-instruction",
+          "user-request",
+          "retrieval-hard-filters",
+          "evidence:temple-heaven-hours-20260908",
+          "evidence:temple-heaven-description-20260908",
+          "evidence:temple-heaven-booking-20260908"
+        ],
+        "clipped_item_ids": [
+          "evidence:temple-heaven-booking-20260908"
+        ],
+        "dropped_item_ids": [
+          "evidence:summer-palace-ticket-20260908",
+          "evidence:palace-route-20260908",
+          "evidence:palace-opening-20260908",
+          "evidence:palace-booking-20260908",
+          "evidence:summer-palace-inner-20260908",
+          "evidence:national-museum-hours-20260908",
+          "evidence:shichahai-access-20260908"
+        ],
+        "coverage_targets": [
+          "admission",
+          "opening_hours"
+        ],
+        "items": [
+          {
+            "item_id": "system-instruction",
+            "kind": "system",
+            "estimated_tokens_before": 87,
+            "estimated_tokens_after": 87,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "user-request",
+            "kind": "user_request",
+            "estimated_tokens_before": 43,
+            "estimated_tokens_after": 43,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "retrieval-hard-filters",
+            "kind": "constraints",
+            "estimated_tokens_before": 55,
+            "estimated_tokens_after": 55,
+            "action": "included",
+            "reason_code": "mandatory"
+          },
+          {
+            "item_id": "evidence:temple-heaven-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 143,
+            "estimated_tokens_after": 143,
+            "action": "included",
+            "reason_code": "new_aspect_coverage"
+          },
+          {
+            "item_id": "evidence:temple-heaven-description-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 122,
+            "estimated_tokens_after": 122,
+            "action": "included",
+            "reason_code": "fits_budget"
+          },
+          {
+            "item_id": "evidence:temple-heaven-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 132,
+            "estimated_tokens_after": 62,
+            "action": "clipped",
+            "reason_code": "remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-ticket-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 123,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-route-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 124,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-opening-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 157,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:palace-booking-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:summer-palace-inner-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 128,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:national-museum-hours-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 142,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          },
+          {
+            "item_id": "evidence:shichahai-access-20260908",
+            "kind": "evidence",
+            "estimated_tokens_before": 140,
+            "estimated_tokens_after": 0,
+            "action": "dropped",
+            "reason_code": "insufficient_remaining_budget"
+          }
+        ],
+        "degraded_components": []
+      }
+    }
+  ],
+  "limitations": [
+    "The deterministic query-aspect lexicon is narrow and Chinese-specific.",
+    "Typed fact coverage depends on ingestion completeness.",
+    "Expected fact types are used only for evaluation, never for selection.",
+    "The 15-query project-authored seed is not an independent held-out benchmark."
+  ]
+}

@@ -1,0 +1,455 @@
+{
+  "experiment": "stage6ab-evaluation-governance-and-error-audit",
+  "source_report": "evals/results/e2e_planning_deepseek_ab_v3_final.json",
+  "source_report_sha256": "9a0c7bb8a8bdf742a1ac6ec6e1bb7a0a99b33cced9d9fcbd88cea3afbd0048d0",
+  "governance": {
+    "dataset_id": "travelmind-e2e-planning",
+    "dataset_version": "seed-v1",
+    "dataset": "evals/datasets/e2e_planning_seed.json",
+    "dataset_sha256": "17f3b4fdaeffa3c04e9da4167fe3db400539bfce7b3026a641d737c9a90e7623",
+    "manifest": "evals/datasets/e2e_planning_seed.manifest.json",
+    "manifest_sha256": "f2dbf478e68dade99c06a254737155eaeded8dc9a7e410cc9b123ea7ba923aba",
+    "case_count": 5,
+    "split_counts": {
+      "development": 3,
+      "test": 2
+    },
+    "review_counts": {
+      "project_authored": 5,
+      "independently_reviewed": 0
+    },
+    "cross_split_leakage_count": 0,
+    "test_is_independently_reviewed": false,
+    "test_is_blind": false,
+    "claim_boundary": "The test partition is frozen but project-authored; it is not an independent or blind benchmark.",
+    "case_splits": {
+      "history_two_days": "development",
+      "royal_garden": "development",
+      "low_budget_no_booking": "development",
+      "accessible_free": "test",
+      "exclude_museums": "test"
+    }
+  },
+  "split_metrics": {
+    "deepseek_ranked": {
+      "development": {
+        "case_count": 3,
+        "task_success_rate": 1.0,
+        "valid_plan_rate": 1.0,
+        "constraint_satisfaction_rate": 1.0,
+        "required_place_coverage": 1.0,
+        "expected_place_hit_rate": 1.0,
+        "expected_place_precision": 0.75,
+        "fallback_rate": 0.0,
+        "repair_activation_rate": 0.0,
+        "total_provider_tokens": 2682,
+        "mean_provider_latency_ms": 856.0300833341898
+      },
+      "test": {
+        "case_count": 2,
+        "task_success_rate": 1.0,
+        "valid_plan_rate": 1.0,
+        "constraint_satisfaction_rate": 1.0,
+        "required_place_coverage": 1.0,
+        "expected_place_hit_rate": 0.8333333333333333,
+        "expected_place_precision": 1.0,
+        "fallback_rate": 0.0,
+        "repair_activation_rate": 0.0,
+        "total_provider_tokens": 1793,
+        "mean_provider_latency_ms": 908.5073544993065
+      }
+    },
+    "deterministic": {
+      "development": {
+        "case_count": 3,
+        "task_success_rate": 1.0,
+        "valid_plan_rate": 1.0,
+        "constraint_satisfaction_rate": 1.0,
+        "required_place_coverage": 1.0,
+        "expected_place_hit_rate": 1.0,
+        "expected_place_precision": 0.75,
+        "fallback_rate": 0.0,
+        "repair_activation_rate": 0.0,
+        "total_provider_tokens": 0,
+        "mean_provider_latency_ms": null
+      },
+      "test": {
+        "case_count": 2,
+        "task_success_rate": 1.0,
+        "valid_plan_rate": 1.0,
+        "constraint_satisfaction_rate": 1.0,
+        "required_place_coverage": 1.0,
+        "expected_place_hit_rate": 0.8333333333333333,
+        "expected_place_precision": 1.0,
+        "fallback_rate": 0.0,
+        "repair_activation_rate": 0.0,
+        "total_provider_tokens": 0,
+        "mean_provider_latency_ms": null
+      }
+    }
+  },
+  "issue_counts": {
+    "deepseek_ranked": {
+      "none": 2,
+      "partial_expected_coverage": 1,
+      "unexpected_selection": 2
+    },
+    "deterministic": {
+      "none": 2,
+      "partial_expected_coverage": 1,
+      "unexpected_selection": 2
+    }
+  },
+  "cases": [
+    {
+      "case_id": "history_two_days",
+      "variant": "deterministic",
+      "selected_place_ids": [
+        "palace-museum",
+        "temple-of-heaven",
+        "summer-palace",
+        "national-museum-china"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 0.75,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 474,
+      "planner_call": null,
+      "failure_reason": null,
+      "split": "development",
+      "expected_place_count": 3,
+      "issue_codes": [
+        "unexpected_selection"
+      ]
+    },
+    {
+      "case_id": "history_two_days",
+      "variant": "deepseek_ranked",
+      "selected_place_ids": [
+        "palace-museum",
+        "temple-of-heaven",
+        "summer-palace",
+        "national-museum-china"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 0.75,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 474,
+      "planner_call": {
+        "component": "candidate_ranker",
+        "prompt_version": "candidate-ranker-v2-safe-shortlist",
+        "success": true,
+        "fallback_used": false,
+        "model": "deepseek-v4-flash",
+        "latency_ms": 785.5715000041528,
+        "prompt_tokens": 795,
+        "completion_tokens": 49,
+        "total_tokens": 844,
+        "provider_attempts": 1,
+        "error_type": null,
+        "error_reason_code": null,
+        "expected_candidate_count": 4,
+        "returned_candidate_count": 3,
+        "missing_candidate_count": 1,
+        "unknown_candidate_count": 0
+      },
+      "failure_reason": null,
+      "split": "development",
+      "expected_place_count": 3,
+      "issue_codes": [
+        "unexpected_selection"
+      ]
+    },
+    {
+      "case_id": "accessible_free",
+      "variant": "deterministic",
+      "selected_place_ids": [
+        "shichahai-park"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 1.0,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 512,
+      "planner_call": null,
+      "failure_reason": null,
+      "split": "test",
+      "expected_place_count": 1,
+      "issue_codes": [
+        "none"
+      ]
+    },
+    {
+      "case_id": "accessible_free",
+      "variant": "deepseek_ranked",
+      "selected_place_ids": [
+        "shichahai-park"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 1.0,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 512,
+      "planner_call": {
+        "component": "candidate_ranker",
+        "prompt_version": "candidate-ranker-v2-safe-shortlist",
+        "success": true,
+        "fallback_used": false,
+        "model": "deepseek-v4-flash",
+        "latency_ms": 889.7083749907324,
+        "prompt_tokens": 913,
+        "completion_tokens": 39,
+        "total_tokens": 952,
+        "provider_attempts": 1,
+        "error_type": null,
+        "error_reason_code": null,
+        "expected_candidate_count": 5,
+        "returned_candidate_count": 1,
+        "missing_candidate_count": 4,
+        "unknown_candidate_count": 0
+      },
+      "failure_reason": null,
+      "split": "test",
+      "expected_place_count": 1,
+      "issue_codes": [
+        "none"
+      ]
+    },
+    {
+      "case_id": "royal_garden",
+      "variant": "deterministic",
+      "selected_place_ids": [
+        "summer-palace",
+        "temple-of-heaven"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 0.5,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 3,
+      "estimated_context_tokens": 512,
+      "planner_call": null,
+      "failure_reason": null,
+      "split": "development",
+      "expected_place_count": 1,
+      "issue_codes": [
+        "unexpected_selection"
+      ]
+    },
+    {
+      "case_id": "royal_garden",
+      "variant": "deepseek_ranked",
+      "selected_place_ids": [
+        "summer-palace",
+        "temple-of-heaven"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 0.5,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 3,
+      "estimated_context_tokens": 512,
+      "planner_call": {
+        "component": "candidate_ranker",
+        "prompt_version": "candidate-ranker-v2-safe-shortlist",
+        "success": true,
+        "fallback_used": false,
+        "model": "deepseek-v4-flash",
+        "latency_ms": 934.791249994305,
+        "prompt_tokens": 862,
+        "completion_tokens": 35,
+        "total_tokens": 897,
+        "provider_attempts": 1,
+        "error_type": null,
+        "error_reason_code": null,
+        "expected_candidate_count": 4,
+        "returned_candidate_count": 1,
+        "missing_candidate_count": 3,
+        "unknown_candidate_count": 0
+      },
+      "failure_reason": null,
+      "split": "development",
+      "expected_place_count": 1,
+      "issue_codes": [
+        "unexpected_selection"
+      ]
+    },
+    {
+      "case_id": "low_budget_no_booking",
+      "variant": "deterministic",
+      "selected_place_ids": [
+        "temple-of-heaven",
+        "shichahai-park"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 1.0,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 488,
+      "planner_call": null,
+      "failure_reason": null,
+      "split": "development",
+      "expected_place_count": 2,
+      "issue_codes": [
+        "none"
+      ]
+    },
+    {
+      "case_id": "low_budget_no_booking",
+      "variant": "deepseek_ranked",
+      "selected_place_ids": [
+        "temple-of-heaven",
+        "shichahai-park"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 1.0,
+      "expected_place_precision": 1.0,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 488,
+      "planner_call": {
+        "component": "candidate_ranker",
+        "prompt_version": "candidate-ranker-v2-safe-shortlist",
+        "success": true,
+        "fallback_used": false,
+        "model": "deepseek-v4-flash",
+        "latency_ms": 847.7275000041118,
+        "prompt_tokens": 887,
+        "completion_tokens": 54,
+        "total_tokens": 941,
+        "provider_attempts": 1,
+        "error_type": null,
+        "error_reason_code": null,
+        "expected_candidate_count": 5,
+        "returned_candidate_count": 2,
+        "missing_candidate_count": 3,
+        "unknown_candidate_count": 0
+      },
+      "failure_reason": null,
+      "split": "development",
+      "expected_place_count": 2,
+      "issue_codes": [
+        "none"
+      ]
+    },
+    {
+      "case_id": "exclude_museums",
+      "variant": "deterministic",
+      "selected_place_ids": [
+        "temple-of-heaven",
+        "summer-palace"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 0.6666666666666666,
+      "expected_place_precision": 1.0,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 475,
+      "planner_call": null,
+      "failure_reason": null,
+      "split": "test",
+      "expected_place_count": 3,
+      "issue_codes": [
+        "partial_expected_coverage"
+      ]
+    },
+    {
+      "case_id": "exclude_museums",
+      "variant": "deepseek_ranked",
+      "selected_place_ids": [
+        "temple-of-heaven",
+        "summer-palace"
+      ],
+      "task_success": true,
+      "valid_plan": true,
+      "constraint_satisfied": true,
+      "required_coverage": 1.0,
+      "expected_hit_rate": 0.6666666666666666,
+      "expected_place_precision": 1.0,
+      "repair_attempts": 0,
+      "retrieved_evidence_count": 10,
+      "packed_evidence_count": 2,
+      "estimated_context_tokens": 475,
+      "planner_call": {
+        "component": "candidate_ranker",
+        "prompt_version": "candidate-ranker-v2-safe-shortlist",
+        "success": true,
+        "fallback_used": false,
+        "model": "deepseek-v4-flash",
+        "latency_ms": 927.3063340078807,
+        "prompt_tokens": 804,
+        "completion_tokens": 37,
+        "total_tokens": 841,
+        "provider_attempts": 1,
+        "error_type": null,
+        "error_reason_code": null,
+        "expected_candidate_count": 4,
+        "returned_candidate_count": 2,
+        "missing_candidate_count": 2,
+        "unknown_candidate_count": 0
+      },
+      "failure_reason": null,
+      "split": "test",
+      "expected_place_count": 3,
+      "issue_codes": [
+        "partial_expected_coverage"
+      ]
+    }
+  ],
+  "unobserved_fields": [
+    "candidate_count"
+  ],
+  "taxonomy_notes": {
+    "unexpected_selection": "A diagnostic against the incomplete expected-place set, not proof that the extra place is objectively wrong.",
+    "partial_expected_coverage": "The minimum task threshold passed, but not every labeled preference was selected."
+  },
+  "limitations": [
+    "The test partition is frozen but project-authored; it is not an independent or blind benchmark.",
+    "Five cases are too small for statistically stable quality claims.",
+    "Error codes are deterministic symptoms; causal attribution still requires trace review.",
+    "The frozen Stage 5 report predates candidate_count telemetry in each case row."
+  ]
+}

@@ -1,0 +1,57 @@
+{
+  "experiment": "stage7d-pre-release-slo-and-composite-outage-drill",
+  "configuration_sha256": "32b4a584dd5c5edc75250bf631edd985797a2d4dfc7fcfa53b0e5213b36e757e",
+  "objective_type": "synthetic_pre_release_gate",
+  "objectives": {
+    "recoverable_composite_completion_rate_min": 1.0,
+    "unrecoverable_safe_failure_rate_min": 1.0,
+    "degradation_visibility_rate_min": 1.0,
+    "canary_leak_rate_max": 0.0,
+    "recoverable_latency_ms_max": 5000,
+    "safe_failure_latency_ms_max": 1000
+  },
+  "checks": {
+    "healthy_path_completed": true,
+    "recoverable_composite_outage_completed": true,
+    "all_three_degradations_visible": true,
+    "unrecoverable_retrieval_outage_failed_safely": true,
+    "recoverable_latency_within_objective": true,
+    "safe_failure_latency_within_objective": true,
+    "sensitive_canary_not_exposed": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "recoverable_composite_completion_rate": 1.0,
+    "unrecoverable_safe_failure_rate": 1.0,
+    "degradation_visibility_rate": 1.0,
+    "canary_leak_rate": 0.0,
+    "recoverable_latency_ms": 2.991290995851159,
+    "safe_failure_latency_ms": 0.019708008039742708
+  },
+  "cases": [
+    {
+      "scenario": "healthy",
+      "status": "completed",
+      "latency_ms": 3.405333001865074
+    },
+    {
+      "scenario": "retrieval_model_telemetry_outage",
+      "status": "completed",
+      "latency_ms": 2.991290995851159,
+      "retrieval_fallback": true,
+      "model_fallback": true,
+      "telemetry_degraded": true
+    },
+    {
+      "scenario": "primary_and_fallback_retrieval_outage",
+      "status": "failed",
+      "latency_ms": 0.019708008039742708,
+      "failure_reason": "Both retrieval paths failed."
+    }
+  ],
+  "limitations": [
+    "These are synthetic pre-release gates, not production traffic SLO measurements.",
+    "One local sample per scenario cannot establish a latency percentile distribution.",
+    "Injected exceptions do not reproduce network partitions, saturation, or correlated infrastructure loss."
+  ]
+}

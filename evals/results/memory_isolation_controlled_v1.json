@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "experiment": "memory-isolation-controlled-v1",
+  "configuration": {
+    "scope": "tenant_id/user_id/thread_id",
+    "short_term_ttl_minutes": 30,
+    "max_turns_per_thread": 3,
+    "long_term_preference_consent": "required"
+  },
+  "metrics": {
+    "probes": 14,
+    "cross_scope_leakage_rate": 0.0,
+    "lifecycle_probe_accuracy": 1.0,
+    "privacy_probe_accuracy": 1.0,
+    "outage_probe_accuracy": 1.0
+  },
+  "selection": {
+    "selected_policy": "scoped-memory-v1",
+    "gate_passed": true
+  },
+  "probes": [
+    {
+      "probe": "other_thread",
+      "category": "isolation",
+      "passed": true
+    },
+    {
+      "probe": "other_user",
+      "category": "isolation",
+      "passed": true
+    },
+    {
+      "probe": "other_tenant",
+      "category": "isolation",
+      "passed": true
+    },
+    {
+      "probe": "owner_read",
+      "category": "lifecycle",
+      "passed": true
+    },
+    {
+      "probe": "capacity_bound",
+      "category": "lifecycle",
+      "passed": true
+    },
+    {
+      "probe": "ttl_expiration",
+      "category": "lifecycle",
+      "passed": true
+    },
+    {
+      "probe": "consent_required",
+      "category": "privacy",
+      "passed": true
+    },
+    {
+      "probe": "consented_preference",
+      "category": "privacy",
+      "passed": true
+    },
+    {
+      "probe": "current_request_override",
+      "category": "privacy",
+      "passed": true
+    },
+    {
+      "probe": "idempotent_turn_write",
+      "category": "lifecycle",
+      "passed": true
+    },
+    {
+      "probe": "stale_preference_ignored",
+      "category": "privacy",
+      "passed": true
+    },
+    {
+      "probe": "read_outage_stateless",
+      "category": "outage",
+      "passed": true
+    },
+    {
+      "probe": "write_outage_disclosed",
+      "category": "outage",
+      "passed": true
+    },
+    {
+      "probe": "delete_outage_fail_closed",
+      "category": "outage",
+      "passed": true
+    }
+  ],
+  "limitations": [
+    "This validates store semantics in process, not Redis ACLs or network behavior.",
+    "The experiment uses deterministic synthetic identities and timestamps.",
+    "Long-term preference extraction from natural language is not implemented.",
+    "Checkpoint persistence remains a separate Stage 7 concern."
+  ]
+}

@@ -1,0 +1,272 @@
+{
+  "schema_version": 1,
+  "experiment": "deepseek-context-answer-ablation-v1",
+  "dataset_fingerprint_sha256": "fc69cae6fa9e32fea33250ef3f5ab26470b8bc11e28375430d867b4b9731ad10",
+  "configuration": {
+    "variants": [
+      "unbounded",
+      "refined_coverage"
+    ],
+    "thinking": "disabled",
+    "temperature": 0,
+    "max_output_tokens": 256
+  },
+  "metrics": {
+    "unbounded": {
+      "task_success_rate": 0.42857142857142855,
+      "mean_term_coverage": 0.42857142857142855,
+      "mean_citation_precision": 0.42857142857142855,
+      "mean_citation_recall": 0.42857142857142855,
+      "abstention_accuracy": 0.42857142857142855,
+      "fallback_rate": 0.5714285714285714,
+      "total_tokens": 3140,
+      "mean_latency_ms": 1072.9204306650597
+    },
+    "refined_coverage": {
+      "task_success_rate": 0.42857142857142855,
+      "mean_term_coverage": 0.5833333333333334,
+      "mean_citation_precision": 0.6190476190476192,
+      "mean_citation_recall": 0.7142857142857143,
+      "abstention_accuracy": 0.7142857142857143,
+      "fallback_rate": 0.2857142857142857,
+      "total_tokens": 2926,
+      "mean_latency_ms": 1447.50213320076
+    }
+  },
+  "selection": {
+    "selected_pipeline": "unbounded",
+    "gate_passed": false
+  },
+  "cases": [
+    {
+      "case_id": "answer-route",
+      "variant": "unbounded",
+      "success": false,
+      "fallback": true,
+      "error_type": "ValidationError",
+      "cited_evidence_ids": [],
+      "term_coverage": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "abstention_correct": false,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "latency_ms": null
+    },
+    {
+      "case_id": "answer-route",
+      "variant": "refined_coverage",
+      "success": false,
+      "fallback": true,
+      "error_type": "ValidationError",
+      "cited_evidence_ids": [],
+      "term_coverage": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "abstention_correct": false,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "latency_ms": null
+    },
+    {
+      "case_id": "answer-ticket",
+      "variant": "unbounded",
+      "success": false,
+      "fallback": true,
+      "error_type": "ValidationError",
+      "cited_evidence_ids": [],
+      "term_coverage": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "abstention_correct": false,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "latency_ms": null
+    },
+    {
+      "case_id": "answer-ticket",
+      "variant": "refined_coverage",
+      "success": false,
+      "fallback": true,
+      "error_type": "ValidationError",
+      "cited_evidence_ids": [],
+      "term_coverage": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "abstention_correct": false,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "latency_ms": null
+    },
+    {
+      "case_id": "answer-palace-monday",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "palace-opening-20260908"
+      ],
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 1381,
+      "completion_tokens": 83,
+      "latency_ms": 868.7585419975221
+    },
+    {
+      "case_id": "answer-palace-monday",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "palace-opening-20260908"
+      ],
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 584,
+      "completion_tokens": 72,
+      "latency_ms": 1352.0266660052584
+    },
+    {
+      "case_id": "answer-inner-garden",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "summer-palace-inner-20260908"
+      ],
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 1365,
+      "completion_tokens": 113,
+      "latency_ms": 1319.7776250017341
+    },
+    {
+      "case_id": "answer-inner-garden",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "summer-palace-inner-20260908"
+      ],
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 579,
+      "completion_tokens": 91,
+      "latency_ms": 1074.9964169954183
+    },
+    {
+      "case_id": "answer-accessible-budget",
+      "variant": "unbounded",
+      "success": false,
+      "fallback": true,
+      "error_type": "LLMOutputError",
+      "cited_evidence_ids": [],
+      "term_coverage": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "abstention_correct": false,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "latency_ms": null
+    },
+    {
+      "case_id": "answer-accessible-budget",
+      "variant": "refined_coverage",
+      "success": false,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "shichahai-access-20260908",
+        "palace-booking-20260908",
+        "national-museum-booking-20260908"
+      ],
+      "term_coverage": 0.75,
+      "citation_precision": 0.3333333333333333,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 494,
+      "completion_tokens": 196,
+      "latency_ms": 1857.207417007885
+    },
+    {
+      "case_id": "answer-temple-monday",
+      "variant": "unbounded",
+      "success": false,
+      "fallback": true,
+      "error_type": "LLMOutputError",
+      "cited_evidence_ids": [],
+      "term_coverage": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "abstention_correct": false,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "latency_ms": null
+    },
+    {
+      "case_id": "answer-temple-monday",
+      "variant": "refined_coverage",
+      "success": false,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "temple-heaven-hours-20260908",
+        "temple-heaven-hours-20260908"
+      ],
+      "term_coverage": 0.3333333333333333,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 569,
+      "completion_tokens": 143,
+      "latency_ms": 2003.608915998484
+    },
+    {
+      "case_id": "answer-unsupported-live",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [],
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 160,
+      "completion_tokens": 38,
+      "latency_ms": 1030.2251249959227
+    },
+    {
+      "case_id": "answer-unsupported-live",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [],
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 160,
+      "completion_tokens": 38,
+      "latency_ms": 949.6712499967543
+    }
+  ],
+  "limitations": [
+    "Seven project-authored cases are a pilot, not a blind benchmark.",
+    "Reference-term matching undercounts valid paraphrases and must be paired with error review.",
+    "Citation metrics check expected document IDs, not fine-grained entailment."
+  ]
+}

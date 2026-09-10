@@ -1,0 +1,1357 @@
+{
+  "schema_version": 1,
+  "experiment": "bm25-char-unigram-bigram-filtered",
+  "generated_at": "2026-09-08T06:39:37.137119+00:00",
+  "dataset_fingerprint_sha256": "a836d2edc0797b00e5ae0123c9167316d8baa1a0abd6211a27391ec211cf83f5",
+  "dataset_summary": {
+    "places": 5,
+    "documents": 14,
+    "facts": 22,
+    "chunks": 14,
+    "retrieval_examples": 15,
+    "reviewed_examples": 15,
+    "query_types": {
+      "semantic": 3,
+      "exact": 3,
+      "metadata": 3,
+      "temporal": 3,
+      "multi_constraint": 3
+    }
+  },
+  "configuration": {
+    "retriever": "in_process_bm25",
+    "tokenizer": "nfkc_lowercase_ascii_terms_cjk_unigrams_bigrams",
+    "k1": 1.5,
+    "b": 0.75,
+    "limit": 10,
+    "apply_supported_metadata_filters": true,
+    "metric_cutoffs": [
+      1,
+      3,
+      5,
+      10
+    ],
+    "ground_truth_level": "source_document_section"
+  },
+  "metrics": {
+    "evaluated_queries": 15,
+    "relevance_queries": 15,
+    "abstention_queries": 0,
+    "precision_at_k": {
+      "1": 0.9333333333333333,
+      "3": 0.37777777777777766,
+      "5": 0.25333333333333335,
+      "10": 0.13333333333333333
+    },
+    "recall_at_k": {
+      "1": 0.7222222222222222,
+      "3": 0.8555555555555556,
+      "5": 0.9222222222222223,
+      "10": 0.9555555555555556
+    },
+    "mrr_at_k": {
+      "1": 0.9333333333333333,
+      "3": 0.9666666666666667,
+      "5": 0.9666666666666667,
+      "10": 0.9666666666666667
+    },
+    "ndcg_at_k": {
+      "1": 0.9333333333333333,
+      "3": 0.9495865431595983,
+      "5": 0.9567287865620732,
+      "10": 0.9598407462542835
+    },
+    "abstention_accuracy": null
+  },
+  "metrics_by_query_type": {
+    "exact": {
+      "evaluated_queries": 3,
+      "relevance_queries": 3,
+      "abstention_queries": 0,
+      "precision_at_k": {
+        "1": 0.6666666666666666,
+        "3": 0.3333333333333333,
+        "5": 0.20000000000000004,
+        "10": 0.10000000000000002
+      },
+      "recall_at_k": {
+        "1": 0.6666666666666666,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 0.6666666666666666,
+        "3": 0.8333333333333334,
+        "5": 0.8333333333333334,
+        "10": 0.8333333333333334
+      },
+      "ndcg_at_k": {
+        "1": 0.6666666666666666,
+        "3": 0.8769765845238192,
+        "5": 0.8769765845238192,
+        "10": 0.8769765845238192
+      },
+      "abstention_accuracy": null
+    },
+    "metadata": {
+      "evaluated_queries": 3,
+      "relevance_queries": 3,
+      "abstention_queries": 0,
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.4444444444444444,
+        "5": 0.26666666666666666,
+        "10": 0.13333333333333333
+      },
+      "recall_at_k": {
+        "1": 0.8333333333333334,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "abstention_accuracy": null
+    },
+    "multi_constraint": {
+      "evaluated_queries": 3,
+      "relevance_queries": 3,
+      "abstention_queries": 0,
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.26666666666666666,
+        "10": 0.16666666666666666
+      },
+      "recall_at_k": {
+        "1": 0.4444444444444444,
+        "3": 0.4444444444444444,
+        "5": 0.611111111111111,
+        "10": 0.7777777777777777
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 0.8985163270365204,
+        "5": 0.9173290873851453,
+        "10": 0.932888885846196
+      },
+      "abstention_accuracy": null
+    },
+    "semantic": {
+      "evaluated_queries": 3,
+      "relevance_queries": 3,
+      "abstention_queries": 0,
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.4444444444444444,
+        "5": 0.26666666666666666,
+        "10": 0.13333333333333333
+      },
+      "recall_at_k": {
+        "1": 0.8333333333333334,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "abstention_accuracy": null
+    },
+    "temporal": {
+      "evaluated_queries": 3,
+      "relevance_queries": 3,
+      "abstention_queries": 0,
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.26666666666666666,
+        "10": 0.13333333333333333
+      },
+      "recall_at_k": {
+        "1": 0.8333333333333334,
+        "3": 0.8333333333333334,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 0.9724398042376524,
+        "5": 0.9893382609014023,
+        "10": 0.9893382609014023
+      },
+      "abstention_accuracy": null
+    }
+  },
+  "build_latency_ms": 1.4934159989934415,
+  "latency_ms": {
+    "mean": 0.03741666878340766,
+    "p95": 0.06937500438652933,
+    "samples": 15,
+    "scope": "in-process search only; excludes process startup and index construction"
+  },
+  "unsupported_filter_counts": {
+    "attraction": 1,
+    "low_budget": 1,
+    "month": 1,
+    "route_direction": 1,
+    "scope": 1,
+    "season": 2,
+    "ticket_type": 2,
+    "time": 1,
+    "time_period": 1,
+    "weekday": 4
+  },
+  "per_query": [
+    {
+      "query_id": "beijing-semantic-001",
+      "query_type": "semantic",
+      "should_abstain": false,
+      "relevant_documents": {
+        "palace-description-20260908": 3,
+        "temple-heaven-description-20260908": 3
+      },
+      "retrieved_documents": [
+        "palace-description-20260908",
+        "temple-heaven-description-20260908",
+        "summer-palace-inner-20260908",
+        "shichahai-access-20260908",
+        "summer-palace-description-20260908",
+        "palace-route-20260908",
+        "temple-heaven-hours-20260908",
+        "palace-booking-20260908",
+        "temple-heaven-booking-20260908",
+        "national-museum-hours-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.6666666666666666,
+        "5": 0.4,
+        "10": 0.2
+      },
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "palace-description-20260908",
+          "score": 36.30895146
+        },
+        {
+          "document_id": "temple-heaven-description-20260908",
+          "score": 28.22332
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 7.54065678
+        },
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 5.56872194
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 5.06210953
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 4.30978905
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 3.68297699
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 2.35686566
+        },
+        {
+          "document_id": "temple-heaven-booking-20260908",
+          "score": 1.48481075
+        },
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 1.37247437
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-semantic-002",
+      "query_type": "semantic",
+      "should_abstain": false,
+      "relevant_documents": {
+        "shichahai-access-20260908": 3
+      },
+      "retrieved_documents": [
+        "shichahai-access-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 25.73723029
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-semantic-003",
+      "query_type": "semantic",
+      "should_abstain": false,
+      "relevant_documents": {
+        "summer-palace-description-20260908": 3
+      },
+      "retrieved_documents": [
+        "summer-palace-description-20260908",
+        "temple-heaven-description-20260908",
+        "palace-description-20260908",
+        "summer-palace-ticket-20260908",
+        "summer-palace-inner-20260908",
+        "summer-palace-hours-20260908",
+        "shichahai-access-20260908",
+        "palace-opening-20260908",
+        "temple-heaven-booking-20260908",
+        "temple-heaven-hours-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 44.16822688
+        },
+        {
+          "document_id": "temple-heaven-description-20260908",
+          "score": 17.77771634
+        },
+        {
+          "document_id": "palace-description-20260908",
+          "score": 16.5447113
+        },
+        {
+          "document_id": "summer-palace-ticket-20260908",
+          "score": 9.31452326
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 9.19105099
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 7.81534654
+        },
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 4.14612655
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 3.77850671
+        },
+        {
+          "document_id": "temple-heaven-booking-20260908",
+          "score": 3.23917165
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 2.70102868
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-exact-001",
+      "query_type": "exact",
+      "should_abstain": false,
+      "relevant_documents": {
+        "palace-route-20260908": 3
+      },
+      "retrieved_documents": [
+        "palace-opening-20260908",
+        "palace-route-20260908",
+        "palace-booking-20260908",
+        "palace-description-20260908",
+        "temple-heaven-hours-20260908",
+        "temple-heaven-booking-20260908",
+        "national-museum-hours-20260908",
+        "national-museum-booking-20260908",
+        "summer-palace-ticket-20260908",
+        "summer-palace-description-20260908"
+      ],
+      "precision_at_k": {
+        "1": 0.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 0.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 0.0,
+        "3": 0.5,
+        "5": 0.5,
+        "10": 0.5
+      },
+      "ndcg_at_k": {
+        "1": 0.0,
+        "3": 0.6309297535714575,
+        "5": 0.6309297535714575,
+        "10": 0.6309297535714575
+      },
+      "ranked_scores": [
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 7.3725658
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 7.09270893
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 6.65495011
+        },
+        {
+          "document_id": "palace-description-20260908",
+          "score": 6.01311842
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 3.45118147
+        },
+        {
+          "document_id": "temple-heaven-booking-20260908",
+          "score": 1.89033504
+        },
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 1.7473179
+        },
+        {
+          "document_id": "national-museum-booking-20260908",
+          "score": 1.67892132
+        },
+        {
+          "document_id": "summer-palace-ticket-20260908",
+          "score": 1.30050112
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 1.01996879
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-exact-002",
+      "query_type": "exact",
+      "should_abstain": false,
+      "relevant_documents": {
+        "summer-palace-ticket-20260908": 3
+      },
+      "retrieved_documents": [
+        "summer-palace-ticket-20260908",
+        "temple-heaven-hours-20260908",
+        "summer-palace-hours-20260908",
+        "summer-palace-inner-20260908",
+        "summer-palace-description-20260908",
+        "palace-booking-20260908",
+        "palace-opening-20260908",
+        "shichahai-access-20260908",
+        "temple-heaven-booking-20260908",
+        "palace-route-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "summer-palace-ticket-20260908",
+          "score": 36.01531692
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 20.47292752
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 16.09573891
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 13.44303957
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 8.21261176
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 6.25808127
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 5.07704017
+        },
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 3.88230331
+        },
+        {
+          "document_id": "temple-heaven-booking-20260908",
+          "score": 3.80046698
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 1.8789868
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-exact-003",
+      "query_type": "exact",
+      "should_abstain": false,
+      "relevant_documents": {
+        "temple-heaven-hours-20260908": 3
+      },
+      "retrieved_documents": [
+        "temple-heaven-hours-20260908",
+        "summer-palace-ticket-20260908",
+        "temple-heaven-description-20260908",
+        "temple-heaven-booking-20260908",
+        "shichahai-access-20260908",
+        "summer-palace-hours-20260908",
+        "palace-opening-20260908",
+        "summer-palace-inner-20260908",
+        "palace-booking-20260908",
+        "summer-palace-description-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 30.85181397
+        },
+        {
+          "document_id": "summer-palace-ticket-20260908",
+          "score": 15.21068015
+        },
+        {
+          "document_id": "temple-heaven-description-20260908",
+          "score": 8.81920023
+        },
+        {
+          "document_id": "temple-heaven-booking-20260908",
+          "score": 8.78423379
+        },
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 4.98034889
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 4.79148017
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 4.62987596
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 3.54698009
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 1.76700906
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 1.47946222
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-metadata-001",
+      "query_type": "metadata",
+      "should_abstain": false,
+      "relevant_documents": {
+        "palace-booking-20260908": 2,
+        "national-museum-booking-20260908": 3
+      },
+      "retrieved_documents": [
+        "national-museum-booking-20260908",
+        "palace-booking-20260908",
+        "national-museum-hours-20260908",
+        "palace-opening-20260908",
+        "palace-description-20260908",
+        "palace-route-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.6666666666666666,
+        "5": 0.4,
+        "10": 0.2
+      },
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "national-museum-booking-20260908",
+          "score": 22.34326796
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 21.85284065
+        },
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 13.61667402
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 9.26345787
+        },
+        {
+          "document_id": "palace-description-20260908",
+          "score": 8.66944149
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 8.03822531
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-metadata-002",
+      "query_type": "metadata",
+      "should_abstain": false,
+      "relevant_documents": {
+        "shichahai-access-20260908": 3
+      },
+      "retrieved_documents": [
+        "shichahai-access-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 29.92064004
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-metadata-003",
+      "query_type": "metadata",
+      "should_abstain": false,
+      "relevant_documents": {
+        "summer-palace-ticket-20260908": 3
+      },
+      "retrieved_documents": [
+        "summer-palace-ticket-20260908",
+        "summer-palace-description-20260908",
+        "summer-palace-inner-20260908",
+        "summer-palace-hours-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "summer-palace-ticket-20260908",
+          "score": 22.0136694
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 21.12704222
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 16.29022106
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 15.99748121
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-temporal-001",
+      "query_type": "temporal",
+      "should_abstain": false,
+      "relevant_documents": {
+        "palace-opening-20260908": 3
+      },
+      "retrieved_documents": [
+        "palace-opening-20260908",
+        "temple-heaven-hours-20260908",
+        "summer-palace-inner-20260908",
+        "national-museum-hours-20260908",
+        "palace-route-20260908",
+        "palace-booking-20260908",
+        "palace-description-20260908",
+        "summer-palace-description-20260908",
+        "summer-palace-hours-20260908",
+        "shichahai-access-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 14.01908145
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 8.96766205
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 8.88089433
+        },
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 8.42941563
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 7.56947172
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 6.43427088
+        },
+        {
+          "document_id": "palace-description-20260908",
+          "score": 6.01311842
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 4.37310025
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 3.59163653
+        },
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 3.59136029
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-temporal-002",
+      "query_type": "temporal",
+      "should_abstain": false,
+      "relevant_documents": {
+        "summer-palace-inner-20260908": 3,
+        "summer-palace-hours-20260908": 1
+      },
+      "retrieved_documents": [
+        "summer-palace-inner-20260908",
+        "summer-palace-description-20260908",
+        "temple-heaven-hours-20260908",
+        "palace-route-20260908",
+        "summer-palace-hours-20260908",
+        "summer-palace-ticket-20260908",
+        "palace-opening-20260908",
+        "national-museum-booking-20260908",
+        "palace-booking-20260908",
+        "national-museum-hours-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.4,
+        "10": 0.2
+      },
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.5,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 0.9173194127129571,
+        "5": 0.9680147827042069,
+        "10": 0.9680147827042069
+      },
+      "ranked_scores": [
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 26.91789472
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 18.34019991
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 13.2208864
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 10.24740389
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 9.21734177
+        },
+        {
+          "document_id": "summer-palace-ticket-20260908",
+          "score": 8.32076253
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 7.75481395
+        },
+        {
+          "document_id": "national-museum-booking-20260908",
+          "score": 7.20282116
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 6.05397626
+        },
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 6.04035697
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-temporal-003",
+      "query_type": "temporal",
+      "should_abstain": false,
+      "relevant_documents": {
+        "national-museum-hours-20260908": 3
+      },
+      "retrieved_documents": [
+        "national-museum-hours-20260908",
+        "national-museum-booking-20260908",
+        "palace-opening-20260908",
+        "palace-route-20260908",
+        "palace-description-20260908",
+        "palace-booking-20260908",
+        "summer-palace-inner-20260908",
+        "summer-palace-hours-20260908",
+        "temple-heaven-booking-20260908",
+        "temple-heaven-hours-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ranked_scores": [
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 22.40456856
+        },
+        {
+          "document_id": "national-museum-booking-20260908",
+          "score": 20.71490977
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 13.8142967
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 10.40973539
+        },
+        {
+          "document_id": "palace-description-20260908",
+          "score": 7.28305498
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 5.18652074
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 5.04264718
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 4.29097505
+        },
+        {
+          "document_id": "temple-heaven-booking-20260908",
+          "score": 2.26663284
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 1.90741221
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-multi-001",
+      "query_type": "multi_constraint",
+      "should_abstain": false,
+      "relevant_documents": {
+        "shichahai-access-20260908": 3,
+        "palace-opening-20260908": 1,
+        "national-museum-hours-20260908": 1
+      },
+      "retrieved_documents": [
+        "shichahai-access-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.1
+      },
+      "recall_at_k": {
+        "1": 0.3333333333333333,
+        "3": 0.3333333333333333,
+        "5": 0.3333333333333333,
+        "10": 0.3333333333333333
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 0.8609101556836468,
+        "5": 0.8609101556836468,
+        "10": 0.8609101556836468
+      },
+      "ranked_scores": [
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 6.35563697
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-multi-002",
+      "query_type": "multi_constraint",
+      "should_abstain": false,
+      "relevant_documents": {
+        "palace-route-20260908": 3,
+        "palace-opening-20260908": 1
+      },
+      "retrieved_documents": [
+        "palace-route-20260908",
+        "palace-description-20260908",
+        "shichahai-access-20260908",
+        "summer-palace-description-20260908",
+        "summer-palace-hours-20260908",
+        "palace-opening-20260908",
+        "palace-booking-20260908",
+        "national-museum-hours-20260908",
+        "temple-heaven-hours-20260908",
+        "national-museum-booking-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.2,
+        "10": 0.2
+      },
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.5,
+        "5": 0.5,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 0.9173194127129571,
+        "5": 0.9173194127129571,
+        "10": 0.9639988080961093
+      },
+      "ranked_scores": [
+        {
+          "document_id": "palace-route-20260908",
+          "score": 27.25278681
+        },
+        {
+          "document_id": "palace-description-20260908",
+          "score": 12.61460093
+        },
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 10.5184052
+        },
+        {
+          "document_id": "summer-palace-description-20260908",
+          "score": 7.8654724
+        },
+        {
+          "document_id": "summer-palace-hours-20260908",
+          "score": 7.67985093
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 7.66660971
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 7.49463894
+        },
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 6.67182542
+        },
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 4.56733719
+        },
+        {
+          "document_id": "national-museum-booking-20260908",
+          "score": 4.36773697
+        }
+      ]
+    },
+    {
+      "query_id": "beijing-multi-003",
+      "query_type": "multi_constraint",
+      "should_abstain": false,
+      "relevant_documents": {
+        "temple-heaven-hours-20260908": 3,
+        "temple-heaven-booking-20260908": 1
+      },
+      "retrieved_documents": [
+        "temple-heaven-hours-20260908",
+        "temple-heaven-description-20260908",
+        "national-museum-hours-20260908",
+        "temple-heaven-booking-20260908",
+        "summer-palace-ticket-20260908",
+        "palace-route-20260908",
+        "palace-opening-20260908",
+        "shichahai-access-20260908",
+        "summer-palace-inner-20260908",
+        "palace-booking-20260908"
+      ],
+      "precision_at_k": {
+        "1": 1.0,
+        "3": 0.3333333333333333,
+        "5": 0.4,
+        "10": 0.2
+      },
+      "recall_at_k": {
+        "1": 0.5,
+        "3": 0.5,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "mrr_at_k": {
+        "1": 1.0,
+        "3": 1.0,
+        "5": 1.0,
+        "10": 1.0
+      },
+      "ndcg_at_k": {
+        "1": 1.0,
+        "3": 0.9173194127129571,
+        "5": 0.9737576937588317,
+        "10": 0.9737576937588317
+      },
+      "ranked_scores": [
+        {
+          "document_id": "temple-heaven-hours-20260908",
+          "score": 30.83824813
+        },
+        {
+          "document_id": "temple-heaven-description-20260908",
+          "score": 19.10615139
+        },
+        {
+          "document_id": "national-museum-hours-20260908",
+          "score": 13.23119701
+        },
+        {
+          "document_id": "temple-heaven-booking-20260908",
+          "score": 12.86000653
+        },
+        {
+          "document_id": "summer-palace-ticket-20260908",
+          "score": 10.86333251
+        },
+        {
+          "document_id": "palace-route-20260908",
+          "score": 9.0828181
+        },
+        {
+          "document_id": "palace-opening-20260908",
+          "score": 8.51490228
+        },
+        {
+          "document_id": "shichahai-access-20260908",
+          "score": 7.71446481
+        },
+        {
+          "document_id": "summer-palace-inner-20260908",
+          "score": 6.53592105
+        },
+        {
+          "document_id": "palace-booking-20260908",
+          "score": 4.5277065
+        }
+      ]
+    }
+  ],
+  "limitations": [
+    "The 15-query seed set is small, single-annotator, and not a held-out benchmark.",
+    "Latency on an in-memory 14-document corpus does not predict production latency.",
+    "When filters are enabled, unsupported hard-filter keys are reported and left to lexical matching.",
+    "No statistical significance or generalization claim is made."
+  ]
+}

@@ -1,0 +1,503 @@
+{
+  "schema_version": 1,
+  "experiment": "deepseek-context-answer-ablation-v1",
+  "dataset_fingerprint_sha256": "fc69cae6fa9e32fea33250ef3f5ab26470b8bc11e28375430d867b4b9731ad10",
+  "configuration": {
+    "variants": [
+      "unbounded",
+      "refined_coverage"
+    ],
+    "thinking": "disabled",
+    "temperature": 0,
+    "max_output_tokens": 256
+  },
+  "metrics": {
+    "unbounded": {
+      "task_success_rate": 0.8571428571428571,
+      "mean_term_coverage": 0.8571428571428571,
+      "mean_citation_precision": 0.8571428571428571,
+      "mean_citation_recall": 0.8571428571428571,
+      "abstention_accuracy": 0.8571428571428571,
+      "fallback_rate": 0.14285714285714285,
+      "total_tokens": 6638,
+      "mean_latency_ms": 1473.4242151656265
+    },
+    "refined_coverage": {
+      "task_success_rate": 0.7142857142857143,
+      "mean_term_coverage": 0.9166666666666667,
+      "mean_citation_precision": 1.0,
+      "mean_citation_recall": 1.0,
+      "abstention_accuracy": 1.0,
+      "fallback_rate": 0.0,
+      "total_tokens": 3550,
+      "mean_latency_ms": 1565.8683332855746
+    }
+  },
+  "selection": {
+    "selected_pipeline": "unbounded",
+    "gate_passed": false
+  },
+  "cases": [
+    {
+      "case_id": "answer-route",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "palace-route-20260908",
+        "palace-route-20260908"
+      ],
+      "output": {
+        "answer": "故宫采用由南向北的单向参观路线，午门是入口，参观结束后可由神武门或东华门离开。",
+        "claims": [
+          {
+            "text": "故宫采用由南向北的单向参观路线，午门是参观入口。",
+            "evidence_ids": [
+              "palace-route-20260908"
+            ]
+          },
+          {
+            "text": "参观结束后可由神武门或东华门离开。",
+            "evidence_ids": [
+              "palace-route-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 1141,
+      "completion_tokens": 109,
+      "latency_ms": 1027.6475830032723
+    },
+    {
+      "case_id": "answer-route",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "palace-route-20260908",
+        "palace-route-20260908"
+      ],
+      "output": {
+        "answer": "故宫采用由南向北的单向参观路线，午门是入口，参观结束后可由神武门或东华门离开。",
+        "claims": [
+          {
+            "text": "故宫采用由南向北的单向参观路线，午门是参观入口。",
+            "evidence_ids": [
+              "palace-route-20260908"
+            ]
+          },
+          {
+            "text": "参观结束后可由神武门或东华门离开。",
+            "evidence_ids": [
+              "palace-route-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 459,
+      "completion_tokens": 109,
+      "latency_ms": 1949.8590000002878
+    },
+    {
+      "case_id": "answer-ticket",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "summer-palace-ticket-20260908",
+        "summer-palace-ticket-20260908"
+      ],
+      "output": {
+        "answer": "颐和园旺季普通门票30元，联票60元。",
+        "claims": [
+          {
+            "text": "颐和园旺季普通门票30元",
+            "evidence_ids": [
+              "summer-palace-ticket-20260908"
+            ]
+          },
+          {
+            "text": "颐和园旺季联票60元",
+            "evidence_ids": [
+              "summer-palace-ticket-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 1181,
+      "completion_tokens": 90,
+      "latency_ms": 1417.265750002116
+    },
+    {
+      "case_id": "answer-ticket",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "summer-palace-ticket-20260908",
+        "summer-palace-ticket-20260908"
+      ],
+      "output": {
+        "answer": "颐和园旺季普通门票30元，联票60元。",
+        "claims": [
+          {
+            "text": "颐和园旺季普通门票30元",
+            "evidence_ids": [
+              "summer-palace-ticket-20260908"
+            ]
+          },
+          {
+            "text": "颐和园旺季联票60元",
+            "evidence_ids": [
+              "summer-palace-ticket-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 476,
+      "completion_tokens": 90,
+      "latency_ms": 1421.6710830078227
+    },
+    {
+      "case_id": "answer-palace-monday",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "palace-opening-20260908"
+      ],
+      "output": {
+        "answer": "周一故宫博物院通常闭馆，但法定节假日除外。",
+        "claims": [
+          {
+            "text": "故宫博物院除法定节假日外通常周一闭馆。",
+            "evidence_ids": [
+              "palace-opening-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 1175,
+      "completion_tokens": 59,
+      "latency_ms": 1958.7128340062918
+    },
+    {
+      "case_id": "answer-palace-monday",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "palace-opening-20260908"
+      ],
+      "output": {
+        "answer": "周一故宫不开放（法定节假日除外）。",
+        "claims": [
+          {
+            "text": "故宫博物院除法定节假日外通常周一闭馆。",
+            "evidence_ids": [
+              "palace-opening-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 480,
+      "completion_tokens": 56,
+      "latency_ms": 851.5459999907762
+    },
+    {
+      "case_id": "answer-inner-garden",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "summer-palace-inner-20260908",
+        "summer-palace-inner-20260908"
+      ],
+      "output": {
+        "answer": "不能。根据证据，佛香阁等园中园周一闭园（法定节假日除外），因此周一进入颐和园后无法参观佛香阁。",
+        "claims": [
+          {
+            "text": "佛香阁等园中园周一闭园，法定节假日除外。",
+            "evidence_ids": [
+              "summer-palace-inner-20260908"
+            ]
+          },
+          {
+            "text": "公园大门开放不代表所有园中园都开放。",
+            "evidence_ids": [
+              "summer-palace-inner-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 1177,
+      "completion_tokens": 119,
+      "latency_ms": 1409.684499987634
+    },
+    {
+      "case_id": "answer-inner-garden",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "summer-palace-inner-20260908"
+      ],
+      "output": {
+        "answer": "不能。根据证据，佛香阁属于颐和园园中园，周一闭园（重点节假日除外），因此周一进入颐和园后不能参观佛香阁。",
+        "claims": [
+          {
+            "text": "佛香阁周一闭园，重点节假日除外",
+            "evidence_ids": [
+              "summer-palace-inner-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 476,
+      "completion_tokens": 87,
+      "latency_ms": 1638.1784160039388
+    },
+    {
+      "case_id": "answer-accessible-budget",
+      "variant": "unbounded",
+      "success": false,
+      "fallback": true,
+      "error_type": "LLMOutputError",
+      "cited_evidence_ids": [],
+      "output": {
+        "answer": "答案生成失败",
+        "claims": [],
+        "abstained": true,
+        "uncertainty": null
+      },
+      "term_coverage": 0.0,
+      "citation_precision": 0.0,
+      "citation_recall": 0.0,
+      "abstention_correct": false,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "latency_ms": null
+    },
+    {
+      "case_id": "answer-accessible-budget",
+      "variant": "refined_coverage",
+      "success": false,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "shichahai-access-20260908",
+        "shichahai-access-20260908"
+      ],
+      "output": {
+        "answer": "优先查什刹海公园，因其无需预约且免费开放，适合低预算和周一出行。",
+        "claims": [
+          {
+            "text": "什刹海公园无需预约且门票免费",
+            "evidence_ids": [
+              "shichahai-access-20260908"
+            ]
+          },
+          {
+            "text": "什刹海公园全天24小时开放",
+            "evidence_ids": [
+              "shichahai-access-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 0.75,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 434,
+      "completion_tokens": 94,
+      "latency_ms": 1899.240958999144
+    },
+    {
+      "case_id": "answer-temple-monday",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "temple-heaven-hours-20260908",
+        "temple-heaven-hours-20260908",
+        "temple-heaven-hours-20260908"
+      ],
+      "output": {
+        "answer": "周一去天坛看祈年殿并买联票的安排有问题：祈年殿等园中园景点除法定节假日外周一关闭，因此周一无法参观祈年殿，联票也无法使用。建议改期至周二至周日，或仅游览公园大门区域。",
+        "claims": [
+          {
+            "text": "天坛公园大门通常6:00至22:00开放，21:00停止入园。",
+            "evidence_ids": [
+              "temple-heaven-hours-20260908"
+            ]
+          },
+          {
+            "text": "祈年殿、回音壁和圜丘等另收费景点通常周二至周日8:00至18:00开放，17:30停止进入；除法定节假日外周一关闭。",
+            "evidence_ids": [
+              "temple-heaven-hours-20260908"
+            ]
+          },
+          {
+            "text": "旺季联票全价34元，普通门票全价15元。",
+            "evidence_ids": [
+              "temple-heaven-hours-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 1161,
+      "completion_tokens": 208,
+      "latency_ms": 1908.102332992712
+    },
+    {
+      "case_id": "answer-temple-monday",
+      "variant": "refined_coverage",
+      "success": false,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [
+        "temple-heaven-hours-20260908",
+        "temple-heaven-hours-20260908"
+      ],
+      "output": {
+        "answer": "周一祈年殿等核心景点关闭，无法参观；联票包含这些景点，因此周一购买联票不划算。建议改期或仅购买大门票。",
+        "claims": [
+          {
+            "text": "周一祈年殿等另收费景点关闭",
+            "evidence_ids": [
+              "temple-heaven-hours-20260908"
+            ]
+          },
+          {
+            "text": "联票包含祈年殿等景点",
+            "evidence_ids": [
+              "temple-heaven-hours-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "term_coverage": 0.6666666666666666,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 464,
+      "completion_tokens": 108,
+      "latency_ms": 1970.6330409971997
+    },
+    {
+      "case_id": "answer-unsupported-live",
+      "variant": "unbounded",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [],
+      "output": {
+        "answer": "无法提供故宫实时排队人数，因为证据中不包含实时数据。",
+        "claims": [],
+        "abstained": true,
+        "uncertainty": "证据不足，无法获取实时排队信息。"
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 175,
+      "completion_tokens": 43,
+      "latency_ms": 1119.1322910017334
+    },
+    {
+      "case_id": "answer-unsupported-live",
+      "variant": "refined_coverage",
+      "success": true,
+      "fallback": false,
+      "error_type": null,
+      "cited_evidence_ids": [],
+      "output": {
+        "answer": "无法提供实时排队人数，因为证据中不包含实时数据。",
+        "claims": [],
+        "abstained": true,
+        "uncertainty": "证据不足，无法回答实时排队人数。"
+      },
+      "term_coverage": 1.0,
+      "citation_precision": 1.0,
+      "citation_recall": 1.0,
+      "abstention_correct": true,
+      "prompt_tokens": 175,
+      "completion_tokens": 42,
+      "latency_ms": 1229.9498339998536
+    }
+  ],
+  "limitations": [
+    "Seven project-authored cases are a pilot, not a blind benchmark.",
+    "Reference-term matching undercounts valid paraphrases and must be paired with error review.",
+    "Citation metrics check expected document IDs, not fine-grained entailment."
+  ]
+}

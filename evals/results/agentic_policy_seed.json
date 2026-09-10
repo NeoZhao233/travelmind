@@ -1,0 +1,477 @@
+{
+  "schema_version": 1,
+  "experiment": "deterministic-agentic-policy-baseline",
+  "generated_at": "2026-09-08T12:18:29.226426+00:00",
+  "dataset_fingerprint_sha256": "1722aec942105e18631c788953c358a359567ee05a7763e951bf682caa86970e",
+  "configuration": {
+    "policy_version": "rule-v1",
+    "router": "RuleBasedQueryRouter",
+    "grader": "CoverageEvidenceGrader",
+    "routing_cases": 15,
+    "grading_cases": 11,
+    "reviewed_routing_cases": 0,
+    "reviewed_grading_cases": 0
+  },
+  "routing_metrics": {
+    "all": {
+      "cases": 15,
+      "accuracy": 0.4666666666666667
+    },
+    "development": {
+      "cases": 10,
+      "accuracy": 0.7
+    },
+    "test": {
+      "cases": 5,
+      "accuracy": 0.0
+    }
+  },
+  "routing_confusion": {
+    "exact_fact->exact_fact": 1,
+    "exact_fact->generic": 2,
+    "multi_constraint->exact_fact": 2,
+    "multi_constraint->generic": 1,
+    "multi_constraint->multi_constraint": 3,
+    "multi_constraint->temporal": 1,
+    "semantic->generic": 1,
+    "semantic->semantic": 1,
+    "temporal->generic": 1,
+    "temporal->temporal": 2
+  },
+  "grading_metrics": {
+    "all": {
+      "cases": 11,
+      "accuracy": 0.8181818181818182,
+      "precision": 0.75,
+      "recall": 1.0,
+      "f1": 0.8571428571428571,
+      "required_aspects_exact_match": 0.7272727272727273,
+      "missing_aspects_exact_match": 0.8181818181818182
+    },
+    "development": {
+      "cases": 6,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0,
+      "required_aspects_exact_match": 0.8333333333333334,
+      "missing_aspects_exact_match": 1.0
+    },
+    "test": {
+      "cases": 5,
+      "accuracy": 0.6,
+      "precision": 0.5,
+      "recall": 1.0,
+      "f1": 0.6666666666666666,
+      "required_aspects_exact_match": 0.6,
+      "missing_aspects_exact_match": 0.6
+    }
+  },
+  "routing_cases": [
+    {
+      "case_id": "route-semantic-001",
+      "split": "development",
+      "expected_intent": "semantic",
+      "predicted_intent": "semantic",
+      "correct": true,
+      "reason_codes": [
+        "intent:semantic"
+      ]
+    },
+    {
+      "case_id": "route-semantic-002",
+      "split": "development",
+      "expected_intent": "multi_constraint",
+      "predicted_intent": "multi_constraint",
+      "correct": true,
+      "reason_codes": [
+        "intent:multi_constraint",
+        "aspect:admission",
+        "aspect:opening_hours",
+        "aspect:accessibility"
+      ]
+    },
+    {
+      "case_id": "route-semantic-003",
+      "split": "test",
+      "expected_intent": "semantic",
+      "predicted_intent": "generic",
+      "correct": false,
+      "reason_codes": [
+        "intent:generic"
+      ]
+    },
+    {
+      "case_id": "route-exact-001",
+      "split": "development",
+      "expected_intent": "exact_fact",
+      "predicted_intent": "generic",
+      "correct": false,
+      "reason_codes": [
+        "intent:generic"
+      ]
+    },
+    {
+      "case_id": "route-exact-002",
+      "split": "development",
+      "expected_intent": "exact_fact",
+      "predicted_intent": "exact_fact",
+      "correct": true,
+      "reason_codes": [
+        "intent:exact_fact",
+        "aspect:admission"
+      ]
+    },
+    {
+      "case_id": "route-exact-003",
+      "split": "test",
+      "expected_intent": "exact_fact",
+      "predicted_intent": "generic",
+      "correct": false,
+      "reason_codes": [
+        "intent:generic"
+      ]
+    },
+    {
+      "case_id": "route-metadata-001",
+      "split": "development",
+      "expected_intent": "multi_constraint",
+      "predicted_intent": "exact_fact",
+      "correct": false,
+      "reason_codes": [
+        "intent:exact_fact",
+        "aspect:booking"
+      ]
+    },
+    {
+      "case_id": "route-metadata-002",
+      "split": "development",
+      "expected_intent": "multi_constraint",
+      "predicted_intent": "multi_constraint",
+      "correct": true,
+      "reason_codes": [
+        "intent:multi_constraint",
+        "aspect:admission",
+        "aspect:opening_hours",
+        "aspect:booking"
+      ]
+    },
+    {
+      "case_id": "route-metadata-003",
+      "split": "test",
+      "expected_intent": "multi_constraint",
+      "predicted_intent": "exact_fact",
+      "correct": false,
+      "reason_codes": [
+        "intent:exact_fact",
+        "aspect:admission"
+      ]
+    },
+    {
+      "case_id": "route-temporal-001",
+      "split": "development",
+      "expected_intent": "temporal",
+      "predicted_intent": "temporal",
+      "correct": true,
+      "reason_codes": [
+        "intent:temporal",
+        "aspect:opening_hours"
+      ]
+    },
+    {
+      "case_id": "route-temporal-002",
+      "split": "development",
+      "expected_intent": "temporal",
+      "predicted_intent": "temporal",
+      "correct": true,
+      "reason_codes": [
+        "intent:temporal",
+        "aspect:opening_hours"
+      ]
+    },
+    {
+      "case_id": "route-temporal-003",
+      "split": "test",
+      "expected_intent": "temporal",
+      "predicted_intent": "generic",
+      "correct": false,
+      "reason_codes": [
+        "intent:generic"
+      ]
+    },
+    {
+      "case_id": "route-multi-001",
+      "split": "development",
+      "expected_intent": "multi_constraint",
+      "predicted_intent": "multi_constraint",
+      "correct": true,
+      "reason_codes": [
+        "intent:multi_constraint",
+        "aspect:admission",
+        "aspect:opening_hours",
+        "aspect:booking",
+        "aspect:accessibility"
+      ]
+    },
+    {
+      "case_id": "route-multi-002",
+      "split": "development",
+      "expected_intent": "multi_constraint",
+      "predicted_intent": "generic",
+      "correct": false,
+      "reason_codes": [
+        "intent:generic"
+      ]
+    },
+    {
+      "case_id": "route-multi-003",
+      "split": "test",
+      "expected_intent": "multi_constraint",
+      "predicted_intent": "temporal",
+      "correct": false,
+      "reason_codes": [
+        "intent:temporal",
+        "aspect:opening_hours"
+      ]
+    }
+  ],
+  "grading_cases": [
+    {
+      "case_id": "grade-admission-complete",
+      "split": "development",
+      "expected_sufficient": true,
+      "predicted_sufficient": true,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "admission"
+      ],
+      "predicted_required_aspects": [
+        "admission"
+      ],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    },
+    {
+      "case_id": "grade-admission-missing",
+      "split": "development",
+      "expected_sufficient": false,
+      "predicted_sufficient": false,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "admission"
+      ],
+      "predicted_required_aspects": [
+        "admission"
+      ],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [
+        "admission"
+      ],
+      "predicted_missing_aspects": [
+        "admission"
+      ],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "missing:admission"
+      ]
+    },
+    {
+      "case_id": "grade-booking-complete",
+      "split": "development",
+      "expected_sufficient": true,
+      "predicted_sufficient": true,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "booking"
+      ],
+      "predicted_required_aspects": [
+        "booking"
+      ],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    },
+    {
+      "case_id": "grade-opening-complete",
+      "split": "development",
+      "expected_sufficient": true,
+      "predicted_sufficient": true,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "opening_hours"
+      ],
+      "predicted_required_aspects": [
+        "opening_hours"
+      ],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    },
+    {
+      "case_id": "grade-multi-missing-booking",
+      "split": "development",
+      "expected_sufficient": false,
+      "predicted_sufficient": false,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "admission",
+        "booking"
+      ],
+      "predicted_required_aspects": [
+        "admission",
+        "booking"
+      ],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [
+        "booking"
+      ],
+      "predicted_missing_aspects": [
+        "booking"
+      ],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "missing:booking"
+      ]
+    },
+    {
+      "case_id": "grade-route-complete",
+      "split": "development",
+      "expected_sufficient": true,
+      "predicted_sufficient": true,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "route"
+      ],
+      "predicted_required_aspects": [],
+      "required_aspects_exact_match": false,
+      "expected_missing_aspects": [],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    },
+    {
+      "case_id": "grade-route-missing",
+      "split": "test",
+      "expected_sufficient": false,
+      "predicted_sufficient": true,
+      "classification_correct": false,
+      "expected_required_aspects": [
+        "route"
+      ],
+      "predicted_required_aspects": [],
+      "required_aspects_exact_match": false,
+      "expected_missing_aspects": [
+        "route"
+      ],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": false,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    },
+    {
+      "case_id": "grade-multi-complete",
+      "split": "test",
+      "expected_sufficient": true,
+      "predicted_sufficient": true,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "admission",
+        "booking"
+      ],
+      "predicted_required_aspects": [
+        "admission",
+        "booking"
+      ],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    },
+    {
+      "case_id": "grade-accessibility-missing",
+      "split": "test",
+      "expected_sufficient": false,
+      "predicted_sufficient": false,
+      "classification_correct": true,
+      "expected_required_aspects": [
+        "accessibility"
+      ],
+      "predicted_required_aspects": [
+        "accessibility"
+      ],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [
+        "accessibility"
+      ],
+      "predicted_missing_aspects": [
+        "accessibility"
+      ],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "missing:accessibility"
+      ]
+    },
+    {
+      "case_id": "grade-temporal-missing",
+      "split": "test",
+      "expected_sufficient": false,
+      "predicted_sufficient": true,
+      "classification_correct": false,
+      "expected_required_aspects": [
+        "opening_hours"
+      ],
+      "predicted_required_aspects": [],
+      "required_aspects_exact_match": false,
+      "expected_missing_aspects": [
+        "opening_hours"
+      ],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": false,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    },
+    {
+      "case_id": "grade-semantic-complete",
+      "split": "test",
+      "expected_sufficient": true,
+      "predicted_sufficient": true,
+      "classification_correct": true,
+      "expected_required_aspects": [],
+      "predicted_required_aspects": [],
+      "required_aspects_exact_match": true,
+      "expected_missing_aspects": [],
+      "predicted_missing_aspects": [],
+      "missing_aspects_exact_match": true,
+      "reason_codes": [
+        "coverage_sufficient"
+      ]
+    }
+  ],
+  "limitations": [
+    "All agentic policy labels are project drafts and have not been independently reviewed.",
+    "The test split is fixed for plumbing but is not blind to the dataset author.",
+    "The seed is too small for statistical significance or prompt/model selection claims.",
+    "This run evaluates deterministic routing and grading only, not rewrite recovery.",
+    "No LLM, token cost, or provider latency is measured in this baseline."
+  ]
+}

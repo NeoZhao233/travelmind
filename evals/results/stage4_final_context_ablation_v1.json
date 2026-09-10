@@ -1,0 +1,488 @@
+{
+  "schema_version": 1,
+  "experiment": "stage4-final-context-ablation-v1",
+  "configuration": {
+    "max_context_tokens": 768,
+    "reserved_output_tokens": 192,
+    "safety_margin_tokens": 64,
+    "max_tokens_per_evidence": 160,
+    "min_tokens_for_clipped_evidence": 24
+  },
+  "metrics": {
+    "unbounded": {
+      "mean_estimated_tokens": 1520.6666666666667,
+      "mean_relevant_document_recall": 1.0,
+      "mean_expected_aspect_coverage": 1.0,
+      "mean_local_build_latency_ms": 0.2943248672333236,
+      "citation_readiness_rate": 1.0
+    },
+    "priority": {
+      "mean_estimated_tokens": 511.26666666666665,
+      "mean_relevant_document_recall": 0.9222222222222223,
+      "mean_expected_aspect_coverage": 0.9666666666666667,
+      "mean_local_build_latency_ms": 0.6681473333931839,
+      "citation_readiness_rate": 1.0
+    },
+    "coverage": {
+      "mean_estimated_tokens": 511.26666666666665,
+      "mean_relevant_document_recall": 0.9444444444444444,
+      "mean_expected_aspect_coverage": 1.0,
+      "mean_local_build_latency_ms": 0.6978417310165241,
+      "citation_readiness_rate": 1.0
+    },
+    "refined_coverage": {
+      "mean_estimated_tokens": 511.26666666666665,
+      "mean_relevant_document_recall": 0.9444444444444444,
+      "mean_expected_aspect_coverage": 1.0,
+      "mean_local_build_latency_ms": 2.904261070458839,
+      "citation_readiness_rate": 1.0
+    }
+  },
+  "selection": {
+    "selected_pipeline": "refined_coverage",
+    "evidence_level_gate_passed": true,
+    "answer_level_status": "not_measured"
+  },
+  "cases": [
+    {
+      "query_id": "beijing-semantic-001",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1439,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 507,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 507,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 507,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-semantic-002",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1523,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-semantic-003",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1450,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 506,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 506,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 506,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-exact-001",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1468,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-exact-002",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1524,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-exact-003",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1527,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-metadata-001",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1552,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-metadata-002",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1582,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-metadata-003",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1497,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-temporal-001",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1532,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-temporal-002",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1535,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 0.5,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 0.5,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 0.5,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-temporal-003",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1537,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-multi-001",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1534,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 0.3333333333333333,
+          "expected_aspect_coverage": 0.5,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 0.6666666666666666,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 0.6666666666666666,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-multi-002",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1572,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    },
+    {
+      "query_id": "beijing-multi-003",
+      "variants": {
+        "unbounded": {
+          "estimated_tokens": 1538,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "priority": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        },
+        "refined_coverage": {
+          "estimated_tokens": 512,
+          "relevant_document_recall": 1.0,
+          "expected_aspect_coverage": 1.0,
+          "citation_ready": true
+        }
+      }
+    }
+  ],
+  "limitations": [
+    "This measures evidence readiness, not generated-answer correctness or faithfulness.",
+    "Local builder latency excludes retrieval and model generation.",
+    "Citation readiness checks provenance availability, not citation correctness in answers."
+  ]
+}

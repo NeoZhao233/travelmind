@@ -1,0 +1,590 @@
+{
+  "schema_version": 1,
+  "experiment": "deepseek-policy-with-deterministic-fallback",
+  "dataset_fingerprint_sha256": "045eaf1397461cd05908a6a918c6fd8b819df4080002d005cf9b0dd55126a1fa",
+  "routing_metrics": {
+    "all": {
+      "cases": 15,
+      "accuracy": 0.4666666666666667
+    },
+    "development": {
+      "cases": 10,
+      "accuracy": 0.7
+    },
+    "test": {
+      "cases": 5,
+      "accuracy": 0.0
+    }
+  },
+  "grading_metrics": {
+    "all": {
+      "cases": 11,
+      "accuracy": 0.8181818181818182,
+      "precision": 0.8333333333333334,
+      "recall": 0.8333333333333334,
+      "f1": 0.8333333333333334
+    },
+    "development": {
+      "cases": 6,
+      "accuracy": 0.8333333333333334,
+      "precision": 1.0,
+      "recall": 0.75,
+      "f1": 0.8571428571428571
+    },
+    "test": {
+      "cases": 5,
+      "accuracy": 0.8,
+      "precision": 0.6666666666666666,
+      "recall": 1.0,
+      "f1": 0.8
+    }
+  },
+  "telemetry": {
+    "calls": 26,
+    "successful_calls": 6,
+    "fallback_rate": 0.7692307692307692,
+    "total_tokens": 3011,
+    "mean_success_latency_ms": 2547.679055339055,
+    "by_component": {
+      "query_router": {
+        "calls": 15,
+        "failures": 15
+      },
+      "evidence_grader": {
+        "calls": 11,
+        "failures": 5
+      }
+    }
+  },
+  "routing_cases": [
+    {
+      "case_id": "route-semantic-001",
+      "split": "development",
+      "expected": "semantic",
+      "predicted": "semantic",
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "route-semantic-002",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "route-semantic-003",
+      "split": "test",
+      "expected": "semantic",
+      "predicted": "generic",
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "route-exact-001",
+      "split": "development",
+      "expected": "exact_fact",
+      "predicted": "generic",
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "route-exact-002",
+      "split": "development",
+      "expected": "exact_fact",
+      "predicted": "exact_fact",
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "route-exact-003",
+      "split": "test",
+      "expected": "exact_fact",
+      "predicted": "generic",
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "route-metadata-001",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "exact_fact",
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "route-metadata-002",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "route-metadata-003",
+      "split": "test",
+      "expected": "multi_constraint",
+      "predicted": "exact_fact",
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "route-temporal-001",
+      "split": "development",
+      "expected": "temporal",
+      "predicted": "temporal",
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "route-temporal-002",
+      "split": "development",
+      "expected": "temporal",
+      "predicted": "temporal",
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "route-temporal-003",
+      "split": "test",
+      "expected": "temporal",
+      "predicted": "generic",
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "route-multi-001",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "route-multi-002",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "generic",
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "route-multi-003",
+      "split": "test",
+      "expected": "multi_constraint",
+      "predicted": "temporal",
+      "correct": false,
+      "fallback": true
+    }
+  ],
+  "grading_cases": [
+    {
+      "case_id": "grade-admission-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "grade-admission-missing",
+      "split": "development",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-booking-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-opening-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-multi-missing-booking",
+      "split": "development",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "grade-route-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-route-missing",
+      "split": "test",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-multi-complete",
+      "split": "test",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": true
+    },
+    {
+      "case_id": "grade-accessibility-missing",
+      "split": "test",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-temporal-missing",
+      "split": "test",
+      "expected": false,
+      "predicted": true,
+      "correct": false,
+      "fallback": true
+    },
+    {
+      "case_id": "grade-semantic-complete",
+      "split": "test",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": true
+    }
+  ],
+  "policy_calls": [
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1797.8626249969238,
+      "prompt_tokens": 284,
+      "completion_tokens": 169,
+      "total_tokens": 453,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1516.32295800664,
+      "prompt_tokens": 282,
+      "completion_tokens": 148,
+      "total_tokens": 430,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 4178.1324580078945,
+      "prompt_tokens": 309,
+      "completion_tokens": 317,
+      "total_tokens": 626,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1879.8288750112988,
+      "prompt_tokens": 279,
+      "completion_tokens": 156,
+      "total_tokens": 435,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 3171.185666011297,
+      "prompt_tokens": 277,
+      "completion_tokens": 328,
+      "total_tokens": 605,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 2742.7417500002775,
+      "prompt_tokens": 287,
+      "completion_tokens": 175,
+      "total_tokens": 462,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v1",
+      "success": false,
+      "model": null,
+      "latency_ms": null,
+      "prompt_tokens": 0,
+      "completion_tokens": 0,
+      "total_tokens": 0,
+      "provider_attempts": 0,
+      "error_type": "LLMOutputError"
+    }
+  ],
+  "limitations": [
+    "Labels are small project-authored drafts and the test split is not blind.",
+    "Rewriter quality requires a separate end-to-end trajectory experiment.",
+    "Fallback-inclusive quality must be read with raw fallback rate."
+  ]
+}

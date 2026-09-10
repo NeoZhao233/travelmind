@@ -1,0 +1,19 @@
+{
+  "schema_version": 1,
+  "dataset_id": "travelmind-e2e-planning",
+  "dataset_version": "seed-v1",
+  "task": "retrieval-to-itinerary-planning",
+  "source_dataset": "evals/datasets/e2e_planning_seed.json",
+  "source_sha256": "17f3b4fdaeffa3c04e9da4167fe3db400539bfce7b3026a641d737c9a90e7623",
+  "cases": [
+    {"case_id": "history_two_days", "split": "development", "author_ids": ["project-owner"], "review_status": "project_authored"},
+    {"case_id": "royal_garden", "split": "development", "author_ids": ["project-owner"], "review_status": "project_authored"},
+    {"case_id": "low_budget_no_booking", "split": "development", "author_ids": ["project-owner"], "review_status": "project_authored"},
+    {"case_id": "accessible_free", "split": "test", "author_ids": ["project-owner"], "review_status": "project_authored"},
+    {"case_id": "exclude_museums", "split": "test", "author_ids": ["project-owner"], "review_status": "project_authored"}
+  ],
+  "notes": [
+    "The partition is frozen for regression plumbing, but every label is project-authored.",
+    "Do not describe the test partition as independently reviewed or blind."
+  ]
+}

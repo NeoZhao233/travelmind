@@ -1,0 +1,31 @@
+{
+  "schema_version": 1,
+  "profile_id": "e2e-planning-release-v1",
+  "baseline_audit": "evals/results/stage6ab_evaluation_audit_v1.json",
+  "baseline_audit_sha256": "bae0751fdc5525c4a4b73de34029b3fd4712c8d7aba689b71427d3e38f21b7cc",
+  "baseline_variant": "deterministic",
+  "required_splits": ["development", "test"],
+  "non_decreasing_metrics": [
+    "task_success_rate",
+    "valid_plan_rate",
+    "constraint_satisfaction_rate",
+    "required_place_coverage",
+    "expected_place_hit_rate"
+  ],
+  "maximum_fallback_rate": 0.10,
+  "maximum_provider_tokens_per_case": 1000,
+  "maximum_mean_provider_latency_ms": 1500,
+  "paid_candidate_minimum_expected_hit_lift": 0.05,
+  "forbidden_issue_codes": [
+    "pipeline_failure",
+    "retrieval_empty",
+    "context_empty_after_retrieval",
+    "candidate_empty",
+    "hard_constraint_violation",
+    "required_place_miss",
+    "minimum_preference_miss",
+    "provider_failure",
+    "structured_output_failure",
+    "repair_exhausted"
+  ]
+}

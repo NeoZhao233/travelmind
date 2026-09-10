@@ -1,0 +1,663 @@
+{
+  "schema_version": 1,
+  "experiment": "controlled-agentic-trajectory-v1",
+  "dataset_fingerprint_sha256": "be5b250dc057db5d8b9c7d027b90093a3182e5179e664550c8006cdee6cda84b",
+  "configuration": {
+    "cases": 7,
+    "reviewed_cases": 0,
+    "retrieval": "scripted real-document IDs; no ranking latency"
+  },
+  "direct_metrics": {
+    "cases": 7,
+    "task_success_rate": 0.42857142857142855,
+    "unsupported_generation_rate": 0.14285714285714285,
+    "safe_abstention_rate": 0.5714285714285714,
+    "average_retrieval_calls": 1.0,
+    "degraded_case_count": 1
+  },
+  "agentic_metrics": {
+    "cases": 7,
+    "task_success_rate": 0.8571428571428571,
+    "unsupported_generation_rate": 0.14285714285714285,
+    "safe_abstention_rate": 0.14285714285714285,
+    "average_retrieval_calls": 1.5714285714285714,
+    "degraded_case_count": 1,
+    "rewrite_recovery_rate": 1.0
+  },
+  "retrieval_call_amplification": 1.5714285714285714,
+  "cases": [
+    {
+      "case_id": "trajectory-first-pass-ticket",
+      "split": "development",
+      "oracle_first_step_sufficient": true,
+      "oracle_eventually_sufficient": true,
+      "direct_oracle_at_used_step": true,
+      "agentic_oracle_at_used_step": true,
+      "direct": {
+        "completed": true,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "error_type": null,
+        "predicted_sufficient": true
+      },
+      "agentic": {
+        "completed": true,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "degraded_components": [],
+        "predicted_sufficient": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:exact_fact",
+              "aspect:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "trajectory-rewrite-recovers-ticket",
+      "split": "test",
+      "oracle_first_step_sufficient": false,
+      "oracle_eventually_sufficient": true,
+      "direct_oracle_at_used_step": false,
+      "agentic_oracle_at_used_step": true,
+      "direct": {
+        "completed": false,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "error_type": null,
+        "predicted_sufficient": false
+      },
+      "agentic": {
+        "completed": true,
+        "retrieval_calls": 2,
+        "rewrite_attempts": 1,
+        "degraded": false,
+        "degraded_components": [],
+        "predicted_sufficient": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:exact_fact",
+              "aspect:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "insufficient",
+            "reason_codes": [
+              "missing:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "rewrite_query",
+            "attempt": 1,
+            "outcome": "rewritten",
+            "reason_codes": [
+              "admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 2,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 2,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 2,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 2,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "trajectory-exhausted-ticket",
+      "split": "development",
+      "oracle_first_step_sufficient": false,
+      "oracle_eventually_sufficient": false,
+      "direct_oracle_at_used_step": false,
+      "agentic_oracle_at_used_step": false,
+      "direct": {
+        "completed": false,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "error_type": null,
+        "predicted_sufficient": false
+      },
+      "agentic": {
+        "completed": false,
+        "retrieval_calls": 2,
+        "rewrite_attempts": 1,
+        "degraded": false,
+        "degraded_components": [],
+        "predicted_sufficient": false,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:exact_fact",
+              "aspect:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "insufficient",
+            "reason_codes": [
+              "missing:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "rewrite_query",
+            "attempt": 1,
+            "outcome": "rewritten",
+            "reason_codes": [
+              "admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 2,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 2,
+            "outcome": "insufficient",
+            "reason_codes": [
+              "missing:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "fallback",
+            "attempt": 2,
+            "outcome": "insufficient_evidence",
+            "reason_codes": [
+              "admission"
+            ],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "trajectory-multi-aspect-recovery",
+      "split": "development",
+      "oracle_first_step_sufficient": false,
+      "oracle_eventually_sufficient": true,
+      "direct_oracle_at_used_step": false,
+      "agentic_oracle_at_used_step": true,
+      "direct": {
+        "completed": false,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "error_type": null,
+        "predicted_sufficient": false
+      },
+      "agentic": {
+        "completed": true,
+        "retrieval_calls": 2,
+        "rewrite_attempts": 1,
+        "degraded": false,
+        "degraded_components": [],
+        "predicted_sufficient": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:multi_constraint",
+              "aspect:opening_hours",
+              "aspect:booking"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "insufficient",
+            "reason_codes": [
+              "missing:booking"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "rewrite_query",
+            "attempt": 1,
+            "outcome": "rewritten",
+            "reason_codes": [
+              "booking"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 2,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 2,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 2,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 2,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "trajectory-timeout-recovery",
+      "split": "test",
+      "oracle_first_step_sufficient": false,
+      "oracle_eventually_sufficient": true,
+      "direct_oracle_at_used_step": false,
+      "agentic_oracle_at_used_step": true,
+      "direct": {
+        "completed": false,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": true,
+        "error_type": "TimeoutError",
+        "predicted_sufficient": false
+      },
+      "agentic": {
+        "completed": true,
+        "retrieval_calls": 2,
+        "rewrite_attempts": 1,
+        "degraded": true,
+        "degraded_components": [
+          "retriever"
+        ],
+        "predicted_sufficient": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:exact_fact",
+              "aspect:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "error",
+            "reason_codes": [],
+            "error_type": "TimeoutError"
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "insufficient",
+            "reason_codes": [
+              "no_evidence",
+              "missing:admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "rewrite_query",
+            "attempt": 1,
+            "outcome": "rewritten",
+            "reason_codes": [
+              "admission"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 2,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 2,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 2,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 2,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "trajectory-first-pass-semantic",
+      "split": "development",
+      "oracle_first_step_sufficient": true,
+      "oracle_eventually_sufficient": true,
+      "direct_oracle_at_used_step": true,
+      "agentic_oracle_at_used_step": true,
+      "direct": {
+        "completed": true,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "error_type": null,
+        "predicted_sufficient": true
+      },
+      "agentic": {
+        "completed": true,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "degraded_components": [],
+        "predicted_sufficient": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:generic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    },
+    {
+      "case_id": "trajectory-lexical-blind-spot",
+      "split": "test",
+      "oracle_first_step_sufficient": false,
+      "oracle_eventually_sufficient": false,
+      "direct_oracle_at_used_step": false,
+      "agentic_oracle_at_used_step": false,
+      "direct": {
+        "completed": true,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "error_type": null,
+        "predicted_sufficient": true
+      },
+      "agentic": {
+        "completed": true,
+        "retrieval_calls": 1,
+        "rewrite_attempts": 0,
+        "degraded": false,
+        "degraded_components": [],
+        "predicted_sufficient": true,
+        "trajectory": [
+          {
+            "node": "initialize",
+            "attempt": 0,
+            "outcome": "initialized",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "route_query",
+            "attempt": 0,
+            "outcome": "hybrid",
+            "reason_codes": [
+              "intent:generic"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "retrieve",
+            "attempt": 1,
+            "outcome": "success",
+            "reason_codes": [
+              "evidence_count:1"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "grade_evidence",
+            "attempt": 1,
+            "outcome": "sufficient",
+            "reason_codes": [
+              "coverage_sufficient"
+            ],
+            "error_type": null
+          },
+          {
+            "node": "generate",
+            "attempt": 1,
+            "outcome": "generated",
+            "reason_codes": [],
+            "error_type": null
+          },
+          {
+            "node": "validate",
+            "attempt": 1,
+            "outcome": "completed",
+            "reason_codes": [],
+            "error_type": null
+          }
+        ]
+      }
+    }
+  ],
+  "limitations": [
+    "Controlled retrieval isolates orchestration and does not measure Hybrid RRF quality.",
+    "Labels are project drafts without independent review.",
+    "Harness runtime is not provider or production latency."
+  ]
+}

@@ -1,0 +1,216 @@
+{
+  "schema_version": 1,
+  "rubric_version": "subjective-answer-rubric-v1",
+  "label_provenance": "ai_assisted_unverified",
+  "source_report": "evals/results/stage4_deepseek_answer_ablation_v4_final.json",
+  "source_report_sha256": "a09560dd346044a049522f4a753af5772a82c6d59ab4ffecfe878883eb31bec0",
+  "source_variant_hidden": true,
+  "items": [
+    {
+      "candidate_id": "d69c5d42013deda1",
+      "case_id": "answer-accessible-budget",
+      "query": "周一带行动不便的父母玩北京，预算低，希望不用预约，应该优先查哪个地方？",
+      "response": {
+        "answer": "优先查什刹海公园，因其无需预约且免费开放，适合行动不便的父母。",
+        "claims": [
+          {
+            "text": "什刹海公园无需预约、门票免费，且无障碍环境符合条件。",
+            "evidence_ids": [
+              "shichahai-access-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "should_abstain": false,
+      "human_scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 4
+      },
+      "annotator_id": "codex-ai-assisted-v1",
+      "annotation_notes": "结论直接且有证据支撑；若无障碍需求仍可提醒出行前核验具体设施，因此不确定性处理为4分。"
+    },
+    {
+      "candidate_id": "22fdaa4f63b96a48",
+      "case_id": "answer-inner-garden",
+      "query": "周一进入颐和园后还能参观佛香阁吗？",
+      "response": {
+        "answer": "不能。根据证据，佛香阁属于颐和园园中园，周一闭园（重点节假日除外），因此周一进入颐和园后不能参观佛香阁。",
+        "claims": [
+          {
+            "text": "佛香阁属于颐和园园中园，周一闭园，重点节假日除外。",
+            "evidence_ids": [
+              "summer-palace-inner-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "should_abstain": false,
+      "human_scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "annotator_id": "codex-ai-assisted-v1",
+      "annotation_notes": "准确区分公园大门与园中园，并保留重点节假日例外。"
+    },
+    {
+      "candidate_id": "c3e40242fbc9845d",
+      "case_id": "answer-palace-monday",
+      "query": "周一去故宫是否开放？",
+      "response": {
+        "answer": "周一故宫博物院通常闭馆（法定节假日除外），因此周一去故宫大概率不开放，建议避开周一或出行前查看官网公告。",
+        "claims": [
+          {
+            "text": "故宫博物院除法定节假日外通常周一闭馆。",
+            "evidence_ids": [
+              "palace-opening-20260908"
+            ]
+          },
+          {
+            "text": "法定假期或特殊活动可能调整开放时间，出行前需查看官网公告。",
+            "evidence_ids": [
+              "palace-opening-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "should_abstain": false,
+      "human_scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "annotator_id": "codex-ai-assisted-v1",
+      "annotation_notes": "正确表达通常周一闭馆、法定节假日例外，并给出官网复核建议。"
+    },
+    {
+      "candidate_id": "ab7424c188142247",
+      "case_id": "answer-route",
+      "query": "故宫从哪个门进，从哪个门出？",
+      "response": {
+        "answer": "故宫采用由南向北的单向参观路线，午门是入口，参观结束后可由神武门或东华门离开。",
+        "claims": [
+          {
+            "text": "故宫采用由南向北的单向参观路线，午门是参观入口。",
+            "evidence_ids": [
+              "palace-route-20260908"
+            ]
+          },
+          {
+            "text": "参观结束后可由神武门或东华门离开。",
+            "evidence_ids": [
+              "palace-route-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "should_abstain": false,
+      "human_scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "annotator_id": "codex-ai-assisted-v1",
+      "annotation_notes": "入口、出口与单向路线均和证据一致，回答简洁可执行。"
+    },
+    {
+      "candidate_id": "1d106d48d3e5d2f8",
+      "case_id": "answer-temple-monday",
+      "query": "计划周一去天坛看祈年殿并买联票，这个安排有什么问题？",
+      "response": {
+        "answer": "周一祈年殿等核心景点关闭（法定节假日除外），无法参观祈年殿；联票包含的祈年殿等景点不可用，建议改期或仅购买大门票。",
+        "claims": [
+          {
+            "text": "天坛祈年殿等另收费景点除法定节假日外周一关闭",
+            "evidence_ids": [
+              "temple-heaven-hours-20260908"
+            ]
+          },
+          {
+            "text": "联票包含祈年殿等景点，周一无法使用",
+            "evidence_ids": [
+              "temple-heaven-hours-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "should_abstain": false,
+      "human_scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 4,
+        "uncertainty_calibration": 5
+      },
+      "annotator_id": "codex-ai-assisted-v1",
+      "annotation_notes": "问题诊断正确；仅买大门票不能满足参观祈年殿的原目标，替代建议仍可更明确。"
+    },
+    {
+      "candidate_id": "e7b664066a58fb98",
+      "case_id": "answer-ticket",
+      "query": "颐和园旺季普通门票和联票分别多少钱？",
+      "response": {
+        "answer": "颐和园旺季普通门票30元，联票60元。",
+        "claims": [
+          {
+            "text": "颐和园旺季普通门票30元",
+            "evidence_ids": [
+              "summer-palace-ticket-20260908"
+            ]
+          },
+          {
+            "text": "颐和园旺季联票60元",
+            "evidence_ids": [
+              "summer-palace-ticket-20260908"
+            ]
+          }
+        ],
+        "abstained": false,
+        "uncertainty": null
+      },
+      "should_abstain": false,
+      "human_scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 4
+      },
+      "annotator_id": "codex-ai-assisted-v1",
+      "annotation_notes": "价格回答准确直接；票价属于时效信息，可补充购买前以官方渠道为准。"
+    },
+    {
+      "candidate_id": "fc71c2d3e239148d",
+      "case_id": "answer-unsupported-live",
+      "query": "告诉我明天上午十点故宫实时排队人数。",
+      "response": {
+        "answer": "无法提供实时排队人数，因为证据中不包含实时数据。",
+        "claims": [],
+        "abstained": true,
+        "uncertainty": "证据不足，无法回答实时排队人数。"
+      },
+      "should_abstain": true,
+      "human_scores": {
+        "answer_correctness": 5,
+        "evidence_grounding": 5,
+        "clarity_actionability": 5,
+        "uncertainty_calibration": 5
+      },
+      "annotator_id": "codex-ai-assisted-v1",
+      "annotation_notes": "证据不包含实时排队数据时正确拒答，没有编造实时信息。"
+    }
+  ]
+}

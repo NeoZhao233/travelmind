@@ -1,0 +1,596 @@
+{
+  "schema_version": 1,
+  "experiment": "deepseek-policy-with-deterministic-fallback",
+  "dataset_fingerprint_sha256": "045eaf1397461cd05908a6a918c6fd8b819df4080002d005cf9b0dd55126a1fa",
+  "configuration": {
+    "response_format": "json_object",
+    "thinking": "disabled",
+    "router_prompt_version": "router-v2-nonthinking",
+    "grader_prompt_version": "grader-v3-explicit-scope"
+  },
+  "routing_metrics": {
+    "all": {
+      "cases": 15,
+      "accuracy": 1.0
+    },
+    "development": {
+      "cases": 10,
+      "accuracy": 1.0
+    },
+    "test": {
+      "cases": 5,
+      "accuracy": 1.0
+    }
+  },
+  "grading_metrics": {
+    "all": {
+      "cases": 11,
+      "accuracy": 0.9090909090909091,
+      "precision": 1.0,
+      "recall": 0.8333333333333334,
+      "f1": 0.9090909090909091
+    },
+    "development": {
+      "cases": 6,
+      "accuracy": 1.0,
+      "precision": 1.0,
+      "recall": 1.0,
+      "f1": 1.0
+    },
+    "test": {
+      "cases": 5,
+      "accuracy": 0.8,
+      "precision": 1.0,
+      "recall": 0.5,
+      "f1": 0.6666666666666666
+    }
+  },
+  "telemetry": {
+    "calls": 26,
+    "successful_calls": 26,
+    "fallback_rate": 0.0,
+    "total_tokens": 6716,
+    "mean_success_latency_ms": 970.0474584611724,
+    "by_component": {
+      "query_router": {
+        "calls": 15,
+        "failures": 0
+      },
+      "evidence_grader": {
+        "calls": 11,
+        "failures": 0
+      }
+    }
+  },
+  "routing_cases": [
+    {
+      "case_id": "route-semantic-001",
+      "split": "development",
+      "expected": "semantic",
+      "predicted": "semantic",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-semantic-002",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-semantic-003",
+      "split": "test",
+      "expected": "semantic",
+      "predicted": "semantic",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-exact-001",
+      "split": "development",
+      "expected": "exact_fact",
+      "predicted": "exact_fact",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-exact-002",
+      "split": "development",
+      "expected": "exact_fact",
+      "predicted": "exact_fact",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-exact-003",
+      "split": "test",
+      "expected": "exact_fact",
+      "predicted": "exact_fact",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-metadata-001",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-metadata-002",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-metadata-003",
+      "split": "test",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-temporal-001",
+      "split": "development",
+      "expected": "temporal",
+      "predicted": "temporal",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-temporal-002",
+      "split": "development",
+      "expected": "temporal",
+      "predicted": "temporal",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-temporal-003",
+      "split": "test",
+      "expected": "temporal",
+      "predicted": "temporal",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-multi-001",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-multi-002",
+      "split": "development",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "route-multi-003",
+      "split": "test",
+      "expected": "multi_constraint",
+      "predicted": "multi_constraint",
+      "correct": true,
+      "fallback": false
+    }
+  ],
+  "grading_cases": [
+    {
+      "case_id": "grade-admission-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-admission-missing",
+      "split": "development",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-booking-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-opening-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-multi-missing-booking",
+      "split": "development",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-route-complete",
+      "split": "development",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-route-missing",
+      "split": "test",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-multi-complete",
+      "split": "test",
+      "expected": true,
+      "predicted": true,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-accessibility-missing",
+      "split": "test",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-temporal-missing",
+      "split": "test",
+      "expected": false,
+      "predicted": false,
+      "correct": true,
+      "fallback": false
+    },
+    {
+      "case_id": "grade-semantic-complete",
+      "split": "test",
+      "expected": true,
+      "predicted": false,
+      "correct": false,
+      "fallback": false
+    }
+  ],
+  "policy_calls": [
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 824.726874998305,
+      "prompt_tokens": 159,
+      "completion_tokens": 49,
+      "total_tokens": 208,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 889.51162500598,
+      "prompt_tokens": 166,
+      "completion_tokens": 47,
+      "total_tokens": 213,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 819.7263329930138,
+      "prompt_tokens": 164,
+      "completion_tokens": 48,
+      "total_tokens": 212,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 599.5699170016451,
+      "prompt_tokens": 161,
+      "completion_tokens": 45,
+      "total_tokens": 206,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 739.6575419988949,
+      "prompt_tokens": 162,
+      "completion_tokens": 46,
+      "total_tokens": 208,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 829.5068750012433,
+      "prompt_tokens": 159,
+      "completion_tokens": 47,
+      "total_tokens": 206,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 690.1643330056686,
+      "prompt_tokens": 160,
+      "completion_tokens": 53,
+      "total_tokens": 213,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 679.9577919882722,
+      "prompt_tokens": 161,
+      "completion_tokens": 52,
+      "total_tokens": 213,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 660.0323750026291,
+      "prompt_tokens": 157,
+      "completion_tokens": 51,
+      "total_tokens": 208,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 929.3907920073252,
+      "prompt_tokens": 156,
+      "completion_tokens": 48,
+      "total_tokens": 204,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1019.8198340076488,
+      "prompt_tokens": 163,
+      "completion_tokens": 47,
+      "total_tokens": 210,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1130.2121659973636,
+      "prompt_tokens": 161,
+      "completion_tokens": 47,
+      "total_tokens": 208,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1059.6329170075478,
+      "prompt_tokens": 169,
+      "completion_tokens": 51,
+      "total_tokens": 220,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 979.9033340095775,
+      "prompt_tokens": 168,
+      "completion_tokens": 54,
+      "total_tokens": 222,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "query_router",
+      "prompt_version": "router-v2-nonthinking",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1229.980791991693,
+      "prompt_tokens": 169,
+      "completion_tokens": 52,
+      "total_tokens": 221,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 619.4595840061083,
+      "prompt_tokens": 263,
+      "completion_tokens": 47,
+      "total_tokens": 310,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1240.0333340046927,
+      "prompt_tokens": 268,
+      "completion_tokens": 51,
+      "total_tokens": 319,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1219.5426659891382,
+      "prompt_tokens": 266,
+      "completion_tokens": 47,
+      "total_tokens": 313,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1021.098749988596,
+      "prompt_tokens": 293,
+      "completion_tokens": 52,
+      "total_tokens": 345,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1008.5068749904167,
+      "prompt_tokens": 265,
+      "completion_tokens": 57,
+      "total_tokens": 322,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1340.2030829893192,
+      "prompt_tokens": 263,
+      "completion_tokens": 53,
+      "total_tokens": 316,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1372.0894170110114,
+      "prompt_tokens": 261,
+      "completion_tokens": 51,
+      "total_tokens": 312,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1267.6695830014069,
+      "prompt_tokens": 271,
+      "completion_tokens": 56,
+      "total_tokens": 327,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 849.7220419958467,
+      "prompt_tokens": 271,
+      "completion_tokens": 59,
+      "total_tokens": 330,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 819.6516250027344,
+      "prompt_tokens": 266,
+      "completion_tokens": 65,
+      "total_tokens": 331,
+      "provider_attempts": 1,
+      "error_type": null
+    },
+    {
+      "component": "evidence_grader",
+      "prompt_version": "grader-v3-explicit-scope",
+      "success": true,
+      "model": "deepseek-v4-flash",
+      "latency_ms": 1381.4634589944035,
+      "prompt_tokens": 256,
+      "completion_tokens": 63,
+      "total_tokens": 319,
+      "provider_attempts": 1,
+      "error_type": null
+    }
+  ],
+  "limitations": [
+    "Labels are small project-authored drafts and the test split is not blind.",
+    "Rewriter quality requires a separate end-to-end trajectory experiment.",
+    "Fallback-inclusive quality must be read with raw fallback rate."
+  ]
+}

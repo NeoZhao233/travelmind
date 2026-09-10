@@ -1,0 +1,35 @@
+{
+  "experiment": "stage7b-circuit-breaker-and-cache-freshness-drill",
+  "configuration_sha256": "e4ca3abf56707193014c72f84d3a8457a58c89e113e5c39ad6c954f9bdc441d0",
+  "configuration": {
+    "failure_threshold": 1,
+    "recovery_timeout_seconds": 30,
+    "fresh_ttl_seconds": 10,
+    "maximum_stale_seconds": 30,
+    "stale_allowed_freshness_classes": [
+      "static"
+    ]
+  },
+  "checks": {
+    "healthy_primary_cached": true,
+    "first_transient_failure_uses_fresh_cache": true,
+    "open_circuit_avoids_provider_call": true,
+    "stale_dynamic_fails_closed": true,
+    "half_open_probe_recovers": true,
+    "bounded_stale_static_is_allowed": true,
+    "expired_static_fails_closed": true,
+    "exception_payload_redacted": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "fast_fail_provider_call_avoidance": 1.0,
+    "dynamic_stale_rejection_rate": 1.0,
+    "half_open_recovery_rate": 1.0,
+    "bounded_static_stale_availability_rate": 1.0
+  },
+  "limitations": [
+    "Timeouts are injected; provider-native connection/read deadlines remain required.",
+    "The cache is process-local and does not test Redis consistency or eviction.",
+    "Only static evidence is stale-eligible; fact-level policy needs live adapters."
+  ]
+}

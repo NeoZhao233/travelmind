@@ -1,0 +1,28 @@
+{
+  "experiment": "stage8b-conditional-fetch-and-freshness-drill",
+  "configuration_sha256": "22de47efbc43b2eb5eb91dc273772d14d3a05bd73d5ee4cdd55273ee1ffb5d15",
+  "checks": {
+    "network_response_accepted": true,
+    "conditional_headers_sent": true,
+    "not_modified_refreshed_validation": true,
+    "transient_retry_recovered": true,
+    "dynamic_stale_failed_closed": true,
+    "bounded_static_stale_allowed": true,
+    "unsafe_url_blocked_before_transport": true,
+    "failure_payload_redacted": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "conditional_revalidation_rate": 1.0,
+    "transient_recovery_rate": 1.0,
+    "dynamic_stale_rejection_rate": 1.0,
+    "bounded_static_availability_rate": 1.0,
+    "unsafe_transport_call_rate": 0.0
+  },
+  "limitations": [
+    "The drill uses an injected transport and does not contact a live source.",
+    "Hostname allowlisting does not by itself prevent DNS rebinding to private addresses.",
+    "The synchronous adapter checks size after download; production should stream with a cap.",
+    "Retry-After currently supports bounded numeric seconds, not HTTP-date values."
+  ]
+}

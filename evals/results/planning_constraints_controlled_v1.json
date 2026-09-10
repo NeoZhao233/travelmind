@@ -1,0 +1,128 @@
+{
+  "experiment": "stage5a-deterministic-constraint-validation",
+  "dataset": "evals/datasets/planning_constraints_seed.jsonl",
+  "dataset_sha256": "1b49c1c46635633d32797d04d3bbab9d5ceb8fedb86e37764b9314f2ce94a125",
+  "limitations": [
+    "Project-authored controlled scenarios, not natural-traffic production data.",
+    "Availability records are fixtures; live-source freshness is not tested.",
+    "Travel-time feasibility is deferred to Stage 5B."
+  ],
+  "metrics": {
+    "case_count": 10,
+    "exact_match_accuracy": 1.0,
+    "safety_case_detection_rate": 1.0,
+    "clean_case_pass_rate": 1.0
+  },
+  "cases": [
+    {
+      "case_id": "valid_open_booking",
+      "description": "Valid activity is sourced, open, booked, and within budget.",
+      "expected_codes": [],
+      "actual_codes": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "recomputed_budget",
+      "description": "A fabricated low total cannot bypass the budget.",
+      "expected_codes": [
+        "BUDGET_EXCEEDED",
+        "COST_TOTAL_MISMATCH"
+      ],
+      "actual_codes": [
+        "BUDGET_EXCEEDED",
+        "COST_TOTAL_MISMATCH"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "overlap_and_exclusion",
+      "description": "Overlapping activities and an excluded place are both detected.",
+      "expected_codes": [
+        "EXCLUDED_PLACE_PRESENT",
+        "TIME_CONFLICT"
+      ],
+      "actual_codes": [
+        "EXCLUDED_PLACE_PRESENT",
+        "TIME_CONFLICT"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "missing_availability",
+      "description": "Missing operating evidence fails closed.",
+      "expected_codes": [
+        "AVAILABILITY_MISSING"
+      ],
+      "actual_codes": [
+        "AVAILABILITY_MISSING"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "unknown_availability",
+      "description": "Unknown operating status is not converted into an open assumption.",
+      "expected_codes": [
+        "AVAILABILITY_UNKNOWN"
+      ],
+      "actual_codes": [
+        "AVAILABILITY_UNKNOWN"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "closed_place",
+      "description": "A sourced closure blocks the visit.",
+      "expected_codes": [
+        "PLACE_CLOSED"
+      ],
+      "actual_codes": [
+        "PLACE_CLOSED"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "stale_hours",
+      "description": "An expired opening-hours record blocks future scheduling.",
+      "expected_codes": [
+        "AVAILABILITY_STALE"
+      ],
+      "actual_codes": [
+        "AVAILABILITY_STALE"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "outside_hours",
+      "description": "The whole visit must fit an opening window.",
+      "expected_codes": [
+        "OUTSIDE_OPENING_HOURS"
+      ],
+      "actual_codes": [
+        "OUTSIDE_OPENING_HOURS"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "booking_unconfirmed",
+      "description": "A required but unconfirmed booking blocks the visit.",
+      "expected_codes": [
+        "BOOKING_UNCONFIRMED"
+      ],
+      "actual_codes": [
+        "BOOKING_UNCONFIRMED"
+      ],
+      "exact_match": true
+    },
+    {
+      "case_id": "missing_activity_evidence",
+      "description": "An unsourced suggested activity is rejected in strict mode.",
+      "expected_codes": [
+        "ACTIVITY_EVIDENCE_MISSING"
+      ],
+      "actual_codes": [
+        "ACTIVITY_EVIDENCE_MISSING"
+      ],
+      "exact_match": true
+    }
+  ]
+}

@@ -1,0 +1,97 @@
+{
+  "experiment": "stage5c-bounded-local-repair",
+  "dataset": "evals/datasets/repair_seed.json",
+  "dataset_sha256": "96e806004c4c4d734abcb58d63b447def0218aaf0eae164ae48b6af195fcee97",
+  "configuration": {
+    "max_repair_attempts": 2
+  },
+  "metrics": {
+    "case_count": 7,
+    "expected_outcome_exact_match": 1.0,
+    "repairable_case_success_rate": 1.0,
+    "safe_failure_accuracy": 1.0,
+    "unaffected_day_preservation_rate": 1.0,
+    "repairer_outage_recovery_rate": 1.0,
+    "mean_repair_attempts": 0.8571428571428571
+  },
+  "limitations": [
+    "Project-authored deterministic fixtures, not independently reviewed traffic.",
+    "Local repair replans an affected day; activity-level rescheduling is limited.",
+    "No real LLM repair candidate is evaluated in Stage 5C."
+  ],
+  "cases": [
+    {
+      "case_id": "valid_noop",
+      "status": "completed",
+      "repair_attempts": 0,
+      "modified_days": [],
+      "final_violation_codes": [],
+      "degraded_components": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "recompute_total",
+      "status": "completed",
+      "repair_attempts": 1,
+      "modified_days": [],
+      "final_violation_codes": [],
+      "degraded_components": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "drop_optional_for_budget",
+      "status": "completed",
+      "repair_attempts": 1,
+      "modified_days": [
+        1
+      ],
+      "final_violation_codes": [],
+      "degraded_components": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "replace_closed_on_day_one",
+      "status": "completed",
+      "repair_attempts": 1,
+      "modified_days": [
+        1
+      ],
+      "final_violation_codes": [],
+      "degraded_components": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "impossible_required_bounded",
+      "status": "failed",
+      "repair_attempts": 2,
+      "modified_days": [],
+      "final_violation_codes": [
+        "REQUIRED_PLACE_MISSING"
+      ],
+      "degraded_components": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "nonrepairable_day_numbering",
+      "status": "failed",
+      "repair_attempts": 0,
+      "modified_days": [],
+      "final_violation_codes": [
+        "DAY_COUNT_MISMATCH"
+      ],
+      "degraded_components": [],
+      "exact_match": true
+    },
+    {
+      "case_id": "primary_repairer_outage",
+      "status": "completed",
+      "repair_attempts": 1,
+      "modified_days": [],
+      "final_violation_codes": [],
+      "degraded_components": [
+        "itinerary_repairer"
+      ],
+      "exact_match": true
+    }
+  ]
+}
