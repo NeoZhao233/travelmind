@@ -1,0 +1,27 @@
+{
+  "schema_version": 1,
+  "experiment": "stage13-live-redis-backend-probe",
+  "configuration": {
+    "checkpoint_ttl_minutes": 5,
+    "tool_cache_ttl_seconds": 30,
+    "endpoint_redacted": true
+  },
+  "checks": {
+    "redis_ping": true,
+    "tool_cache_round_trip": true,
+    "tool_cache_ttl_applied": true,
+    "checkpoint_round_trip": true,
+    "checkpoint_cleanup": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0
+  },
+  "diagnostics": {
+    "cache_ttl_seconds": 30
+  },
+  "limitations": [
+    "The probe uses one local Redis instance and does not measure cluster failover.",
+    "Sequential round trips do not establish concurrent throughput or tail latency.",
+    "Redis cache failure remains best-effort while checkpoint failure is fail-closed."
+  ]
+}
