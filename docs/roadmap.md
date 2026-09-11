@@ -18,7 +18,8 @@ reproducible evidence are present.
 | 9 | Interview release, evidence audit, and rehearsal | Complete | Claims are reproducible, explainable, and demonstrable under interview constraints |
 | 10 | Complex official-PDF ingestion and retrieval | Paused after 10A | Page-grounded PDF knowledge improves governed retrieval without weakening safety |
 | 11 | Runtime planning, tool observation, replanning, and causal failure analysis | Complete | Injected failures cause bounded retry/replan/safe-stop with auditable attribution |
-| 12 | Evaluation expansion, no-answer admission, and fault-matrix re-test | Draft complete; human review blocked | Intent-isolated labels reviewed independently before metric promotion |
+| 12 | Evaluation expansion, no-answer admission, and fault-matrix re-test | Complete as synthetic benchmark | Split isolation, provenance limits, and cluster-level uncertainty remain explicit |
+| 13 | Agent Harness, MCP tool boundary, and optional Redis state/cache | Complete except live Redis probe | MCP/fallback/cache contracts pass; live Redis result requires a working engine |
 
 Stage 4 order: ~~4A typed baseline and privacy-safe trace~~; ~~4B deterministic budget and sweep~~;
 ~~4C coverage-aware evidence packing~~; ~~4D deduplication, conflict handling, and compression~~;
@@ -62,7 +63,12 @@ remain available as the next document-ingestion track.
 Stage 12 order: ~~12A expand retrieval evaluation to 105 queries/35 intent clusters with split
 isolation and no-answer cases~~; ~~12B rerun BM25, Dense, Hybrid, and Reranker with cluster-level
 uncertainty~~; ~~12C expand runtime faults to 34 exact contracts~~; ~~12D add a development-tuned
-answerability admission candidate~~; 12E independent human label review and release promotion.
+answerability admission candidate~~; 12E independent human review waived, so the dataset remains
+synthetic and is not promoted as an independently labeled benchmark.
+
+Stage 13 order: ~~13A harness-owned tool policy and allowlist~~; ~~13B official MCP v2 server/client
+adapter and typed failure boundary~~; ~~13C optional Redis Tool Cache and Checkpoint backend~~;
+~~13D MCP/cache/fallback fault drill~~; 13E live Redis lifecycle probe and future v3 release audit.
 
 ## Stage 2 implementation order
 
@@ -75,8 +81,8 @@ answerability admission candidate~~; 12E independent human label review and rele
 7. ~~Inject single-channel and reranker exception/timeout failures and verify degraded modes.~~
 
 The original 15-query set remains a pipeline seed. Stage 12 expands it to 105 queries/35 intent
-clusters with split isolation and abstention cases. Independent human review remains required before
-the new metric can become a resume-grade claim.
+clusters with split isolation and abstention cases. The larger set remains project-authored synthetic
+evidence and may only appear with that qualifier; it is not an independently labeled benchmark.
 
 ## Stage 3 implementation order
 

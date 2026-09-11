@@ -119,6 +119,41 @@ def run_release_audit(root: Path, manifest_path: Path) -> dict:
                 ),
             }
         )
+    stage13_harness_path = "evals/results/stage13_harness_v1.json"
+    if stage13_harness_path in manifest.evidence_files:
+        harness = _load(project_root, stage13_harness_path)
+        dependencies = project["project"]["dependencies"]
+        optional = project["project"].get("optional-dependencies", {})
+        semantic_checks.update(
+            {
+                "official_mcp_dependency_declared": any(
+                    dependency.startswith("mcp>=2.2") for dependency in dependencies
+                ),
+                "redis_backend_dependencies_declared": (
+                    "redis" in optional
+                    and any(
+                        dependency.startswith("langgraph-checkpoint-redis")
+                        for dependency in optional["redis"]
+                    )
+                ),
+                "harness_contract_checks_passed": harness["metrics"]["check_pass_rate"] == 1,
+                "official_mcp_path_completed": (
+                    harness["metrics"]["mcp_protocol_completion_rate"] == 1
+                ),
+                "mcp_transport_fallback_recovered": (
+                    harness["metrics"]["transport_fallback_recovery_rate"] == 1
+                ),
+                "harness_dual_path_failure_stopped_safely": (
+                    harness["metrics"]["dual_path_safe_stop_rate"] == 1
+                ),
+                "redis_cache_outage_was_bypassed": (
+                    harness["metrics"]["redis_cache_outage_bypass_rate"] == 1
+                ),
+                "live_redis_not_misrepresented": (
+                    harness["configuration"]["redis_mode"] == "fault-injected-cache-client"
+                ),
+            }
+        )
     checks = {
         **{f"hash:{key}": value for key, value in hash_checks.items()},
         **semantic_checks,

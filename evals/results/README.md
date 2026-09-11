@@ -92,6 +92,8 @@ configuration, and should be treated as immutable evidence for that run.
   normalization.
 - `release_v2_audit.json`: Stage 11D audit of 21 pinned artifacts and 25 semantic invariants. All 46
   checks pass; it preserves the older v1 release rather than rewriting its evidence boundary.
+- `release_v3_audit.json`: Stage 13E audit of 29 pinned artifacts and 33 semantic invariants. All 62
+  checks pass; v1/v2 manifests remain frozen and refer to their historical dependency state.
 - `bm25_benchmark_v2_draft.json`, `dense_benchmark_v2_draft.json`, and
   `hybrid_benchmark_v2_draft.json`: Stage 12 re-test over 105 queries/35 intent clusters, with split
   metrics and deterministic cluster-bootstrap intervals.
@@ -101,6 +103,13 @@ configuration, and should be treated as immutable evidence for that run.
   test balanced accuracy is 0.878, but promotion is blocked because labels lack human review.
 - `runtime_failure_matrix_v2_draft.json`: 34-case retry/replan/fallback matrix with exact contract,
   observation-reuse, and safe-stop results.
+- `stage13_harness_v1.json`: six governed Harness contracts using the official in-process MCP
+  protocol plus cache/fallback fault injection. Redis outage is injected here; it is not a live
+  Redis service result.
+
+`stage13_redis_v1.json` is intentionally absent until `travelmind eval-redis-backend` passes against
+a real Redis 8 instance. The repository includes the probe and Compose definition, but does not turn
+an unavailable local container runtime into fabricated evidence.
 
 The Stage 1 seed is intentionally small and has no held-out split or abstention examples. These
 reports support debugging and comparisons; they do not establish production quality or statistical

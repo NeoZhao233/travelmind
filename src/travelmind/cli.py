@@ -30,6 +30,7 @@ from travelmind.evaluation.e2e_planning_runner import (
     run_e2e_planning_experiment,
 )
 from travelmind.evaluation.error_analysis import audit_e2e_report
+from travelmind.evaluation.harness_runner import run_harness_experiment
 from travelmind.evaluation.incremental_ingestion_runner import (
     run_incremental_ingestion_drill,
 )
@@ -45,6 +46,10 @@ from travelmind.evaluation.observability_runner import run_observability_drill
 from travelmind.evaluation.pdf_ingestion_runner import run_pdf_ingestion_drill
 from travelmind.evaluation.planning_runner import run_planning_constraint_experiment
 from travelmind.evaluation.policy_selection import select_agentic_policies
+from travelmind.evaluation.redis_backend_runner import (
+    RedisBackendProbeError,
+    run_redis_backend_probe,
+)
 from travelmind.evaluation.refinement_runner import run_context_refinement_experiment
 from travelmind.evaluation.regression_gate import run_regression_gate
 from travelmind.evaluation.release_audit import run_release_audit
@@ -312,6 +317,61 @@ def eval_runtime_failure_matrix(
     destination.parent.mkdir(parents=True, exist_ok=True)
     destination.write_text(f"{serialized}\n", encoding="utf-8")
     typer.echo(f"Wrote runtime failure matrix report to {destination}")
+    typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
+
+
+@app.command("eval-harness")
+def eval_harness(
+    root: Annotated[
+        Path,
+        typer.Option("--root", help="Project root for the Stage 13 harness drill."),
+    ] = Path("."),
+    output: Annotated[
+        Path | None,
+        typer.Option("--output", help="Optional JSON report path."),
+    ] = None,
+) -> None:
+    """Evaluate MCP boundaries, safe fallback, cache policy, and safe stop."""
+
+    project_root = root.resolve()
+    report = run_harness_experiment(project_root)
+    serialized = json.dumps(report, ensure_ascii=False, indent=2)
+    if output is None:
+        typer.echo(serialized)
+        return
+    destination = output if output.is_absolute() else project_root / output
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(f"{serialized}\n", encoding="utf-8")
+    typer.echo(f"Wrote Stage 13 harness report to {destination}")
+    typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
+
+
+@app.command("eval-redis-backend")
+def eval_redis_backend(
+    redis_url: Annotated[
+        str,
+        typer.Option("--redis-url", envvar="TRAVELMIND_REDIS_URL"),
+    ] = "redis://127.0.0.1:16379/0",
+    output: Annotated[
+        Path | None,
+        typer.Option("--output", help="Optional JSON report path."),
+    ] = None,
+) -> None:
+    """Probe live Redis cache TTL and checkpoint lifecycle without exposing its URL."""
+
+    try:
+        report = run_redis_backend_probe(redis_url)
+    except RedisBackendProbeError as exc:
+        typer.echo(str(exc), err=True)
+        raise typer.Exit(code=2) from None
+    serialized = json.dumps(report, ensure_ascii=False, indent=2)
+    if output is None:
+        typer.echo(serialized)
+        return
+    destination = output.resolve()
+    destination.parent.mkdir(parents=True, exist_ok=True)
+    destination.write_text(f"{serialized}\n", encoding="utf-8")
+    typer.echo(f"Wrote Stage 13 Redis report to {destination}")
     typer.echo(json.dumps(report["metrics"], ensure_ascii=False, indent=2))
 
 
@@ -1263,7 +1323,7 @@ def eval_pdf_ingestion(
 @app.command("release-audit")
 def release_audit(
     root: Annotated[Path, typer.Option("--root")] = Path("."),
-    manifest: Annotated[Path, typer.Option("--manifest")] = Path("release/travelmind-v2.json"),
+    manifest: Annotated[Path, typer.Option("--manifest")] = Path("release/travelmind-v3.json"),
     output: Annotated[Path | None, typer.Option("--output")] = None,
 ) -> None:
     """Verify pinned TravelMind evidence and selected/rejected component claims."""

@@ -1251,3 +1251,55 @@ single-retry recovery, exhausted retry, replan, fallback-path recovery, fallback
 **Why are 34/34 passing cases not a 100% reliability claim?** These are deterministic branch
 contracts authored from the implementation's failure model. They prove retry/replan/state behavior under
 those injections, not the frequency, dependence, or payload diversity of production incidents.
+
+## Stage 13 Agent Harness, MCP, and Redis answer anchors
+
+**Is RAG obsolete now that Agent Harnesses are popular?** No. RAG is a retrieval technique; a Harness
+is the runtime around the model/tool loop. TravelMind keeps BM25+BGE+RRF behind a knowledge tool while
+the Harness owns tool policy, context selection, budgets, persistence, retry, replan, tracing, and
+termination. What is dated is treating one fixed retrieve-then-generate call as the whole agent.
+
+**What exactly is the Harness in this project?** It is the combination of typed LangGraph state,
+versioned ExecutionPlan, ToolObservation history, context budget, governed Tool Registry, Checkpoint,
+idempotency receipts, validation, failure attribution, and evaluation gates. MCP and Redis are adapters
+inside that boundary, not the Harness by themselves.
+
+**Why MCP instead of ordinary Python function calling?** Internal validators remain Python functions.
+MCP is used where tools may live outside the process because it standardizes discovery, JSON Schema,
+resources, and transport. The existing ToolRegistry prevents the Runtime from depending on the MCP SDK
+directly, so in-process, stdio, Streamable HTTP, or local fallback implementations remain replaceable.
+
+**Does MCP provide security automatically?** No. Protocol schema is not authorization. TravelMind keeps
+an allowlist and immutable Tool Policy in the Harness. The model cannot mark its own tool call cacheable,
+idempotent, or eligible for fallback.
+
+**When is MCP fallback allowed?** Only a timeout or connection failure may use a configured local path,
+and only for a read-only idempotent tool. A remote business rejection or typed permanent failure remains
+an Observation and can trigger replan or safe stop. Falling back on every exception would conceal real
+policy and argument errors.
+
+**Why is `booking` marked read-only?** It checks booking requirements and bookability; it does not create
+a reservation. A future `create_booking` tool must be mutating, non-cacheable, confirmation-gated, and
+protected by an idempotency key/receipt.
+
+**Why add Redis when SQLite Checkpoint already exists?** SQLite gives a zero-service, local durable proof.
+Redis is an optional shared backend for multi-process state and TTL cache. Qdrant remains the vector
+store; changing it without retrieval evidence would mix unrelated decisions.
+
+**What is cached in Redis?** Only successful responses from tools declared read-only, idempotent, and
+cacheable. Candidate search uses a longer TTL; availability and travel estimates use shorter TTLs;
+booking requirements are initially uncached. Mutations are never cached.
+
+**What happens when Redis fails?** Cache failure is bypassed because cache is an optimization. Checkpoint
+failure is fail-closed because silently switching to SQLite mid-run could fork history and repeat side
+effects. Backend selection is explicit at startup.
+
+**What do the six Stage 13 checks prove?** They prove the project-authored contracts for official
+in-process MCP invocation, transport-only local fallback, visible business failure, dual-path safe stop,
+successful-read caching, and Redis-cache outage bypass. They do not prove remote MCP availability,
+Redis cluster failover, concurrency, or production latency.
+
+**Why is there no live Redis number yet?** The implementation and probe are committed, but the current
+workstation has a Docker CLI without a working Docker engine. Reporting fault injection as a live Redis
+result would be misleading. The exact command and Compose service are provided so this gate can be run
+later without changing the experiment.

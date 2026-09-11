@@ -8,6 +8,7 @@ dependencies = [
   "httpx>=0.28",
   "langchain-core>=1.0",
   "langgraph>=1.0",
+  "mcp>=2.2,<3",
   "pydantic>=2.10",
   "pydantic-settings>=2.7",
   "qdrant-client>=1.13",
@@ -25,6 +26,10 @@ dev = [
 ]
 checkpoint = [
     "langgraph-checkpoint-sqlite==3.1.1",
+]
+redis = [
+    "langgraph-checkpoint-redis>=0.5,<0.6",
+    "redis>=6,<9",
 ]
 
 [project.scripts]

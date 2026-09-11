@@ -7,32 +7,45 @@ from travelmind.evaluation.release_audit import run_release_audit
 PROJECT_ROOT = Path(__file__).resolve().parents[1]
 MANIFEST = Path("release/travelmind-v1.json")
 V2_MANIFEST = Path("release/travelmind-v2.json")
+V3_MANIFEST = Path("release/travelmind-v3.json")
 
 
-def test_release_manifest_hashes_and_semantic_claims_pass() -> None:
+def test_v1_manifest_stays_frozen_when_dependencies_evolve() -> None:
     report = run_release_audit(PROJECT_ROOT, MANIFEST)
 
-    assert report["status"] == "passed"
-    assert report["summary"] == {
-        "check_count": 33,
-        "failed_check_count": 0,
-        "evidence_file_count": 15,
-    }
-    assert all(report["checks"].values())
+    assert report["release_id"] == "travelmind-interview-v1"
+    assert report["status"] == "failed"
+    assert report["failed_checks"] == [
+        "hash:pyproject.toml",
+        "hash:uv.lock",
+    ]
 
 
-def test_v2_release_adds_agentic_runtime_evidence_without_mutating_v1() -> None:
+def test_v2_manifest_stays_frozen_when_dependencies_evolve() -> None:
     report = run_release_audit(PROJECT_ROOT, V2_MANIFEST)
 
     assert report["release_id"] == "travelmind-interview-v2"
+    assert report["status"] == "failed"
+    assert report["failed_checks"] == [
+        "hash:pyproject.toml",
+        "hash:uv.lock",
+    ]
+
+
+def test_v3_release_adds_harness_evidence_without_rewriting_v1_or_v2() -> None:
+    report = run_release_audit(PROJECT_ROOT, V3_MANIFEST)
+
+    assert report["release_id"] == "travelmind-interview-v3"
     assert report["status"] == "passed"
     assert report["summary"] == {
-        "check_count": 46,
+        "check_count": 62,
         "failed_check_count": 0,
-        "evidence_file_count": 21,
+        "evidence_file_count": 29,
     }
+    assert all(report["checks"].values())
     assert report["checks"]["agentic_runtime_improved_intermediate_recovery"] is True
-    assert report["checks"]["runtime_llm_candidate_rejected"] is True
+    assert report["checks"]["harness_contract_checks_passed"] is True
+    assert report["checks"]["live_redis_not_misrepresented"] is True
 
 
 def test_tampered_release_evidence_fails_audit(tmp_path) -> None:

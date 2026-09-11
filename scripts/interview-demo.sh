@@ -9,7 +9,7 @@ demo_tmp="$(mktemp -d /private/tmp/travelmind-interview-demo.XXXXXX)"
 demo_started_at=$SECONDS
 trap 'rm -rf "$demo_tmp"' EXIT
 
-printf 'TravelMind v2 interview demo\n'
+printf 'TravelMind v3 interview demo\n'
 "$travelmind_venv_path/bin/travelmind" validate-data --root .
 
 "$travelmind_venv_path/bin/travelmind" demo \
@@ -40,7 +40,10 @@ PY
 "$travelmind_venv_path/bin/travelmind" eval-runtime-multistep \
   --root . \
   --output "$demo_tmp/runtime-multistep.json"
+"$travelmind_venv_path/bin/travelmind" eval-harness \
+  --root . \
+  --output "$demo_tmp/stage13-harness.json"
 "$travelmind_venv_path/bin/travelmind" release-audit \
   --root . \
-  --manifest release/travelmind-v2.json
+  --manifest release/travelmind-v3.json
 printf 'Interview demo completed in %ss\n' "$((SECONDS - demo_started_at))"

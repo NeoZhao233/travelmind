@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "experiment": "stage13-agent-harness-mcp-redis-fault-drill",
+  "configuration": {
+    "mcp_transport": "official-sdk-in-process",
+    "mcp_protocol_revision": "2026-07-28",
+    "redis_mode": "fault-injected-cache-client",
+    "tool_count": 4,
+    "max_replans": 1,
+    "max_tool_attempts": 2
+  },
+  "checks": {
+    "official_mcp_protocol_completed": true,
+    "mcp_transport_outage_used_read_only_fallback": true,
+    "remote_business_error_was_not_masked_as_transport_fallback": true,
+    "mcp_and_local_failure_stopped_safely": true,
+    "cache_reused_only_successful_read": true,
+    "redis_cache_outage_bypassed_without_tool_outage": true
+  },
+  "metrics": {
+    "check_pass_rate": 1.0,
+    "mcp_protocol_completion_rate": 1.0,
+    "transport_fallback_recovery_rate": 1.0,
+    "dual_path_safe_stop_rate": 1.0,
+    "cache_hit_rate": 0.5,
+    "redis_cache_outage_bypass_rate": 1.0
+  },
+  "runtime_scenarios": [
+    {
+      "scenario": "official_mcp_protocol",
+      "status": "completed",
+      "replans": 0,
+      "tool_calls": 4,
+      "safe_stop": false,
+      "error_types": [],
+      "latency_ms": 36.381
+    },
+    {
+      "scenario": "mcp_transport_local_fallback",
+      "status": "completed",
+      "replans": 0,
+      "tool_calls": 4,
+      "safe_stop": false,
+      "error_types": [],
+      "latency_ms": 1.255
+    },
+    {
+      "scenario": "remote_business_error_replan",
+      "status": "completed",
+      "replans": 1,
+      "tool_calls": 5,
+      "safe_stop": false,
+      "error_types": [],
+      "latency_ms": 7.327
+    },
+    {
+      "scenario": "mcp_and_local_safe_stop",
+      "status": "failed",
+      "replans": 1,
+      "tool_calls": 4,
+      "safe_stop": true,
+      "error_types": [
+        "ConnectionError"
+      ],
+      "latency_ms": 1.12
+    }
+  ],
+  "tool_diagnostics": {
+    "protocol_calls": {
+      "candidate_search": 1,
+      "availability": 1,
+      "booking": 1,
+      "travel_time": 1
+    },
+    "fallback_calls": {
+      "candidate_search": 1,
+      "availability": 1,
+      "booking": 1,
+      "travel_time": 1
+    },
+    "transport_routes": [
+      {
+        "tool_name": "candidate_search",
+        "route": "primary",
+        "outcome": "transport_error",
+        "error_type": "ConnectionError"
+      },
+      {
+        "tool_name": "candidate_search",
+        "route": "fallback",
+        "outcome": "success",
+        "error_type": null
+      },
+      {
+        "tool_name": "availability",
+        "route": "primary",
+        "outcome": "transport_error",
+        "error_type": "ConnectionError"
+      },
+      {
+        "tool_name": "availability",
+        "route": "fallback",
+        "outcome": "success",
+        "error_type": null
+      },
+      {
+        "tool_name": "booking",
+        "route": "primary",
+        "outcome": "transport_error",
+        "error_type": "ConnectionError"
+      },
+      {
+        "tool_name": "booking",
+        "route": "fallback",
+        "outcome": "success",
+        "error_type": null
+      },
+      {
+        "tool_name": "travel_time",
+        "route": "primary",
+        "outcome": "transport_error",
+        "error_type": "ConnectionError"
+      },
+      {
+        "tool_name": "travel_time",
+        "route": "fallback",
+        "outcome": "success",
+        "error_type": null
+      }
+    ],
+    "business_routes": [
+      {
+        "tool_name": "candidate_search",
+        "route": "primary",
+        "outcome": "success",
+        "error_type": null
+      },
+      {
+        "tool_name": "availability",
+        "route": "primary",
+        "outcome": "success",
+        "error_type": null
+      },
+      {
+        "tool_name": "booking",
+        "route": "primary",
+        "outcome": "permanent_error",
+        "error_type": null
+      },
+      {
+        "tool_name": "availability",
+        "route": "primary",
+        "outcome": "success",
+        "error_type": null
+      },
+      {
+        "tool_name": "travel_time",
+        "route": "primary",
+        "outcome": "success",
+        "error_type": null
+      }
+    ],
+    "cache_hits": 1,
+    "cache_misses": 1
+  },
+  "limitations": [
+    "MCP uses the official in-process transport, not a remote network deployment.",
+    "Redis outage behavior is fault-injected; a live Redis checkpoint drill is separate.",
+    "Fixture tools validate harness contracts, not production provider availability.",
+    "Latency includes local test overhead and is not a service SLO."
+  ]
+}
